@@ -13,7 +13,20 @@ require('laravel-elixir-vue-2');
  |
  */
 
+gulp.task('copyfiles', function() {
+    // font awesome
+    gulp.src('node_modules/font-awesome/fonts/**')
+        .pipe(gulp.dest('public/build/assets/fonts'));
+
+});
+
+
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    mix.sass('resources/assets/sass/app.scss', 'public/assets/css/app.css');
+    mix.webpack('resources/assets/js/app.js', 'public/assets/js/app.js');
+
+    mix.version([
+        'assets/js/app.js',
+        'assets/css/app.css'
+    ]);
 });
