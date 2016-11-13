@@ -10,8 +10,6 @@
                 <div class="title col-md-12 text-center">
                     <h2>Coming Soon</h2>
                 </div>
-
-
             </div>
         </div>
 @endsection

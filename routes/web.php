@@ -13,3 +13,4 @@
 
 Route::get('/', 'HomeController@show');
 Route::get('/add', 'AddIncidentController@create');
+Route::post('/add', 'AddIncidentController@store');
