@@ -1,0 +1,464 @@
+<template>
+    <div class="col-sm-12">
+        <form method="POST" class="form-horizontal" action="/add" enctype="multipart/form-data" id="incident_form" @submit.prevent="validateForm">
+            <input type="hidden" name="_token" id="_token" value="">
+
+            <transition name="fade">
+                <div :class="'col-sm-offset-1 col-sm-9 alert alert-' + alert_type" v-if="alert_show">
+                    <div class="close-alert pull-right" @click="alert_show = false">
+                        <i class="fa fa-lg fa-times"></i>
+                    </div>
+                    
+                    <div v-html="alert_message"></div>
+                </div>
+            </transition>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" >
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.has('title') }">Describe the incident in one line</legend>
+
+                    <input type="text" name="title" v-model="title" class="form-control" v-validate data-rules="required" maxlength="255">
+
+                    <span class="inline-alert" v-show="errors.has('title')">Required</span>
+                </div>
+            </div>
+
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+                <div class="form-group datepicker">
+                    <legend :class="{ 'error': errors.has('date') }">When did the incident happen?</legend>
+                    <input type="hidden" name="date" id="date" value="">
+                    <date-picker :date="date" :option="date_options" :limit="date_limit" ></date-picker>
+    
+                    <span class="inline-alert" v-show="errors.has('date')">An incident date is required</span>
+
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.has('city') || errors.has('state') }">Where did it happen?</legend>
+
+                    
+                    <div class="col-sm-3 no-left-padding">
+                       <input type="text" name="city" v-model="city" class="form-control" placeholder="City" v-validate data-rules="required">
+                       <span class="inline-alert" v-show="errors.has('city')">Required</span>
+
+                    </div>
+                    <div class="col-sm-3" v-if="show_state">
+                        <select class="form-control state" name="state" v-model="state">
+                            <option value="" hidden disabled>State</option>
+
+                            <option value="AL">AL</option>
+                            <option value="AK">AK</option>
+                            <option value="AZ">AZ</option>
+                            <option value="AR">AR</option>
+                            <option value="CA">CA</option>
+                            <option value="CO">CO</option>
+                            <option value="CT">CT</option>
+                            <option value="DE">DE</option>
+                            <option value="DC">DC</option>
+                            <option value="FL">FL</option>
+                            <option value="GA">GA</option>
+                            <option value="HI">HI</option>
+                            <option value="ID">ID</option>
+                            <option value="IL">IL</option>
+                            <option value="IN">IN</option>
+                            <option value="IA">IA</option>
+                            <option value="KS">KS</option>
+                            <option value="KY">KY</option>
+                            <option value="LA">LA</option>
+                            <option value="ME">ME</option>
+                            <option value="MD">MD</option>
+                            <option value="MA">MA</option>
+                            <option value="MI">MI</option>
+                            <option value="MN">MN</option>
+                            <option value="MS">MS</option>
+                            <option value="MO">MO</option>
+                            <option value="MT">MT</option>
+                            <option value="NE">NE</option>
+                            <option value="NV">NV</option>
+                            <option value="NH">NH</option>
+                            <option value="NJ">NJ</option>
+                            <option value="NM">NM</option>
+                            <option value="NY">NY</option>
+                            <option value="NC">NC</option>
+                            <option value="ND">ND</option>
+                            <option value="OH">OH</option>
+                            <option value="OK">OK</option>
+                            <option value="OR">OR</option>
+                            <option value="PA">PA</option>
+                            <option value="RI">RI</option>
+                            <option value="SC">SC</option>
+                            <option value="SD">SD</option>
+                            <option value="TN">TN</option>
+                            <option value="TX">TX</option>
+                            <option value="UT">UT</option>
+                            <option value="VT">VT</option>
+                            <option value="VA">VA</option>
+                            <option value="WA">WA</option>
+                            <option value="WV">WV</option>
+                            <option value="WI">WI</option>
+                        </select>
+                        <span class="inline-alert" v-show="errors.has('state')">Required</span>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.has('how_known') }">How do you know about this incident?</legend>
+
+                    <label class="radio-inline">
+                        <input type="radio" name="how_known" v-model="how_known" value="news" v-validate data-rules="required"> News article
+                    </label>
+                
+                    <label class="radio-inline">
+                        <input type="radio" name="how_known" v-model="how_known" value="witness">
+                        I witnessed it
+                    </label>
+
+                    <label class="radio-inline">
+                        <input type="radio" name="how_known" v-model="how_known" value="someone_else_witnessed">
+                        Someone I know witnessed it
+                    </label>
+
+                    <label class="radio-inline">
+                        <input type="radio" name="how_known" v-model="how_known" value="other">
+                        Somehow else
+                    </label>
+                </div>
+
+                <span class="inline-alert" v-show="errors.has('how_known')">Required.</span>
+
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_how_known_other_description">
+                <div class="form-group">
+                    <input type="text" name="how_known_other_description" v-model="how_known_other_description" class="form-control" placeholder="Describe how you know abou this incident" v-validate data-rules="required"  maxlength="255">
+
+                    <span class="inline-alert" v-show="errors.has('how_known_other_description')">Required</span>
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_email">
+                <div class="form-group">
+                    <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" v-validate data-rules="required"  maxlength="255">
+
+                    <div class="top-margin-sm">Sometimes we need additional information to make sure our listings are complete and accurate. We will never share your email address.</div>
+
+                    <span class="inline-alert" v-show="errors.has('submitter_email')">Required</span>
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_article_url">
+                <div class="form-group">
+                    <input type="url" name="article_url" v-model="article_url" class="form-control" placeholder="http://" v-validate data-rules="required">
+                    <span class="inline-alert" v-show="errors.has('article_url')">Required</span>
+                </div>
+            </div>
+
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.has('incident_type') }">What kind of incident was it?</legend>
+
+                    <p>Check all that apply</p>
+
+                    <label class="checkbox-inline" for="incident_type_2">
+                        <input type="checkbox" name="incident_type" id="incident_type_2" v-model="harassment" value="harassment"> Harassment
+                    </label>
+
+                    <label class="checkbox-inline" for="incident_type_3">
+                        <input type="checkbox" name="incident_type" id="incident_type_3" v-model="intimidation" value="intimidation"> Intimidation
+                    </label>
+                
+                    <label class="checkbox-inline" for="incident_type_4">
+                        <input type="checkbox" name="incident_type" id="incident_type_4" v-model="physical_violence" value="physical_violence"> Physical Violence
+                    </label>
+
+                    <label class="checkbox-inline" for="incident_type_6">
+                        <input type="checkbox" name="incident_type" id="incident_type_6" v-model="property_crime" value="property_crime"> Property Crime
+                    </label>
+
+                    <label class="checkbox-inline" for="incident_type_5">
+                        <input type="checkbox" name="incident_type" id="incident_type_5" v-model="vandalism" value="vandalism"> Vandalism
+                    </label>
+
+
+                    <label class="checkbox-inline" for="incident_type_1">
+                        <input type="checkbox" name="incident_type" id="incident_type_1" v-model="verbal_abuse" value="verbal_abuse" v-validate data-rules="required"> Verbal Abuse
+                    </label>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="incident_type" v-model="other_incident_type_toggle" value="vandalism"> Other
+                    </label>
+
+                    <span class="inline-alert" v-show="errors.has('incident_type')">Required</span>
+
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_other_incident_type">
+                <div class="form-group">
+                    <input type="text" name="other_incident_type" v-model="other_incident_type" class="form-control" placeholder="How would you classify the incident?" v-validate data-rules="required" maxlength="255">
+
+                    <span class="inline-alert" v-show="errors.has('other_incident_type')">Required</span>
+
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_image_upload">
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.has('image') }">Is there an image?</legend>
+
+                    <input type="file" name="image" @change="onFileChange" v-validate data-rules="image">
+                    <span class="inline-alert" v-show="errors.has('image')">Must be an image</span>
+
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.has('description') }">Describe the incident</legend>
+                    <textarea class="form-control description" v-model="description" name="description" v-validate data-rules="required"></textarea>
+                    <span class="inline-alert" v-show="errors.has('description')">Required</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="submit" class="btn btn-success"><div v-html="document_submit_html"></div></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script>
+    import MessageBox from 'vue-msgbox';
+
+    export default {
+        props: {
+
+        },
+        computed: {
+            show_article_url() {
+                if(this.how_known == 'news') {
+                    return true;
+                }
+
+                return false;
+            },
+            show_email() {
+                if(this.how_known != 'news' && this.how_known != '') {
+                    return true;
+                }
+
+                return false;
+            },
+            show_how_known_other_description() {
+                if(this.how_known == 'other') {
+                    return true;
+                }
+
+                return false;
+            },
+            show_image_upload() {
+                if(this.harassment == true || 
+                    this.intimidation == true ||
+                    this.physical_violence == true ||
+                    this.property_crime == true ||
+                    this.vandalism == true
+                ) {
+                    return true;
+                }
+                return false;
+            },
+            show_other_incident_type() {
+                if(this.other_incident_type_toggle != '') {
+                    return true;
+                }
+                return false;
+            },
+            show_state() {
+                if(this.city != '') {
+                    return true;
+                }
+                return false;
+            },
+        },
+        methods: {
+            addIncident() {
+
+                this.document_submit_html = this.document_submit_processing_html;
+
+                var form_data = new FormData();
+                form_data.append('title', this.title);
+                form_data.append('image', this.image);
+                form_data.append('date', this.date.time);
+                form_data.append('city', this.city);
+                form_data.append('state', this.state);
+                form_data.append('how_known', this.how_known);
+                form_data.append('how_known_other_description', this.how_known_other_description);
+                form_data.append('harassment', this.harassment);
+                form_data.append('intimidation', this.intimidation);
+                form_data.append('physical_violence', this.physical_violence);
+                form_data.append('property_crime', this.property_crime);
+                form_data.append('submitter_email', this.submitter_email);
+                form_data.append('vandalism', this.vandalism);
+                form_data.append('verbal_abuse', this.verbal_abuse);
+                form_data.append('other_incident_type', this.other_incident_type_toggle ? this.other_incident_type : '');
+                form_data.append('image', this.image);
+                form_data.append('description', this.description);
+
+                this.$http.post('/add', form_data).then((response) => {
+
+                    this.document_submit_html = this.document_submit_default_html;
+
+
+                    if(response.body.status == 'failure') {
+                        this.alert_type = 'danger';
+                        this.alert_message = this.parseErrorMessage(response.body.errors);
+                        this.alert_show = true;
+
+                        return false;
+                    } 
+
+                    this.alert_show = true;
+                    this.alert_type = 'success';
+                    this.alert_message = response.body.message;
+
+                    this.title = '';
+                    this.date = { time: '' };
+                    this.city = '';
+                    this.date = '';
+                    this.how_known = '';
+                    this.harassment = '';
+                    this.intimidation = '';
+                    this.other_incident_type_toggle = false;
+                    this.other_incident_type = '';
+                    this.physical_violence = '';
+                    this.property_crime = '';
+                    this.vandalism = '';
+                    this.verbal_abuse = '';
+                    this.image = '';
+                    this.description = '';
+                    window.scrollTo(0, 0);
+
+                });
+            },
+            onFileChange(e) {
+                if (!e.target.files.length){
+                    this.image = '';
+                }
+
+                var form_data = new FormData();
+                form_data.append('file', e.target.files[0]);
+
+                this.image = e.target.files[0];
+            },
+            parseErrorMessage(errors) {
+                var error_response = '<h4 class="error"><i class="fa fa-exclamation-triangle"></i> There was a problem.</h4><ul class="ajax-error-bag">';
+
+                if(typeof errors == 'object') {
+                    for(var key in errors) {
+
+                        if(errors.hasOwnProperty(key)){
+                            error_response += '<li>' + errors[key] + '</li>';
+                        }
+                    }
+                } else {
+                    error_response += '<li>' + errors + '</li>';
+                }
+                error_response +='</ul>';
+
+                return error_response;
+            },
+            validateForm() {                
+                this.$validator.validateAll();
+
+                if(this.show_state && this.state == '') {
+                    this.errors.add('state', 'The state is required');
+                }
+
+                if(this.date.time == '') {
+                    this.errors.add('date', 'The date is required');
+                }
+
+                if (this.errors.any()) {
+                        this.alert_type = 'danger';
+                        this.alert_message = 'We need some more information. Please see below.';
+                        this.alert_show = true;
+
+                        window.scrollTo(0, 0);
+
+                        return false;
+                } 
+
+                this.addIncident();
+            },
+        },
+        data() {
+            return {
+                alert_show: false,
+                alert_type: 'danger',
+                alert_message: 'Test',
+                article_url: '',
+                city: 'Baltimore',
+                date: {
+                     time: '11/09/2016'
+                },
+                date_options: {
+                    type: 'day',
+                    week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+                    month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    format: 'MM/DD/YYYY',
+                    placeholder: 'mm/dd/yyyy',
+                    inputStyle: {
+                      'display': 'inline-block',
+                      'padding': '6px 12px',
+                      'line-height': '1.6',
+                      'font-size': '14px',
+                      'border': '2px solid #fff',
+                      'box-shadow': 'inset 0 1px 1px 0 rgba(0, 0, 0, 0.075)',
+                      'border-radius': '4px',
+                      'color': '#555555',
+                      'border': '1px solid #ccd0d2',
+                      'font-family': 'Raleway'
+                    },
+                    buttons: {
+                      ok: 'OK',
+                      cancel: 'Cancel'
+                    },
+                    overlayOpacity: 0.5, // 0.5 as default
+                    dismissible: true // as true as default
+                },
+                date_limit: [{}],
+                description: 'test',
+                document_submit_default_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
+                document_submit_processing_html: '<i class="fa fa-spinner fa-spin fa-fw"></i> Submitting',
+                document_submit_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
+                harassment: false,
+                how_known: 'witness',
+                how_known_other_description: '',
+                image: '',
+                intimidation: false,
+                other_incident_type: '',
+                other_incident_type_toggle: false,
+                physical_violence: false,
+                property_crime: false,
+                state: 'MD',
+                submitter_email: '',
+                title: 'Test',
+                vandalism: true,
+                verbal_abuse: false,
+            }
+        },    
+    }
+
+</script>
