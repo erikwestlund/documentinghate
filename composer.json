@@ -15,7 +15,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "pmatseykanets/artisan-beans": "^0.1.4",
         "intervention/image": "^2.3",
-        "santigarcor/laratrust": "3.0.*"
+        "santigarcor/laratrust": "3.0.*",
+        "alexpechkarev/google-maps": "1.0.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

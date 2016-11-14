@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-Route::group(['middleware' => ['permission:edit-users']], function () {
+Route::group(['middleware' => ['auth', 'permission:edit-users']], function () {
 
     Route::get('/admin/users', 'AdminUsersHomeController@show');
     Route::get('/admin/users/{user}', 'AdminUsersEditController@edit');

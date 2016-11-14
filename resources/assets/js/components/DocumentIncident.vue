@@ -43,7 +43,7 @@
                        <span class="inline-alert" v-show="errors.has('city')">Required</span>
                     </div>
 
-                    <div class="col-sm-3  no-left-padding">
+                    <div class="col-sm-2  no-left-padding">
                         <select class="form-control state" name="state" v-model="state" v-bind:class="[state == '' ? 'placeholder' : 'selected']">
                             <option value="" hidden disabled>State</option>
 
@@ -102,8 +102,8 @@
 
                     </div>
 
-                    <div class="col-sm-6 no-left-padding">
-                       <input type="text" name="location" v-model="location" class="form-control" placeholder="Name of the location where event took place (optional)">
+                    <div class="col-sm-7 no-left-padding">
+                       <input type="text" name="location_name" v-model="location_name" class="form-control" placeholder="Address or name of location event took place (optional)">
                     </div>
 
                 </div>
@@ -217,12 +217,12 @@
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_image_upload">
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_photo_upload">
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('image') }">Is there an image?</legend>
+                    <legend :class="{ 'error': errors.has('photo') }">Is there an photo?</legend>
 
-                    <input type="file" name="image" @change="onFileChange" v-validate data-rules="image">
-                    <span class="inline-alert" v-show="errors.has('image')">Must be an image</span>
+                    <input type="file" name="photo" @change="onFileChange" v-validate data-rules="image">
+                    <span class="inline-alert" v-show="errors.has('photo')">Must be an photo</span>
 
                 </div>
             </div>
@@ -273,7 +273,7 @@
 
                 return false;
             },
-            show_image_upload() {
+            show_photo_upload() {
                 if(this.harassment == true || 
                     this.intimidation == true ||
                     this.physical_violence == true ||
@@ -312,11 +312,11 @@
 
                 var form_data = new FormData();
                 form_data.append('title', this.title);
-                form_data.append('image', this.image);
+                form_data.append('photo', this.photo);
                 form_data.append('date', this.date.time);
                 form_data.append('city', this.city);
                 form_data.append('state', this.state);
-                form_data.append('location', this.state);
+                form_data.append('location_name', this.location_name);
                 
                 form_data.append('how_known', this.how_known);
                 form_data.append('how_known_other_description', this.how_known_other_description);
@@ -328,12 +328,12 @@
                 form_data.append('vandalism', this.vandalism ? true : false);
                 form_data.append('verbal_abuse', this.verbal_abuse ? true : false);
                 form_data.append('other_incident_type_checked', this.other_incident_type_checked ? true : false);
-                form_data.append('other_incident_type', this.other_incident_type_checked ? this.other_incident_type : null);
+                form_data.append('other_incident_type', this.other_incident_type_checked ? this.other_incident_type : false);
 
                 form_data.append('source_url', this.source_url);
                 form_data.append('social_media_url', this.social_media_url);
                 form_data.append('submitter_email', this.submitter_email);
-                form_data.append('image', this.image);
+                form_data.append('photo', this.photo);
                 
                 form_data.append('description', this.description);
 
@@ -360,16 +360,21 @@
                     this.title = '';
                     this.date = { time: '' };
                     this.city = '';
+                    this.location_name = '';
                     this.how_known = '';
+                    this.how_known_other_description = '';
+                    this.source_url = '';
+                    this.submitter_email = '';
+                    this.social_media_url = '';
                     this.harassment = '';
                     this.intimidation = '';
-                    this.other_incident_type_checked = false;
-                    this.other_incident_type = '';
                     this.physical_violence = '';
                     this.property_crime = '';
                     this.vandalism = '';
-                    this.verbal_abuse = '';
-                    this.image = '';
+                    this.verbal_abuse = '';                 
+                    this.other_incident_type_checked = false;
+                    this.other_incident_type = '';
+                    this.photo = '';
                     this.description = '';
                     window.scrollTo(0, 0);
 
@@ -377,13 +382,13 @@
             },
             onFileChange(e) {
                 if (!e.target.files.length){
-                    this.image = '';
+                    this.photo = '';
                 }
 
                 var form_data = new FormData();
                 form_data.append('file', e.target.files[0]);
 
-                this.image = e.target.files[0];
+                this.photo = e.target.files[0];
             },
             parseErrorMessage(errors) {
                 var error_response = '<h4 class="error"><i class="fa fa-exclamation-triangle"></i> There was a problem.</h4><ul class="ajax-error-bag">';
@@ -468,11 +473,11 @@
                 harassment: false,
                 how_known: '',
                 how_known_other_description: '',
-                image: '',
                 intimidation: false,
                 location_name: '',
                 other_incident_type: '',
                 other_incident_type_checked: false,
+                photo: '',
                 physical_violence: false,
                 property_crime: false,
                 social_media_url: '',

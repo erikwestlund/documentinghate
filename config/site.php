@@ -7,7 +7,7 @@ return [
         'storage' => 's3',
         'webpath' => 'https://s3.amazonaws.com/documentinghate',
     ],
-    'images' => [
+    'photos' => [
         'directory' => 'photos/',
         'thumbnails' => [
             'quality' => 90,

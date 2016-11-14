@@ -23,7 +23,7 @@ class CreateIncidentsTable extends Migration
 
             $table->string('city');
             $table->string('state');
-            $table->string('location')->nullable();
+            $table->string('location_name')->nullable();
 
             $table->string('how_known');
             $table->text('how_known_other_description')->nullable();
@@ -41,13 +41,15 @@ class CreateIncidentsTable extends Migration
 
             $table->text('description');
 
-            $table->text('image_url')->nullable();
-            $table->text('thumbnail_image_url')->nullable();
+            $table->text('photo_url')->nullable();
+            $table->text('thumbnail_photo_url')->nullable();
 
-            $table->string('coordinates')->nullable();
+            $table->string('google_maps_place_id')->nullable();
+            $table->decimal('google_maps_latitude', 10, 8)->nullable();
+            $table->decimal('google_maps_longitude', 11, 8)->nullable();
 
             $table->text('submitter_email')->nullable();          
-            $table->string('ip');
+            $table->ipAddress('ip');
             $table->string('user_agent')->nullable();
 
             $table->softDeletes();
