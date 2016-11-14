@@ -2,8 +2,12 @@ textarea.form-control.description {
     height: 150px !important;
 }
 
-select.state option:first-child {
-    color: #B3C4DE
+select.selected {
+    color: $text-color;
+}
+
+select.placeholder{
+    color: $input-color-placeholder;
 }
 
 legend.error {
@@ -17,3 +21,4 @@ legend.error {
 .cov-date-body {
     font-family: Raleway, sans-serif !important;   
 }
+

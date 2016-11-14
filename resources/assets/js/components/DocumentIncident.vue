@@ -23,7 +23,6 @@
                 </div>
             </div>
 
-
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group datepicker">
                     <legend :class="{ 'error': errors.has('date') }">When did the incident happen?</legend>
@@ -39,14 +38,13 @@
                 <div class="form-group">
                     <legend :class="{ 'error': errors.has('city') || errors.has('state') }">Where did it happen?</legend>
 
-                    
                     <div class="col-sm-3 no-left-padding">
                        <input type="text" name="city" v-model="city" class="form-control" placeholder="City" v-validate data-rules="required">
                        <span class="inline-alert" v-show="errors.has('city')">Required</span>
-
                     </div>
-                    <div class="col-sm-3" v-if="show_state">
-                        <select class="form-control state" name="state" v-model="state">
+
+                    <div class="col-sm-3  no-left-padding">
+                        <select class="form-control state" name="state" v-model="state" v-bind:class="[state == '' ? 'placeholder' : 'selected']">
                             <option value="" hidden disabled>State</option>
 
                             <option value="AL">AL</option>
@@ -103,6 +101,11 @@
                         <span class="inline-alert" v-show="errors.has('state')">Required</span>
 
                     </div>
+
+                    <div class="col-sm-6 no-left-padding">
+                       <input type="text" name="location" v-model="location" class="form-control" placeholder="Name of the location where event took place (optional)">
+                    </div>
+
                 </div>
                 
             </div>
@@ -127,37 +130,43 @@
                     </label>
 
                     <label class="radio-inline">
+                        <input type="radio" name="how_known" v-model="how_known" value="social_media">
+                        Social media
+                    </label>
+
+                    <label class="radio-inline">
                         <input type="radio" name="how_known" v-model="how_known" value="other">
                         Somehow else
                     </label>
                 </div>
 
-                <span class="inline-alert" v-show="errors.has('how_known')">Required.</span>
+                <span class="inline-alert" v-show="errors.has('how_known')">Required</span>
 
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_how_known_other_description">
                 <div class="form-group">
-                    <input type="text" name="how_known_other_description" v-model="how_known_other_description" class="form-control" placeholder="Describe how you know abou this incident" v-validate data-rules="required"  maxlength="255">
-
-                    <span class="inline-alert" v-show="errors.has('how_known_other_description')">Required</span>
+                    <input type="text" name="how_known_other_description" v-model="how_known_other_description" class="form-control" placeholder="Describe how you know about this incident" maxlength="255">
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_email">
                 <div class="form-group">
-                    <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" v-validate data-rules="required"  maxlength="255">
+                    <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" maxlength="255">
 
                     <div class="top-margin-sm">Sometimes we need additional information to make sure our listings are complete and accurate. We will never share your email address.</div>
-
-                    <span class="inline-alert" v-show="errors.has('submitter_email')">Required</span>
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_article_url">
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_source_url">
                 <div class="form-group">
-                    <input type="url" name="article_url" v-model="article_url" class="form-control" placeholder="http://" v-validate data-rules="required">
-                    <span class="inline-alert" v-show="errors.has('article_url')">Required</span>
+                    <input type="url" name="source_url" v-model="source_url" class="form-control" placeholder="URL of the news source">
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_social_media_url">
+                <div class="form-group">
+                    <input type="url" name="social_media_url" v-model="social_media_url" class="form-control" placeholder="URL of the social media post">
                 </div>
             </div>
 
@@ -189,26 +198,22 @@
                         <input type="checkbox" name="incident_type" id="incident_type_5" v-model="vandalism" value="vandalism"> Vandalism
                     </label>
 
-
                     <label class="checkbox-inline" for="incident_type_1">
                         <input type="checkbox" name="incident_type" id="incident_type_1" v-model="verbal_abuse" value="verbal_abuse" v-validate data-rules="required"> Verbal Abuse
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" name="incident_type" v-model="other_incident_type_toggle" value="vandalism"> Other
+                        <input type="checkbox" name="incident_type" v-model="other_incident_type_checked" value="other"> Other
                     </label>
 
-                    <span class="inline-alert" v-show="errors.has('incident_type')">Required</span>
+                    <div class="inline-alert" v-show="errors.has('incident_type')">Required</div>
 
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_other_incident_type">
                 <div class="form-group">
-                    <input type="text" name="other_incident_type" v-model="other_incident_type" class="form-control" placeholder="How would you classify the incident?" v-validate data-rules="required" maxlength="255">
-
-                    <span class="inline-alert" v-show="errors.has('other_incident_type')">Required</span>
-
+                    <input type="text" name="other_incident_type" v-model="other_incident_type" class="form-control" placeholder="How would you classify the incident?" maxlength="255">
                 </div>
             </div>
 
@@ -247,7 +252,7 @@
 
         },
         computed: {
-            show_article_url() {
+            show_source_url() {
                 if(this.how_known == 'news') {
                     return true;
                 }
@@ -255,7 +260,7 @@
                 return false;
             },
             show_email() {
-                if(this.how_known != 'news' && this.how_known != '') {
+                if(this.how_known != 'news' && this.how_known != 'social_media' && this.how_known != '') {
                     return true;
                 }
 
@@ -273,16 +278,24 @@
                     this.intimidation == true ||
                     this.physical_violence == true ||
                     this.property_crime == true ||
-                    this.vandalism == true
+                    this.vandalism == true ||
+                    this.other_incident_type_checked == true
                 ) {
                     return true;
                 }
                 return false;
             },
             show_other_incident_type() {
-                if(this.other_incident_type_toggle != '') {
+                if(this.other_incident_type_checked == true) {
                     return true;
                 }
+                return false;
+            },
+            show_social_media_url() {
+                if(this.how_known == 'social_media') {
+                    return true;
+                }
+
                 return false;
             },
             show_state() {
@@ -303,17 +316,25 @@
                 form_data.append('date', this.date.time);
                 form_data.append('city', this.city);
                 form_data.append('state', this.state);
+                form_data.append('location', this.state);
+                
                 form_data.append('how_known', this.how_known);
                 form_data.append('how_known_other_description', this.how_known_other_description);
-                form_data.append('harassment', this.harassment);
-                form_data.append('intimidation', this.intimidation);
-                form_data.append('physical_violence', this.physical_violence);
-                form_data.append('property_crime', this.property_crime);
+
+                form_data.append('harassment', this.harassment ? true : false);
+                form_data.append('intimidation', this.intimidation ? true : false);
+                form_data.append('physical_violence', this.physical_violence ? true : false);
+                form_data.append('property_crime', this.property_crime ? true : false);
+                form_data.append('vandalism', this.vandalism ? true : false);
+                form_data.append('verbal_abuse', this.verbal_abuse ? true : false);
+                form_data.append('other_incident_type_checked', this.other_incident_type_checked ? true : false);
+                form_data.append('other_incident_type', this.other_incident_type_checked ? this.other_incident_type : null);
+
+                form_data.append('source_url', this.source_url);
+                form_data.append('social_media_url', this.social_media_url);
                 form_data.append('submitter_email', this.submitter_email);
-                form_data.append('vandalism', this.vandalism);
-                form_data.append('verbal_abuse', this.verbal_abuse);
-                form_data.append('other_incident_type', this.other_incident_type_toggle ? this.other_incident_type : '');
                 form_data.append('image', this.image);
+                
                 form_data.append('description', this.description);
 
                 this.$http.post('/add', form_data).then((response) => {
@@ -326,6 +347,9 @@
                         this.alert_message = this.parseErrorMessage(response.body.errors);
                         this.alert_show = true;
 
+                        window.scrollTo(0, 0);
+
+
                         return false;
                     } 
 
@@ -336,11 +360,10 @@
                     this.title = '';
                     this.date = { time: '' };
                     this.city = '';
-                    this.date = '';
                     this.how_known = '';
                     this.harassment = '';
                     this.intimidation = '';
-                    this.other_incident_type_toggle = false;
+                    this.other_incident_type_checked = false;
                     this.other_incident_type = '';
                     this.physical_violence = '';
                     this.property_crime = '';
@@ -407,11 +430,10 @@
             return {
                 alert_show: false,
                 alert_type: 'danger',
-                alert_message: 'Test',
-                article_url: '',
-                city: 'Baltimore',
+                alert_message: '',
+                city: '',
                 date: {
-                     time: '11/09/2016'
+                     time: ''
                 },
                 date_options: {
                     type: 'day',
@@ -439,23 +461,26 @@
                     dismissible: true // as true as default
                 },
                 date_limit: [{}],
-                description: 'test',
+                description: '',
                 document_submit_default_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
                 document_submit_processing_html: '<i class="fa fa-spinner fa-spin fa-fw"></i> Submitting',
                 document_submit_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
                 harassment: false,
-                how_known: 'witness',
+                how_known: '',
                 how_known_other_description: '',
                 image: '',
                 intimidation: false,
+                location_name: '',
                 other_incident_type: '',
-                other_incident_type_toggle: false,
+                other_incident_type_checked: false,
                 physical_violence: false,
                 property_crime: false,
-                state: 'MD',
+                social_media_url: '',
+                source_url: '',
+                state: '',
                 submitter_email: '',
-                title: 'Test',
-                vandalism: true,
+                title: '',
+                vandalism: false,
                 verbal_abuse: false,
             }
         },    

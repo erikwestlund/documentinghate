@@ -23,9 +23,13 @@ class CreateIncidentsTable extends Migration
 
             $table->string('city');
             $table->string('state');
+            $table->string('location')->nullable();
 
             $table->string('how_known');
             $table->text('how_known_other_description')->nullable();
+
+            $table->text('source_url')->nullable();
+            $table->text('social_media_url')->nullable();
 
             $table->boolean('verbal_abuse')->default(false);
             $table->boolean('harassment')->default(false);

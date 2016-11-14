@@ -8343,8 +8343,11 @@ html, body {
 textarea.form-control.description {
   height: 150px !important; }
 
-select.state option:first-child {
-  color: #B3C4DE; }
+select.selected {
+  color: #636b6f; }
+
+select.placeholder {
+  color: #b1b7ba; }
 
 legend.error {
   color: #bf5329; }
