@@ -9,7 +9,7 @@ class AdminUsersHomeController extends Controller
 {
     public function show()
     {
-        $users = User::paginate(15);
+        $users = User::paginate(config('site.admin.per_page'));
         return view('admin.users', compact('users'));
     }
 }

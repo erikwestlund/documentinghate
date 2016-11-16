@@ -15,32 +15,33 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" >
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('title') }">Describe the incident in one line</legend>
+                    <legend :class="{ 'error': errors.title }">Describe the incident in one line</legend>
 
-                    <input type="text" name="title" v-model="title" class="form-control" v-validate data-rules="required" maxlength="255">
+                    <input type="text" name="title" v-model="title" class="form-control" maxlength="255">
 
-                    <span class="inline-alert" v-show="errors.has('title')">Required</span>
+                    <span class="inline-alert" v-show="errors.title">Required</span>
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group datepicker">
-                    <legend :class="{ 'error': errors.has('date') }">When did the incident happen?</legend>
+                    <legend :class="{ 'error': errors.date }">When did the incident happen?</legend>
+
                     <input type="hidden" name="date" id="date" value="">
                     <date-picker :date="date" :option="date_options" :limit="date_limit" ></date-picker>
     
-                    <span class="inline-alert" v-show="errors.has('date')">An incident date is required</span>
+                    <span class="inline-alert" v-show="errors.date">An incident date is required</span>
 
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('city') || errors.has('state') }">Where did it happen?</legend>
+                    <legend :class="{ 'error': errors.city || errors.state }">Where did it happen?</legend>
 
                     <div class="col-sm-3 no-left-padding">
-                       <input type="text" name="city" v-model="city" class="form-control" placeholder="City" v-validate data-rules="required">
-                       <span class="inline-alert" v-show="errors.has('city')">Required</span>
+                       <input type="text" name="city" v-model="city" class="form-control" placeholder="City">
+                       <span class="inline-alert" v-show="errors.city">Required</span>
                     </div>
 
                     <div class="col-sm-2  no-left-padding">
@@ -98,7 +99,7 @@
                             <option value="WV">WV</option>
                             <option value="WI">WI</option>
                         </select>
-                        <span class="inline-alert" v-show="errors.has('state')">Required</span>
+                        <span class="inline-alert" v-show="errors.state">Required</span>
 
                     </div>
 
@@ -113,40 +114,46 @@
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
 
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('how_known') }">How do you know about this incident?</legend>
+                    <legend :class="{ 'error': errors.source || errors.source_url || errors.submitter_email || errors.social_media_url || errors.source_other_description }">How do you know about this incident?</legend>
 
                     <label class="radio-inline">
-                        <input type="radio" name="how_known" v-model="how_known" value="news" v-validate data-rules="required"> News article
+                        <input type="radio" name="source" v-model="source" value="news"> News article
                     </label>
                 
                     <label class="radio-inline">
-                        <input type="radio" name="how_known" v-model="how_known" value="witness">
+                        <input type="radio" name="source" v-model="source" value="happened_to_me">
+                        It happened to me
+                    </label>
+                
+                    <label class="radio-inline">
+                        <input type="radio" name="source" v-model="source" value="witness">
                         I witnessed it
                     </label>
 
                     <label class="radio-inline">
-                        <input type="radio" name="how_known" v-model="how_known" value="someone_else_witnessed">
+                        <input type="radio" name="source" v-model="source" value="someone_else_witnessed">
                         Someone I know witnessed it
                     </label>
 
                     <label class="radio-inline">
-                        <input type="radio" name="how_known" v-model="how_known" value="social_media">
+                        <input type="radio" name="source" v-model="source" value="social_media">
                         Social media
                     </label>
 
                     <label class="radio-inline">
-                        <input type="radio" name="how_known" v-model="how_known" value="other">
+                        <input type="radio" name="source" v-model="source" value="other">
                         Somehow else
                     </label>
                 </div>
 
-                <span class="inline-alert" v-show="errors.has('how_known')">Required</span>
+                <span class="inline-alert" v-show="errors.source">Required</span>
 
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_how_known_other_description">
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_source_other_description">
                 <div class="form-group">
-                    <input type="text" name="how_known_other_description" v-model="how_known_other_description" class="form-control" placeholder="Describe how you know about this incident" maxlength="255">
+                    <input type="text" name="source_other_description" v-model="source_other_description" class="form-control" placeholder="Describe how you know about this incident" maxlength="255">
+                    <span class="inline-alert" v-show="errors.source_other_description">Required</span>            
                 </div>
             </div>
 
@@ -155,18 +162,21 @@
                     <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" maxlength="255">
 
                     <div class="top-margin-sm">Sometimes we need additional information to make sure our listings are complete and accurate. We will never share your email address.</div>
+                    <span class="inline-alert" v-show="errors.submitter_email">Required</span>
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_source_url">
                 <div class="form-group">
                     <input type="url" name="source_url" v-model="source_url" class="form-control" placeholder="URL of the news source">
+                    <span class="inline-alert" v-show="errors.source_url">Required</span>
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_social_media_url">
                 <div class="form-group">
                     <input type="url" name="social_media_url" v-model="social_media_url" class="form-control" placeholder="URL of the social media post">
+                    <span class="inline-alert" v-show="errors.social_media_url">Required</span>
                 </div>
             </div>
 
@@ -174,7 +184,7 @@
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
 
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('incident_type') }">What kind of incident was it?</legend>
+                    <legend :class="{ 'error': errors.incident_type || errors.other_incident_description }">What kind of incident was it?</legend>
 
                     <p>Check all that apply</p>
 
@@ -199,45 +209,42 @@
                     </label>
 
                     <label class="checkbox-inline" for="incident_type_1">
-                        <input type="checkbox" name="incident_type" id="incident_type_1" v-model="verbal_abuse" value="verbal_abuse" v-validate data-rules="required"> Verbal Abuse
+                        <input type="checkbox" name="incident_type" id="incident_type_1" v-model="verbal_abuse" value="verbal_abuse"> Verbal Abuse
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" name="incident_type" v-model="other_incident_type_checked" value="other"> Other
+                        <input type="checkbox" name="incident_type" v-model="other_incident_type" value="other"> Other
                     </label>
 
-                    <div class="inline-alert" v-show="errors.has('incident_type')">Required</div>
+                    <div class="inline-alert" v-show="errors.incident_type">Required</div>
 
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_other_incident_type">
                 <div class="form-group">
-                    <input type="text" name="other_incident_type" v-model="other_incident_type" class="form-control" placeholder="How would you classify the incident?" maxlength="255">
+                    <input type="text" name="other_incident_description" v-model="other_incident_description" class="form-control" placeholder="How would you classify the incident?" maxlength="255">
+                    <span class="inline-alert" v-show="errors.other_incident_description">Required</span>
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_photo_upload">
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('photo') }">Is there an photo?</legend>
-
-                    <input type="file" name="photo" @change="onFileChange" v-validate data-rules="image">
-                    <span class="inline-alert" v-show="errors.has('photo')">Must be an photo</span>
-
+                    <input type="file" name="photo" @change="onFileChange">
                 </div>
             </div>
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.has('description') }">Describe the incident</legend>
-                    <textarea class="form-control description" v-model="description" name="description" v-validate data-rules="required"></textarea>
-                    <span class="inline-alert" v-show="errors.has('description')">Required</span>
+                    <legend :class="{ 'error': errors.description }">Describe the incident</legend>
+                    <textarea class="form-control description" v-model="description" name="description"></textarea>
+                    <span class="inline-alert" v-show="errors.description">Required</span>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <button type="submit" class="btn btn-success"><div v-html="document_submit_html"></div></button>
+                    <button type="submit" class="btn btn-success" @click="validateForm($event)"><div v-html="document_submit_html"></div></button>
                 </div>
             </div>
         </form>
@@ -245,29 +252,43 @@
 </template>
 
 <script>
-    import MessageBox from 'vue-msgbox';
 
     export default {
         props: {
 
         },
         computed: {
+            incident_type_checked() {
+
+                if(this.harassment ||
+                    this.intimidation  ||
+                    this.physical_violence ||
+                    this.property_crime ||
+                    this.vandalism ||
+                    this.verbal_abuse ||
+                    this.other_incident_type                  
+                ) { 
+                    return true;
+                }
+
+                return false;
+            },
             show_source_url() {
-                if(this.how_known == 'news') {
+                if(this.source == 'news') {
                     return true;
                 }
 
                 return false;
             },
             show_email() {
-                if(this.how_known != 'news' && this.how_known != 'social_media' && this.how_known != '') {
+                if(this.source != 'news' && this.source != 'social_media' && this.source != '') {
                     return true;
                 }
 
                 return false;
             },
-            show_how_known_other_description() {
-                if(this.how_known == 'other') {
+            show_source_other_description() {
+                if(this.source == 'other') {
                     return true;
                 }
 
@@ -279,20 +300,20 @@
                     this.physical_violence == true ||
                     this.property_crime == true ||
                     this.vandalism == true ||
-                    this.other_incident_type_checked == true
+                    this.other_incident_type == true
                 ) {
                     return true;
                 }
                 return false;
             },
             show_other_incident_type() {
-                if(this.other_incident_type_checked == true) {
+                if(this.other_incident_type == true) {
                     return true;
                 }
                 return false;
             },
             show_social_media_url() {
-                if(this.how_known == 'social_media') {
+                if(this.source == 'social_media') {
                     return true;
                 }
 
@@ -318,8 +339,8 @@
                 form_data.append('state', this.state);
                 form_data.append('location_name', this.location_name);
                 
-                form_data.append('how_known', this.how_known);
-                form_data.append('how_known_other_description', this.how_known_other_description);
+                form_data.append('source', this.source);
+                form_data.append('source_other_description', this.source_other_description);
 
                 form_data.append('harassment', this.harassment ? true : false);
                 form_data.append('intimidation', this.intimidation ? true : false);
@@ -327,8 +348,8 @@
                 form_data.append('property_crime', this.property_crime ? true : false);
                 form_data.append('vandalism', this.vandalism ? true : false);
                 form_data.append('verbal_abuse', this.verbal_abuse ? true : false);
-                form_data.append('other_incident_type_checked', this.other_incident_type_checked ? true : false);
-                form_data.append('other_incident_type', this.other_incident_type_checked ? this.other_incident_type : false);
+                form_data.append('other_incident_type', this.other_incident_type ? true : false);
+                form_data.append('other_incident_description', this.other_incident_type ? this.other_incident_description : false);
 
                 form_data.append('source_url', this.source_url);
                 form_data.append('social_media_url', this.social_media_url);
@@ -361,8 +382,8 @@
                     this.date = { time: '' };
                     this.city = '';
                     this.location_name = '';
-                    this.how_known = '';
-                    this.how_known_other_description = '';
+                    this.source = '';
+                    this.source_other_description = '';
                     this.source_url = '';
                     this.submitter_email = '';
                     this.social_media_url = '';
@@ -372,8 +393,8 @@
                     this.property_crime = '';
                     this.vandalism = '';
                     this.verbal_abuse = '';                 
-                    this.other_incident_type_checked = false;
-                    this.other_incident_type = '';
+                    this.other_incident_type = false;
+                    this.other_incident_description = '';
                     this.photo = '';
                     this.description = '';
                     window.scrollTo(0, 0);
@@ -407,25 +428,86 @@
 
                 return error_response;
             },
-            validateForm() {                
-                this.$validator.validateAll();
+            resetErrors() {
+                for(var key in this.errors) {
+                    this.errors[key] = false;
+                }
 
-                if(this.show_state && this.state == '') {
-                    this.errors.add('state', 'The state is required');
+                this.validates = true;
+            },
+            validateForm(event) {
+                event.preventDefault();
+
+                this.resetErrors();
+
+                if(this.title == '') {
+                    this.errors.title = true;
+                    this.validates = false;
                 }
 
                 if(this.date.time == '') {
-                    this.errors.add('date', 'The date is required');
+                    this.errors.date = true;
+                    this.validates = false;
                 }
 
-                if (this.errors.any()) {
-                        this.alert_type = 'danger';
-                        this.alert_message = 'We need some more information. Please see below.';
-                        this.alert_show = true;
+                if(this.city == '') {
+                    this.errors.city = true;
+                    this.validates = false;
+                }
 
-                        window.scrollTo(0, 0);
+                if(this.source == '') {
+                    this.errors.source = true;
+                    this.validates = false;
+                }
 
-                        return false;
+                if(this.show_source_url && this.source_url == '') {
+                    this.errors.source_url = true;
+                    this.validates = false;
+                }
+
+                if(this.show_email && this.submitter_email == '') {
+                    this.errors.submitter_email = true;
+                    this.validates = false;
+                }
+
+                if(this.show_social_media_url && this.social_media_url == '') {
+                    this.errors.social_media_url = true;
+                    this.validates = false;
+                }
+
+                if(this.show_source_other_description && this.source_other_description == '') {
+                    this.errors.source_other_description = true;
+                    this.validates = false;
+                }
+
+                if(! this.incident_type_checked) {
+                    this.errors.incident_type = true;
+                    this.validates = false;
+                }
+
+                if(this.show_other_incident_type && this.other_incident_description == '') {
+                    this.errors.other_incident_description = true;
+                    this.validates = false;
+                }
+
+                if(this.state == '') {
+                    this.errors.state = true;
+                    this.validates = false;
+                }
+
+                if(this.description == '') {
+                    this.errors.description = true;
+                    this.validates = false;
+                }
+
+                if (! this.validates) {
+                    this.alert_type = 'danger';
+                    this.alert_message = 'We need some more information. Please see below.';
+                    this.alert_show = true;
+
+                    window.scrollTo(0, 0);
+
+                    return false;
                 } 
 
                 this.addIncident();
@@ -470,13 +552,27 @@
                 document_submit_default_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
                 document_submit_processing_html: '<i class="fa fa-spinner fa-spin fa-fw"></i> Submitting',
                 document_submit_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
+                errors: {
+                    title: false,
+                    date: false,
+                    city: false,
+                    state: false,
+                    source: false,
+                    source_url: false,
+                    submitter_email: false,
+                    social_media_url: false,
+                    source_other_description: false,
+                    incident_type: false,
+                    other_incident_description: false,
+                    description: false,
+                },
                 harassment: false,
-                how_known: '',
-                how_known_other_description: '',
+                source: '',
+                source_other_description: '',
                 intimidation: false,
                 location_name: '',
-                other_incident_type: '',
-                other_incident_type_checked: false,
+                other_incident_description: '',
+                other_incident_type: false,
                 photo: '',
                 physical_violence: false,
                 property_crime: false,
@@ -485,6 +581,7 @@
                 state: '',
                 submitter_email: '',
                 title: '',
+                validates: true,
                 vandalism: false,
                 verbal_abuse: false,
             }

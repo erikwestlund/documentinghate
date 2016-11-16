@@ -14,5 +14,8 @@ return [
             'width' => 300
         ]
         
-    ]
+    ],
+    'admin' => [
+        'per_page' => 25
+    ] 
 ];

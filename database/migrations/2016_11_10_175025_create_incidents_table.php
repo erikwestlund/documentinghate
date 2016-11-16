@@ -16,17 +16,15 @@ class CreateIncidentsTable extends Migration
         Schema::create('incidents', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->boolean('approved')->default(false);
-
             $table->string('title');
-            $table->dateTime('date');
+            $table->date('date');
 
             $table->string('city');
             $table->string('state');
             $table->string('location_name')->nullable();
 
-            $table->string('how_known');
-            $table->text('how_known_other_description')->nullable();
+            $table->string('source');
+            $table->text('source_other_description')->nullable();
 
             $table->text('source_url')->nullable();
             $table->text('social_media_url')->nullable();
@@ -37,7 +35,8 @@ class CreateIncidentsTable extends Migration
             $table->boolean('physical_violence')->default(false);
             $table->boolean('vandalism')->default(false);
             $table->boolean('property_crime')->default(false);
-            $table->string('other_incident_type')->nullable();
+            $table->string('other_incident_type')->default(false);
+            $table->string('other_incident_description')->nullable();
 
             $table->text('description');
 
@@ -51,6 +50,13 @@ class CreateIncidentsTable extends Migration
             $table->text('submitter_email')->nullable();          
             $table->ipAddress('ip');
             $table->string('user_agent')->nullable();
+
+            $table->boolean('approved')->nullable();
+
+            $table->integer('approved_by_user_id')->unsigned()->index()->nullable();
+            $table->foreign('approved_by_user_id')->references('id')->on('users');
+
+            $table->text('approval_decision_comment')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

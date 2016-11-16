@@ -33,3 +33,12 @@ Route::group(['middleware' => ['auth', 'permission:edit-users']], function () {
     Route::delete('/admin/users/{user}', 'AdminUsersEditController@destroy');
     
 });
+
+Route::group(['middleware' => ['web', 'permission:moderate-incidents']], function () {
+
+    Route::get('/admin/incidents', 'AdminIncidentsHomeController@show');
+    Route::get('/admin/incidents/get', 'AdminIncidentsHomeController@getIncidents');
+    Route::get('/admin/incidents/{incident}', 'AdminIncidentsModerateController@edit');
+
+    
+});

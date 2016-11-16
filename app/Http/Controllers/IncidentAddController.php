@@ -115,17 +115,18 @@ class IncidentAddController extends Controller
         $incident->state = $request->state;
         $incident->location_name = $request->location_name;
         
-        $incident->how_known = $request->how_known;
+        $incident->source = $request->source;
         $incident->harassment = $request->harassment == 'true' ? true : false;
         $incident->intimidation = $request->intimidation == 'true' ? true : false;
         $incident->physical_violence = $request->physical_violence == 'true' ? true : false;
         $incident->property_crime = $request->property_crime == 'true' ? true : false;
-        $incident->other_incident_type = $request->other_incident_type ? $request->other_incident_type : null;
+        $incident->other_incident_type = $request->other_incident_type == 'true' ? true : false;
+        $incident->other_incident_description = $request->other_incident_type ? $request->other_incident_description : null;
 
-        $incident->how_known_other_description = $request->how_known == 'other' ? $request->how_known_other_description : null;
-        $incident->source_url = $request->how_known == 'news' ? $request->source_url : null;
-        $incident->social_media_url = $request->how_known == 'social_media' ? $request->social_media_url : null;
-        $incident->submitter_email = in_array($request->how_known, ['witness', 'someone_else_witnessed', 'other']) ? $request->submitter_email : null;
+        $incident->source_other_description = $request->source == 'other' ? $request->source_other_description : null;
+        $incident->source_url = $request->source == 'news' ? $request->source_url : null;
+        $incident->social_media_url = $request->source == 'social_media' ? $request->social_media_url : null;
+        $incident->submitter_email = in_array($request->source, ['witness', 'someone_else_witnessed', 'other']) ? $request->submitter_email : null;
         
         $incident->vandalism = $request->vandalism == 'true' ? true : false;
         $incident->verbal_abuse = $request->verbal_abuse == 'true' ? true : false;
@@ -149,22 +150,22 @@ class IncidentAddController extends Controller
         $rules = [
             'title' => 'required',
             'date' => 'required|date',
-            'how_known' => 'required',
+            'source' => 'required',
             'city' => 'required',
             'state' => 'required',
             'description' => 'required',
-            'source_url' => 'required_if:how_known,news|url',
-            'social_medial_url' => 'required_if:how_known,social_media|url',
-            'submitter_email' => 'required_if:how_known,witness|required_if:how_known,someone_else_witnessed|required_if:how_known,other|email',
-            'how_known_other_description' => 'required_if:how_known,other',
-            'other_incident_type' => 'required_if:other_incident_type_checked,true',
+            'source_url' => 'required_if:source,news|url',
+            'social_medial_url' => 'required_if:source,social_media|url',
+            'submitter_email' => 'required_if:source,witness|required_if:source,someone_else_witnessed|required_if:source,other|email',
+            'source_other_description' => 'required_if:source,other',
+            'other_incident_description' => 'required_if:other_incident_type,true',
             'photo' => 'sometimes|image',
         ];
 
         $messages = [
             'title.required' => 'Please provide a one line incident description.',
             'date.required' => 'Please indicate when this incident took place.',
-            'how_known.required' => 'Please indicate how you know about this incident.',
+            'source.required' => 'Please indicate how you know about this incident.',
             'city.required' => 'Please indicate  in which city this took place.',
             'state.required' => 'Please indicate in which state this took place.',
             'description.required' => 'Please provide a description of the incident.',
@@ -174,8 +175,8 @@ class IncidentAddController extends Controller
             'social_medial_url.url' => 'The provided social media post URL is invalid.',
             'submitter_email.required_if' => 'Please provide a contact e-mail address.',
             'submitter_email.email' => 'The provided email e-mail address is invalid.',
-            'how_known_other_description.required_if' => 'Please describe how you learned about this incident.',
-            'other_incident_type.required_if' => 'Please describe how you would classify this incident.',
+            'source_other_description.required_if' => 'Please describe how you learned about this incident.',
+            'other_incident_description.required_if' => 'Please describe how you would classify this incident.',
         ];
 
         $validator =  Validator::make($request->all(), $rules, $messages);

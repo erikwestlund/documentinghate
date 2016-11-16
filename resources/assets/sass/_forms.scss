@@ -14,7 +14,12 @@ legend.error {
     color: $brand-danger;
 }
 
-.inline-alert {
+.inline-success {
+    color: $brand-success;
+}
+
+.inline-alert,
+.inline-danger {
     color: $brand-danger;
 }
 
@@ -22,3 +27,11 @@ legend.error {
     font-family: Raleway, sans-serif !important;   
 }
 
+.action-link {
+    border: none;
+    margin-right: 15px;
+}
+
+.action-link:hover {
+    text-decoration: none;
+}

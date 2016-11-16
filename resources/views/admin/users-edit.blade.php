@@ -6,11 +6,11 @@
 
    <div class="col-sm-12 text-center bottom-margin-lg">
 
-            <div class="form-group pull-right">
-                <div class="col-sm-12 text-center">
-                    <a role="button" type="submit" class="btn btn-default" href="{{ url('/admin/users/' . $user->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This user</a>
-                </div>
+        <div class="form-group pull-right">
+            <div class="col-sm-12 text-center">
+                <a role="button" type="submit" class="btn btn-default" href="{{ url('/admin/users/' . $user->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This User</a>
             </div>
+        </div>
 
         <h1><i class="fa fa-user-circle-o"></i> {{ $user->name }}</h1>
 
