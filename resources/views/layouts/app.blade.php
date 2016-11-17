@@ -33,14 +33,12 @@
     <script src="{{ elixir('assets/js/app.js') }}"></script>
 
     <script>
-        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+        $('div.alert').not('.alert-danger').delay(3000).fadeOut(350);
     </script>
 
     <script>
         $(document).ready(function(){
-
             @stack('scripts_ready')
-
         });
     </script>
 </body>

@@ -45,7 +45,7 @@ class EloquentVueTables implements VueTablesInterface  {
 
         if (isset($orderBy) && $orderBy){
             $direction = $ascending == 1 ? "ASC" : "DESC";
-            $data->orderBy($orderBy,$direction);
+            $data->orderBy($orderBy, $direction);
         }
 
         $results = $data->get()

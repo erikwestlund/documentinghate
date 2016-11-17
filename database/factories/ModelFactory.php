@@ -51,8 +51,5 @@ $factory->define(App\Incident::class, function (Faker\Generator $faker) {
         'ip' => $faker->ipv4,
         'user_agent' => $faker->userAgent,
         'approved' => $faker->boolean,
-        'approved_by_user_id' => $faker->numberBetween(1,10),
-        'approval_decision_comment' => $faker->sentence,
-
     ];
 });

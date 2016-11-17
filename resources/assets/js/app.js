@@ -1,4 +1,7 @@
 require('./bootstrap');
+require('bootstrap-datepicker');
+
+var Turbolinks = require("turbolinks")
 
 require('form-forker/dist/jquery.form-forker.min.js');
 
@@ -21,8 +24,6 @@ Vue.use(VueTables.server, {
 });
 
 
-var Turbolinks = require("turbolinks")
-Turbolinks.start()
 
 import myDatepicker from 'vue-datepicker';
 Vue.component('date-picker', myDatepicker);

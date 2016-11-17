@@ -40,8 +40,8 @@ return [
         'OK'=>'Oklahoma',
         'OR'=>'Oregon',
         'PA'=>'Pennsylvania',
-        'RI'=>'Rhode Island'
-    ,        'SC'=>'South Carolina',
+        'RI'=>'Rhode Island',
+        'SC'=>'South Carolina',
         'SD'=>'South Dakota',
         'TN'=>'Tennessee',
         'TX'=>'Texas',

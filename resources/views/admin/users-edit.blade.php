@@ -19,17 +19,7 @@
     <div class="col-sm-8 col-sm-offset-2" id="app">
 
         @include('flash::message')
-
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
+        @include('_errors')
 
         <form method="POST" action="{{ url('/admin/users/' . $user->id ) }}" class="form-horizontal">
             {{ method_field('PATCH') }}            

@@ -1,5 +1,6 @@
 <?php
 
+use App\Incident;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,7 +14,9 @@ class CreateIncidentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('incidents', function (Blueprint $table) {
+        $incident = new Incident;
+
+        Schema::create('incidents', function (Blueprint $table) use ($incident) {
             $table->increments('id');
 
             $table->string('title');
@@ -23,7 +26,7 @@ class CreateIncidentsTable extends Migration
             $table->string('state');
             $table->string('location_name')->nullable();
 
-            $table->string('source');
+            $table->enum('source', $incident->source_dictionary);
             $table->text('source_other_description')->nullable();
 
             $table->text('news_article_url')->nullable();
@@ -52,11 +55,6 @@ class CreateIncidentsTable extends Migration
             $table->string('user_agent')->nullable();
 
             $table->boolean('approved')->nullable();
-
-            $table->integer('approved_by_user_id')->unsigned()->index()->nullable();
-            $table->foreign('approved_by_user_id')->references('id')->on('users');
-
-            $table->text('approval_decision_comment')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

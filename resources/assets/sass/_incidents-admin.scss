@@ -1,0 +1,24 @@
+.incident-thumbnail{
+    max-width: 300px;
+}
+
+.admin-incidents-nav.top {
+    @extend .bottom-margin-lg;
+    @extend .bottom-padding-md;
+    border-bottom: 1px solid;
+    border-bottom-color: lighten($input-border, 10%);
+}
+
+.admin-incidents-nav.bottom {
+    @extend .top-margin-lg;
+    @extend .top-padding-md;
+    @extend .bottom-padding-lg;
+    border-top: 1px solid;
+    border-top-color: lighten($input-border, 10%);
+}
+
+div.moderate-history{
+    @extend .top-margin-lg;    
+    border-top: 1px solid;
+    border-top-color: lighten($input-border, 10%);
+}

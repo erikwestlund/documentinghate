@@ -39,8 +39,6 @@ class IncidentSeeder extends Seeder
 
             if(rand(1,5) == 1) {
                 $incident->approved = null;
-                $incident->approved_by_user_id = null;
-                $incident->approval_decision_comment = null;
             }
 
             $incident->save();

@@ -8097,10 +8097,10 @@ button.close {
 .no-left-padding {
   padding-left: 0px; }
 
-.top-margin-lg {
+.top-margin-lg, .admin-incidents-nav.bottom, div.moderate-history {
   margin-top: 30px; }
 
-.bottom-margin-lg {
+.bottom-margin-lg, .admin-incidents-nav.top {
   margin-bottom: 30px; }
 
 .top-margin-md {
@@ -8114,6 +8114,24 @@ button.close {
 
 .bottom-margin-sm {
   margin-bottom: 8px; }
+
+.top-padding-lg {
+  padding-top: 30px; }
+
+.bottom-padding-lg, .admin-incidents-nav.bottom {
+  padding-bottom: 30px; }
+
+.top-padding-md, .admin-incidents-nav.bottom {
+  padding-top: 15px; }
+
+.bottom-padding-md, .admin-incidents-nav.top {
+  padding-bottom: 15px; }
+
+.top-padding-sm {
+  padding-top: 8px; }
+
+.bottom-padding-sm {
+  padding-bottom: 8px; }
 
 html, body {
   background-color: #fff;
@@ -8160,6 +8178,9 @@ html, body {
 .m-b-md {
   margin-bottom: 30px; }
 
+.bold {
+  font-weight: bold; }
+
 .close-alert {
   cursor: pointer; }
 
@@ -8199,6 +8220,9 @@ legend.error {
 .action-link:hover {
   text-decoration: none; }
 
+.VueTables__limit label {
+  padding-right: 5px; }
+
 .VueTables__sortable span.fa {
   margin-left: 5px; }
 
@@ -8208,7 +8232,28 @@ legend.error {
 div#incidents .VueTables th:nth-child(6) span {
   display: none; }
 
+div#incidents .VueTables th:nth-child(2) span {
+  width: 75px; }
+
+div#incidents .VueTables th:nth-child(4) span {
+  width: 100px; }
+
+div#incidents .VueTables th:nth-child(5) span {
+  width: 60px; }
+
 .incident-thumbnail {
   max-width: 300px; }
+
+.admin-incidents-nav.top {
+  border-bottom: 1px solid;
+  border-bottom-color: #e7e9ea; }
+
+.admin-incidents-nav.bottom {
+  border-top: 1px solid;
+  border-top-color: #e7e9ea; }
+
+div.moderate-history {
+  border-top: 1px solid;
+  border-top-color: #e7e9ea; }
 
 /*# sourceMappingURL=app.css.map */

@@ -11,8 +11,10 @@
 
 @import "helpers";
 @import "layout";
+@import "text";
 @import "alerts";
 @import "forms";
 @import "tables";
-@import "tables-admin-incidents";
+@import "tables-incidents-admin";
+@import "incidents-admin";
 @import "incidents";

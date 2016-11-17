@@ -1,6 +1,5 @@
 <template>
     <div id="incidents" class="col-sm-12">
-        <moderate-link></moderate-link>
         <v-server-table url="/admin/incidents/get" :columns="columns" :options="options"></v-server-table>
     </div>
 </template>
@@ -17,7 +16,8 @@
                 columns: ['approved', 'date', 'title', 'city', 'state', 'moderate'],
                 options: {
                     orderBy: { 
-                        column: 'date',
+                        column: 'approved',
+                        ascending: true
                     }, 
                     sortable: ['approved', 'date', 'city', 'state'],
                     templates: {
