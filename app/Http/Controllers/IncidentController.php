@@ -15,6 +15,16 @@ class IncidentController extends Controller
     protected $photos_directory;
     protected $success_message = 'Thank you for your submission. We will review it as quickly as possible.';
 
+    protected $moderate_rules = [
+        'approved' => 'required',
+        'moderation_comment' => 'required_if:approved,0',
+    ];
+
+    protected $moderate_messages = [
+        'approved.required' => 'Please choose whether or not to approve this incident.',
+        'moderation_comment.required_if' => 'Please enter a reason for rejecting this incident.'
+    ];
+
     /**
      * Construct the obejct.
      *
@@ -51,7 +61,7 @@ class IncidentController extends Controller
         return $url;
     }
 
-    protected function getValidator(Request $request)
+    protected function getValidator(Request $request, $with_moderation = false)
     {
         $rules = [
             'title' => 'required',
@@ -84,6 +94,11 @@ class IncidentController extends Controller
             'source_other_description.required_if' => 'Please describe how you learned about this incident.',
             'other_incident_description.required_if' => 'Please describe how you would classify this incident.',
         ];
+
+        if($with_moderation) {
+            $rules = array_merge($this->moderate_rules, $rules);
+            $messages = array_merge($this->moderate_messages, $messages);
+        }
 
         return  Validator::make($request->all(), $rules, $messages);
     }

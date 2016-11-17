@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use App\Incident;
 use App\IncidentModerationDecision;
 
@@ -11,23 +12,6 @@ use Illuminate\Http\Request;
 class AdminIncidentsModerateController extends IncidentController
 {
     /**
-     * Show the appropriate form given user's permissions.
-     * @param  Int $id 
-     * @return View
-     */
-    public function moderate($id)
-    {
-        $incident = Incident::with('moderation_decisions', 'moderation_decisions.user')
-            ->find($id);
-
-        if(Auth::user()->can('edit-incidents')) {
-            return view('admin.incidents-moderate-edit', compact('incident'));
-        } else {
-            return view('admin.incidents-moderate', compact('incident'));
-        }
-    }
-
-    /**
      * Approve the incdient
      * @param  Request $request 
      * @param  Int  $id      
@@ -35,13 +19,13 @@ class AdminIncidentsModerateController extends IncidentController
      */
     public function approve(Request $request, $id)
     {
-        $this->validate($request, [
-            'approved' => 'required',
-            'moderation_comment' => 'required_if:approved,0',
-        ], [
-            'approved.required' => 'Please choose whether or not to approve this incident.',
-            'moderation_comment.required_if' => 'Please enter a reason for rejecting this incident.'
-        ]);
+        $validator = $this->validateApproval($request);
+
+        if($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+       }
 
         $incident = Incident::find($id);
 
@@ -60,15 +44,32 @@ class AdminIncidentsModerateController extends IncidentController
     }
 
     /**
+     * Show the appropriate form given user's permissions.
+     * @param  Int $id 
+     * @return View
+     */
+    public function moderate($id)
+    {
+        $incident = Incident::with('moderation_decisions', 'moderation_decisions.user')
+            ->find($id);
+
+        if(Auth::user()->can('edit-incidents')) {
+            return view('admin.incidents-moderate-edit', compact('incident'));
+        } else {
+            return view('admin.incidents-moderate', compact('incident'));
+        }
+    }
+
+    /**
      * Update the record.
      * @param  Request $request 
      * @return Response
      */
     public function update(Request $request)
     {
-       $validator = $this->getValidator($request);
+       $validator = $this->getValidator($request, true);
 
-       if(!$validator->passes()) {
+       if($validator->fails()) {
             return back()
                 ->withErrors($validator)
                 ->withInput();
@@ -94,4 +95,18 @@ class AdminIncidentsModerateController extends IncidentController
         $decision->comment = $request->moderation_comment;
         $decision->save();
     }
+
+    /**
+     * Validated the moderation.
+     * 
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    protected function validateApproval(Request $request)
+    {
+        return Validator::make($request->all(),
+                $this->moderate_rules,
+                $this->moderate_messages);    
+    }
+
 }

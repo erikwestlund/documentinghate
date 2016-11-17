@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">City</label>
                 <div class="col-sm-10">
-                    <input type="text" name="city" class="form-control" id="city" placeholder="Title" value="{{ old('city', $incident->city) }}">
+                    <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ old('city', $incident->city) }}">
                 </div>
             </div>
 

@@ -37,6 +37,7 @@ class Incident extends Model
 
     /**
      * Get a link to the lcoadtion on google maps
+     * 
      * @return String
      */
     public function getGoogleMapsUrlAttribute()
@@ -46,6 +47,7 @@ class Incident extends Model
 
     /**
      * Get incident types in pretty form.
+     * 
      * @return String 
      */
     public function getIncidentTypesAttribute()
@@ -59,6 +61,7 @@ class Incident extends Model
 
     /**
      * Get location in pretty form.
+     * 
      * @return String
      */
     public function getLocationAttribute()
@@ -76,95 +79,247 @@ class Incident extends Model
     }
 
     /**
-     * Get the maximum non-deleted ID number
+     * Get the maximum approved incident ID
+     * 
+     * @return Int
+     */
+    public function getMaxApprovedIdAttribute()
+    {
+        return Incident::approved()
+                ->select(DB::raw("max(`id`) as id"))
+                ->first();
+    }
+
+    /**
+     * Get the maximum incident ID
+     * 
      * @return Int
      */
     public function getMaxIdAttribute()
     {
-        return Incident::where('id', DB::raw("(select max(`id`) from incidents)"))
-                ->first()
-                ->id;
+        return Incident::select(DB::raw("max(`id`) as id"))
+                ->first();
     }
 
     /**
-     * Get the minimum non-deleted ID number
+     * Get the minimum approved incident ID
+     * 
+     * @return Int
+     */
+    public function getMinApprovedIdAttribute()
+    {
+        return Incident::approved()
+                ->select(DB::raw("min(`id`) as id"))
+                ->first();
+    }
+
+    /**
+     * Get the minimum ID number
+     * 
      * @return Int
      */
     public function getMinIdAttribute()
     {
-        return Incident::where('id', DB::raw("(select min(`id`) from incidents)"))
-                ->first()
-                ->id;
+        return Incident::select(DB::raw("min(`id`) as id"))
+                ->first();
     }
 
-    public function getNextIncidentUrlAttribute()
+    /**
+     * Get the next unmoderated ID
+     * 
+     * @return Int
+     */
+    public function getNextApprovedIdAttribute()
     {
-        if($this->id == $this->max_id) {
-            $id = 1;
-        } else {
-            $id = $this->id + 1;
+        $next = Incident::approved()
+                ->select(DB::raw("min(`id`) as id"))
+                ->where('id', '>', $this->id)
+                ->first();
+
+        if($next->id) {
+            return $next->id;
         }
 
-        return url('/admin/incidents/' . $id);
+        $next = Incident::approved()
+            ->select(DB::raw("min(`id`) as id"))
+            ->first();
+
+        if($next->id) {
+            return $next->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the next incident ID
+     * 
+     * @return Int
+     */
+    public function getNextIdAttribute()
+    {
+        $next = Incident::select(DB::raw("min(`id`) as id"))
+                ->where('id', '>', $this->id)
+                ->first();
+
+        if($next->id) {
+            return $next->id;
+        }
+
+        $next = Incident::select(DB::raw("min(`id`) as id"))
+            ->first();
+
+        if($next->id) {
+            return $next->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get next indcident URL.
+     * 
+     * @return String
+     */
+    public function getNextIncidentUrlAttribute()
+    {
+        return $this->next_id ? url('/admin/incidents/' . $this->next_id) : null;
+    }
+
+    /**
+     * Get the next unmoderated ID
+     * 
+     * @return Int
+     */
+    public function getNextUnmoderatedIdAttribute()
+    {
+        $next = Incident::unmoderated()
+                ->select(DB::raw("min(`id`) as id"))
+                ->where('id', '>', $this->id)
+                ->first();
+
+        if($next->id) {
+            return $next->id;
+        }
+
+        $next = Incident::unmoderated()
+            ->select(DB::raw("min(`id`) as id"))
+            ->first();
+
+        if($next->id) {
+            return $next->id;
+        }
+
+        return null;
     }
 
     /**
      * Get the next unmoderated incident
+     * 
      * @return String
      */
     public function getNextUnmoderatedIncidentUrlAttribute()
     {
-        //select * from foo where id = (select min(id) from foo where id > 4)
-        $next = Incident::where('id', DB::raw("(select min(`id`) from incidents where `id` > ' . $this->id . ' and `approved` is null)"))
-                ->first();
-
-        if(! $next) {
-            $next = Incident::where('id', DB::raw("(select min(`id`) from incidents where `approved` is null)"))
-                    ->first();
-        }
-
-        if($next) {
-            return url('/admin/incidents/' . $next->id);
-        }
-
-        return false;
+        return $this->next_unmoderated_id ? url('/admin/incidents/' . $this->next_unmoderated_id) : null;
     }
 
-    public function getPreviousIncidentUrlAttribute()
+    public function getPrevApprovedIdAttribute()
     {
-        if($this->id == 1) {
-            $id = $this->max_id;
-        } else {
-            $id = $this->id - 1;
+        $prev = Incident::approved()
+                ->select(DB::raw("max(`id`) as id"))
+                ->where('id', '<', $this->id)
+                ->first();
+
+        if($prev->id) {
+            return $prev->id;
         }
 
-        return url('/admin/incidents/' . $id);
+        $prev = Incident::approved()
+            ->select(DB::raw("max(`id`) as id"))
+            ->first();
+
+        if($prev->id) {
+            return $prev->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the previous incident ID
+     * 
+     * @return Int
+     */
+    public function getPrevIdAttribute()
+    {
+        $prev = Incident::select(DB::raw("max(`id`) as id"))
+                ->where('id', '<', $this->id)
+                ->first();
+
+        if($prev->id) {
+            return $prev->id;
+        }
+
+        $prev = Incident::select(DB::raw("max(`id`) as id"))
+            ->first();
+
+        if($prev->id) {
+            return $prev->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the previous unmoderated incident ID
+     * 
+     * @return Int
+     */
+    public function getPrevUnmoderatedIdAttribute()
+    {
+        $prev = Incident::unmoderated()
+                ->select(DB::raw("max(`id`) as id"))
+                ->where('id', '<', $this->id)
+                ->first();
+
+        if($prev->id) {
+            return $prev->id;
+        }
+
+        $prev = Incident::unmoderated()
+            ->select(DB::raw("max(`id`) as id"))
+            ->first();
+
+        if($prev->id) {
+            return $prev->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the previous incident URL
+     * 
+     * @return String 
+     */
+    public function getPreviousIncidentUrlAttribute()
+    {
+        return $this->prev_id ? url('/admin/incidents/' . $this->prev_id) : null;
     }
 
     /**
      * Get the previous unmoderated incident
+     * 
      * @return String
      */
     public function getPreviousUnmoderatedIncidentUrlAttribute()
     {
-        //select * from foo where id = (select min(id) from foo where id > 4)
-        $previous = Incident::where('id', DB::raw("(select max(`id`) from incidents where `id` < ' . $this->id . ' and `approved` is null)"))
-                ->first();
-
-        if(! $previous) {
-            $previous = Incident::where('id', DB::raw("(select max(`id`) from incidents where `approved` is null)"))
-                    ->first();
-        }
-
-        if($previous) {
-            return url('/admin/incidents/' . $previous->id);
-        }
-
-        return false;
+        return $this->prev_unmoderated_id ? url('/admin/incidents/' . $this->prev_unmoderated_id) : null;
     }
 
     /**
      * Get the source in pretty form.
+     * 
      * @return String
      */
     public function getSourceProcessedAttribute()
@@ -178,11 +333,56 @@ class Incident extends Model
 
     /**
      * Incidents have many moderation decisions.
+     * 
      * @return Collection
      */
     public function moderation_decisions()
     {
         return $this->hasMany('App\IncidentModerationDecision');
+    }
+
+    /**
+     * Scope a query to only include approved cases.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', true);
+    }
+
+    /**
+     * Scope a query to only include unmoderated cases.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeModerated($query)
+    {
+        return $query->whereNotNull('approved');
+    }
+
+    /**
+     * Scope a query to only include unapproved cases.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnapproved($query)
+    {
+        return $query->where('approved', false);
+    }
+
+    /**
+     * Scope a query to only include unmoderated cases.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnmoderated($query)
+    {
+        return $query->whereNull('approved');
     }
 
 }
