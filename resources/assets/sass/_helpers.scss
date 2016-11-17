@@ -6,6 +6,16 @@
     padding-left: 0px;
 }
 
+.bottom-border {
+    border-bottom: 1px solid;
+    border-bottom-color: lighten($input-border, 10%);    
+}
+
+.top-border {
+    border-top: 1px solid;
+    border-top-color: lighten($input-border, 10%);    
+}
+
 .top-margin-lg {
     margin-top: 30px;
 }

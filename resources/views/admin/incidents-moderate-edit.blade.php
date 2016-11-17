@@ -20,7 +20,20 @@
 
         <form method="POST" action="{{ url('/admin/incidents/' . $incident->id ) }}" id="moderate-form" class="form-horizontal" enctype="multipart/form-data">
             @push('scripts_ready')
-                $('#moderate-form').forkable();
+                $('#moderate-form').forkable({ });
+
+                if($('input#other').is(':checked')) {
+                    $(".other-incident-description-container").removeClass('hidden');                    
+                }
+
+                $('input#other').click(function() {
+                    if( $(this).is(':checked')) {
+                        $(".other-incident-description-container").removeClass('hidden');
+                    } else {
+                        $(".other-incident-description-container").addClass('hidden');
+                    }
+                }); 
+
                 $('.date').datepicker({
                     format: 'yyyy-mm-dd'
                 });
@@ -81,7 +94,7 @@
                         <div class="radio">
                             <label>
                                 <input type="radio" name="source" id="source" value="{{ $source }}" 
-                                    @if(old('source') == $source || $incident->source == $source)
+                                    @if((!is_null(old('source')) && old('source') == $source) || (is_null(old('source')) && $incident->source == $source))
                                         checked
                                     @endif
                                 >
@@ -92,44 +105,136 @@
                 </div>
             </div>
 
+            {{-- Show only if other is chosen --}}
+            <div class="form-group
+
+                @if((!is_null(old('source')) && old('source') != 'other') || (is_null(old('source')) && $incident->source != 'other'))
+                    hidden
+                @endif
+
+            " data-parent-branch="source" data-show-on-value="other">
+                <label for="source_other_description" class="col-sm-2 control-label">Other Source</label>
+                <div class="col-sm-10">
+                    <input type="text" name="source_other_description" class="form-control" id="source_other_description" placeholder="How learned of incident" value="{{ old('source_other_description', $incident->source_other_description) }}">
+                </div>
+            </div>
+
+            {{-- Show only if news article chosen --}}
+            <div class="form-group
+
+                @if((!is_null(old('source')) && old('source') != 'news_article') || (is_null(old('source')) && $incident->source != 'news_article'))
+                    hidden
+                @endif
+
+            " data-parent-branch="source" data-show-on-value="news_article">
+                <label for="news_article_url" class="col-sm-2 control-label">News article URL</label>
+                <div class="col-sm-10">
+                    <input type="text" name="news_article_url" class="form-control" id="news_article_url" placeholder="News Article URL" value="{{ old('news_article_url', $incident->news_article_url) }}">
+                </div>
+            </div>
+
+            {{-- Show only if a source where a submitter email is required is chosen --}}
+            <div class="form-group
+
+                @if((!is_null(old('source')) && ! in_array(old('source'), $incident->sources_where_submitter_email_required)) || 
+                    (is_null(old('source')) && ! in_array($incident->source, $incident->sources_where_submitter_email_required)))
+                    hidden
+                @endif
+
+            " data-parent-branch="source" data-show-on-value="it_happened_to_me,i_witnessed_it,someone_i_know_witnessed_it,other">
+                <label for="submitter_email" class="col-sm-2 control-label">Submitter E-mail</label>
+                <div class="col-sm-10">
+                    <input type="text" name="submitter_email" class="form-control" id="submitter_email" placeholder="Submitter Email Address" value="{{ old('submitter_email', $incident->submitter_email) }}">
+                </div>
+            </div>
+
+            {{-- Show only if social media is chosen --}}
+            <div class="form-group
+
+                @if((!is_null(old('source')) && old('source') != 'social_media') || (is_null(old('source')) && $incident->source != 'social_media'))
+                    hidden
+                @endif
+
+            " data-parent-branch="source" data-show-on-value="social_media">
+                <label for="social_media_url" class="col-sm-2 control-label">Social media post URL</label>
+                <div class="col-sm-10">
+                    <input type="text" name="social_media_url" class="form-control" id="social_media_url" placeholder="Social Media URL" value="{{ old('social_media_url', $incident->social_media_url) }}">
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="incident_types" class="col-sm-2 control-label">Incident Types</label>
                 <div class="col-sm-10">
                     @foreach($incident->incident_type_dictionary as $incident_type)
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="{{ $incident_type }}" id="{{ $incident_type }}" value="1" 
+                                <input type="checkbox" name="{{ $incident_type }}" id="{{ $incident_type }}" value="true"
                                     @if(old($incident_type, $incident->{$incident_type}))
                                         checked
                                     @endif
                                 >
+
                                 {{ title_case(str_replace('_', ' ', $incident_type)) }}
+
                             </label>
                         </div>
                     @endforeach
                 </div>
             </div>
 
+            {{-- Show only if other is checked --}}
+            <div class="form-group other-incident-description-container hidden">
+                <label for="other_incident_description" class="col-sm-2 control-label">Other description</label>
+                <div class="col-sm-10">
+                    <input type="text" name="other_incident_description" class="form-control" id="other_incident_description" placeholder="Brief descriptoin of the incident" value="{{ old('other_incident_description', $incident->other_incident_description) }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 text-right bold">Photo</div>
+                <div class="col-sm-10">
+
+                    <input type="file" name="photo" class="bottom-margin-md">
+                    <div class="bottom-margin-md">Choose a photo to replace the current one or check the below box to remove the photo.</div>
+
+                </div>
+            </div>
+
+            @if($incident->photo_url)
                 <div class="form-group">
-                    <div class="col-sm-2 text-right bold">Photo</div>
-                    <div class="col-sm-10">
-
-                        <input type="file" name="photo" class="bottom-margin-md">
-                        <div class="bottom-margin-md">Choose a photo to replace the current one.</div>
-
-                        @if($incident->photo_url)
-                            <div>
-                                <a target="_blank" href="{{ $incident->photo_url }}">
-                                    <img class="incident-thumbnail bottom-margin-sm" src="{{ $incident->photo_url }}">
-                                </a>
-                            </div>
-                        @endif
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div>
+                            <a target="_blank" href="{{ $incident->photo_url }}">
+                                <img class="incident-thumbnail bottom-margin-sm" src="{{ $incident->photo_url }}">
+                            </a>
+                        </div>
                     </div>
                 </div>
 
+            <div class="form-group">
+                <label for="remove_photo" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+
+                        <label>
+                            <input type="checkbox" name="remove_photo" id="remove_photo" value="true" 
+                                @if((!is_null(old('remove_photo')) && old('remove_photo') == true))
+                                    checked
+                                @endif
+                            >
+
+                            Remove this photo                            
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @endif
+
+
 
             <div class="form-group">
-                <label for="description" class="col-sm-2 control-label">Descriptoin</label>
+                <label for="description" class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
                     <textarea name="description" class="form-control description" id="description" placeholder="Description">{{ old('description', $incident->description) }}</textarea>
                 </div>
@@ -138,14 +243,14 @@
             <div class="form-group">
                 <label for="ip" class="col-sm-2 control-label">IP</label>
                 <div class="col-sm-10">
-                    <input type="text" name="ip" class="form-control" id="ip" placeholder="Title" value="{{ old('ip', $incident->ip) }}">
+                    <input type="text" name="ip" class="form-control" id="ip" placeholder="IP" value="{{ old('ip', $incident->ip) }}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="user_agent" class="col-sm-2 control-label">User Agent</label>
                 <div class="col-sm-10">
-                    <input type="text" name="user_agent" class="form-control" id="user_agent" placeholder="Title" value="{{ old('user_agent', $incident->user_agent) }}">
+                    <input type="text" name="user_agent" class="form-control" id="user_agent" placeholder="User Agent" value="{{ old('user_agent', $incident->user_agent) }}">
                 </div>
             </div>
 
@@ -153,6 +258,8 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
+                    <a role="button" type="submit" class="btn btn-default pull-right" href="{{ url('/admin/incidents/' . $incident->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This Incident</a>                
+
                     <button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Edit</button>
                 </div>
             </div>

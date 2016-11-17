@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IncidentModerationDecision extends Model
+class DeletedIncidentPhoto extends Model
 {
     public function user()
     {

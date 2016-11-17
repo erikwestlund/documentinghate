@@ -16,7 +16,7 @@ class IncidentSeeder extends Seeder
          foreach($incidents as $incident) {
 
 
-            if($incident->source != 'news') {
+            if($incident->source != 'news_article') {
                 $incident->news_article_url = '';
             }
 

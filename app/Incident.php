@@ -26,12 +26,19 @@ class Incident extends Model
     ];
 
     public $incident_type_dictionary = [
-        'verbal_abuse',
         'harassment',
         'intimidation',
         'physical_violence',
-        'vandalism',
         'property_crime',
+        'vandalism',
+        'verbal_abuse',        
+        'other'
+    ];
+
+    public $sources_where_submitter_email_required = [
+        'it_happened_to_me',
+        'i_witnessed_it',
+        'someone_i_know_witnessed_it',
         'other'
     ];
 
@@ -339,6 +346,16 @@ class Incident extends Model
     public function moderation_decisions()
     {
         return $this->hasMany('App\IncidentModerationDecision');
+    }
+
+    /**
+     * Incidents have many moderation decisions.
+     * 
+     * @return Collection
+     */
+    public function deleted_photos()
+    {
+        return $this->hasMany('App\DeletedIncidentPhoto');
     }
 
     /**

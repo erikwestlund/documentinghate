@@ -27,13 +27,15 @@
         </div>
     @endif
 
+    <input type="hidden" name="previously_moderated" value="{{ is_null($incident->approved) ? 0 : 1 }}">
+
     <div class="form-group top-margin-lg">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="has-success">
                 <div class="radio">
                     <label>
                         <input name="approved" type="radio" id="approved" value="1"
-                            @if(old('approved') == 1 || $incident->approved)
+                            @if((!is_null(old('source')) && old('approved') == 1) ||  (is_null(old('source')) && $incident->approved))
                                 checked
                             @endif
                         >
@@ -45,7 +47,7 @@
                 <div class="radio">
                     <label>
                         <input name="approved" type="radio" id="disapproved" value="0"
-                            @if((!is_null(old('approved')) && old('approved') == 0) || (!is_null($incident->approved) && $incident->approved == 0))
+                            @if((!is_null(old('approved')) && old('approved') == 0) || (is_null(old('source')) && !is_null($incident->approved) && $incident->approved == 0))
                                 checked
                             @endif
                         >

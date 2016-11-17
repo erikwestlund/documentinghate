@@ -8097,6 +8097,14 @@ button.close {
 .no-left-padding {
   padding-left: 0px; }
 
+.bottom-border, .admin-incidents-nav.top {
+  border-bottom: 1px solid;
+  border-bottom-color: #e7e9ea; }
+
+.top-border, .admin-incidents-nav.bottom, div.moderate-history {
+  border-top: 1px solid;
+  border-top-color: #e7e9ea; }
+
 .top-margin-lg, .admin-incidents-nav.bottom, div.moderate-history {
   margin-top: 30px; }
 
@@ -8243,17 +8251,5 @@ div#incidents .VueTables th:nth-child(5) span {
 
 .incident-thumbnail {
   max-width: 300px; }
-
-.admin-incidents-nav.top {
-  border-bottom: 1px solid;
-  border-bottom-color: #e7e9ea; }
-
-.admin-incidents-nav.bottom {
-  border-top: 1px solid;
-  border-top-color: #e7e9ea; }
-
-div.moderate-history {
-  border-top: 1px solid;
-  border-top-color: #e7e9ea; }
 
 /*# sourceMappingURL=app.css.map */

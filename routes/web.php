@@ -46,5 +46,7 @@ Route::group(['middleware' => ['web', 'permission:moderate-incidents']], functio
 Route::group(['middleware' => ['web', 'permission:moderate-incidents']], function () {
 
     Route::patch('/admin/incidents/{incident}', 'AdminIncidentsModerateController@update');
+    Route::get('/admin/incidents/{incident}/delete', 'AdminIncidentsModerateController@delete');
+    Route::delete('/admin/incidents/{incident}', 'AdminIncidentsModerateController@destroy');
     
 });
