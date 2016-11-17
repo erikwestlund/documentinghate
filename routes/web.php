@@ -39,6 +39,7 @@ Route::group(['middleware' => ['web', 'permission:moderate-incidents']], functio
     Route::get('/admin/incidents', 'AdminIncidentsHomeController@show');
     Route::get('/admin/incidents/get', 'AdminIncidentsHomeController@getIncidents');
     Route::get('/admin/incidents/{incident}', 'AdminIncidentsModerateController@edit');
+    Route::patch('/admin/incidents/{incident}/approve', 'AdminIncidentsModerateController@approve');
 
     
 });

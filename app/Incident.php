@@ -14,18 +14,19 @@ class Incident extends Model
         'date'
     ];
 
-    protected $source_dictionary = [
-        'news' => 'News Article',
-        'happened_to_me' => 'It Happened to Me',
-        'witness' => 'I Witnessed It',
-        'someone_else_witnessed' => 'Someone Else Witnessed It',
-        'social_media' => 'Social Media',
-        'other' => 'Other'
+    protected $incident_types = [
+        'verbal_abuse',
+        'harassment',
+        'intimidation',
+        'physical_violence',
+        'vandalism',
+        'property_crime',
+        'other'
     ];
 
     public function getGoogleMapsUrlAttribute()
     {
-        return 'https://www.google.com/maps/place' . $this->google_maps_latitude . ',' . $this->google_maps_longitude;
+        return 'https://www.google.com/maps/place/' . $this->google_maps_latitude . ',' . $this->google_maps_longitude;
     }
 
     public function getSourceProcessedAttribute()
@@ -34,7 +35,16 @@ class Incident extends Model
             return $this->source_other_description;
         }
 
-        return $this->source_dictionary[$this->source];
+        return title_case(str_replace('_', ' ', $this->source));
+    }
+
+    public function getIncidentTypesAttribute()
+    {
+        $incident_types = collect($this->incident_types)->map(function($item) {
+            return $this->{$item} ? title_case(str_replace('_', ' ', $item)) : null;
+        })->toArray();
+
+        return implode(', ', array_filter($incident_types));
     }
 
     public function getLocationAttribute()

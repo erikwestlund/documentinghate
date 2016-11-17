@@ -8208,4 +8208,7 @@ legend.error {
 div#incidents .VueTables th:nth-child(6) span {
   display: none; }
 
+.incident-thumbnail {
+  max-width: 300px; }
+
 /*# sourceMappingURL=app.css.map */

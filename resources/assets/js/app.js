@@ -1,5 +1,7 @@
 require('./bootstrap');
 
+require('form-forker/dist/jquery.form-forker.min.js');
+
 var VueTables = require('vue-tables-2');
 
 Vue.use(VueTables.server, {

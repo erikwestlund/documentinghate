@@ -114,24 +114,24 @@
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
 
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.source || errors.source_url || errors.submitter_email || errors.social_media_url || errors.source_other_description }">How do you know about this incident?</legend>
+                    <legend :class="{ 'error': errors.source || errors.news_article_url || errors.submitter_email || errors.social_media_url || errors.source_other_description }">How do you know about this incident?</legend>
 
                     <label class="radio-inline">
-                        <input type="radio" name="source" v-model="source" value="news"> News article
+                        <input type="radio" name="source" v-model="source" value="news_article"> News article
                     </label>
                 
                     <label class="radio-inline">
-                        <input type="radio" name="source" v-model="source" value="happened_to_me">
+                        <input type="radio" name="source" v-model="source" value="it_happened_to_me">
                         It happened to me
                     </label>
                 
                     <label class="radio-inline">
-                        <input type="radio" name="source" v-model="source" value="witness">
-                        I witnessed it
+                        <input type="radio" name="source" v-model="source" value="i_witnessed_it">
+                        I witnessed it it
                     </label>
 
                     <label class="radio-inline">
-                        <input type="radio" name="source" v-model="source" value="someone_else_witnessed">
+                        <input type="radio" name="source" v-model="source" value="someone_i_know_witnessed_it">
                         Someone I know witnessed it
                     </label>
 
@@ -142,7 +142,7 @@
 
                     <label class="radio-inline">
                         <input type="radio" name="source" v-model="source" value="other">
-                        Somehow else
+                        Other
                     </label>
                 </div>
 
@@ -166,10 +166,10 @@
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_source_url">
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_news_article_url">
                 <div class="form-group">
-                    <input type="url" name="source_url" v-model="source_url" class="form-control" placeholder="URL of the news source">
-                    <span class="inline-alert" v-show="errors.source_url">Required</span>
+                    <input type="url" name="news_article_url" v-model="news_article_url" class="form-control" placeholder="URL of the source">
+                    <span class="inline-alert" v-show="errors.news_article_url">Required</span>
                 </div>
             </div>
 
@@ -213,7 +213,7 @@
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" name="incident_type" v-model="other_incident_type" value="other"> Other
+                        <input type="checkbox" name="incident_type" v-model="other" value="other"> Other
                     </label>
 
                     <div class="inline-alert" v-show="errors.incident_type">Required</div>
@@ -221,7 +221,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_other_incident_type">
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_other">
                 <div class="form-group">
                     <input type="text" name="other_incident_description" v-model="other_incident_description" class="form-control" placeholder="How would you classify the incident?" maxlength="255">
                     <span class="inline-alert" v-show="errors.other_incident_description">Required</span>
@@ -266,22 +266,22 @@
                     this.property_crime ||
                     this.vandalism ||
                     this.verbal_abuse ||
-                    this.other_incident_type                  
+                    this.other                  
                 ) { 
                     return true;
                 }
 
                 return false;
             },
-            show_source_url() {
-                if(this.source == 'news') {
+            show_news_article_url() {
+                if(this.source == 'news_article') {
                     return true;
                 }
 
                 return false;
             },
             show_email() {
-                if(this.source != 'news' && this.source != 'social_media' && this.source != '') {
+                if(this.source != 'news_article' && this.source != 'social_media' && this.source != '') {
                     return true;
                 }
 
@@ -300,14 +300,14 @@
                     this.physical_violence == true ||
                     this.property_crime == true ||
                     this.vandalism == true ||
-                    this.other_incident_type == true
+                    this.other == true
                 ) {
                     return true;
                 }
                 return false;
             },
-            show_other_incident_type() {
-                if(this.other_incident_type == true) {
+            show_other() {
+                if(this.other == true) {
                     return true;
                 }
                 return false;
@@ -348,10 +348,10 @@
                 form_data.append('property_crime', this.property_crime ? true : false);
                 form_data.append('vandalism', this.vandalism ? true : false);
                 form_data.append('verbal_abuse', this.verbal_abuse ? true : false);
-                form_data.append('other_incident_type', this.other_incident_type ? true : false);
-                form_data.append('other_incident_description', this.other_incident_type ? this.other_incident_description : false);
+                form_data.append('other', this.other ? true : false);
+                form_data.append('other_incident_description', this.other ? this.other_incident_description : false);
 
-                form_data.append('source_url', this.source_url);
+                form_data.append('news_article_url', this.news_article_url);
                 form_data.append('social_media_url', this.social_media_url);
                 form_data.append('submitter_email', this.submitter_email);
                 form_data.append('photo', this.photo);
@@ -384,7 +384,7 @@
                     this.location_name = '';
                     this.source = '';
                     this.source_other_description = '';
-                    this.source_url = '';
+                    this.news_article_url = '';
                     this.submitter_email = '';
                     this.social_media_url = '';
                     this.harassment = '';
@@ -393,7 +393,7 @@
                     this.property_crime = '';
                     this.vandalism = '';
                     this.verbal_abuse = '';                 
-                    this.other_incident_type = false;
+                    this.other = false;
                     this.other_incident_description = '';
                     this.photo = '';
                     this.description = '';
@@ -460,8 +460,8 @@
                     this.validates = false;
                 }
 
-                if(this.show_source_url && this.source_url == '') {
-                    this.errors.source_url = true;
+                if(this.show_news_article_url && this.news_article_url == '') {
+                    this.errors.news_article_url = true;
                     this.validates = false;
                 }
 
@@ -485,7 +485,7 @@
                     this.validates = false;
                 }
 
-                if(this.show_other_incident_type && this.other_incident_description == '') {
+                if(this.show_other && this.other_incident_description == '') {
                     this.errors.other_incident_description = true;
                     this.validates = false;
                 }
@@ -558,7 +558,7 @@
                     city: false,
                     state: false,
                     source: false,
-                    source_url: false,
+                    news_article_url: false,
                     submitter_email: false,
                     social_media_url: false,
                     source_other_description: false,
@@ -572,12 +572,12 @@
                 intimidation: false,
                 location_name: '',
                 other_incident_description: '',
-                other_incident_type: false,
+                other: false,
                 photo: '',
                 physical_violence: false,
                 property_crime: false,
                 social_media_url: '',
-                source_url: '',
+                news_article_url: '',
                 state: '',
                 submitter_email: '',
                 title: '',

@@ -27,5 +27,7 @@
     "vue-resource": "^1.0.3",
     "vue-tables-2": "^0.2.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "form-forker": "0.0.1"
+  }
 }

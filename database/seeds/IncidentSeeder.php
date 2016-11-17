@@ -17,7 +17,7 @@ class IncidentSeeder extends Seeder
 
 
             if($incident->source != 'news') {
-                $incident->source_url = '';
+                $incident->news_article_url = '';
             }
 
             if($incident->source != 'social_media') {
@@ -33,7 +33,7 @@ class IncidentSeeder extends Seeder
             }
 
 
-            if($incident->other_incident_type ==0) {
+            if($incident->other == 0) {
                 $incident->other_incident_description = '';
             }
 

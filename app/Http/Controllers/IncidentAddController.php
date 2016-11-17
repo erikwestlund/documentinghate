@@ -120,11 +120,11 @@ class IncidentAddController extends Controller
         $incident->intimidation = $request->intimidation == 'true' ? true : false;
         $incident->physical_violence = $request->physical_violence == 'true' ? true : false;
         $incident->property_crime = $request->property_crime == 'true' ? true : false;
-        $incident->other_incident_type = $request->other_incident_type == 'true' ? true : false;
-        $incident->other_incident_description = $request->other_incident_type ? $request->other_incident_description : null;
+        $incident->other = $request->other == 'true' ? true : false;
+        $incident->other_incident_description = $request->other ? $request->other_incident_description : null;
 
         $incident->source_other_description = $request->source == 'other' ? $request->source_other_description : null;
-        $incident->source_url = $request->source == 'news' ? $request->source_url : null;
+        $incident->news_article_url = $request->source == 'news' ? $request->news_article_url : null;
         $incident->social_media_url = $request->source == 'social_media' ? $request->social_media_url : null;
         $incident->submitter_email = in_array($request->source, ['witness', 'someone_else_witnessed', 'other']) ? $request->submitter_email : null;
         
@@ -154,11 +154,11 @@ class IncidentAddController extends Controller
             'city' => 'required',
             'state' => 'required',
             'description' => 'required',
-            'source_url' => 'required_if:source,news|url',
+            'news_article_url' => 'required_if:source,news|url',
             'social_medial_url' => 'required_if:source,social_media|url',
             'submitter_email' => 'required_if:source,witness|required_if:source,someone_else_witnessed|required_if:source,other|email',
             'source_other_description' => 'required_if:source,other',
-            'other_incident_description' => 'required_if:other_incident_type,true',
+            'other_incident_description' => 'required_if:other,true',
             'photo' => 'sometimes|image',
         ];
 
@@ -169,8 +169,8 @@ class IncidentAddController extends Controller
             'city.required' => 'Please indicate  in which city this took place.',
             'state.required' => 'Please indicate in which state this took place.',
             'description.required' => 'Please provide a description of the incident.',
-            'source_url.required_if' => 'Please provide a link to the news source.',
-            'source_url.url' => 'The provided news article link is invalid.',
+            'news_article_url.required_if' => 'Please provide a link to the news source.',
+            'news_article_url.url' => 'The provided news article link is invalid.',
             'social_medial_url.required_if' => 'Please provide a link to the social media post.',
             'social_medial_url.url' => 'The provided social media post URL is invalid.',
             'submitter_email.required_if' => 'Please provide a contact e-mail address.',

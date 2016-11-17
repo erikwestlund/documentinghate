@@ -26,7 +26,7 @@ class CreateIncidentsTable extends Migration
             $table->string('source');
             $table->text('source_other_description')->nullable();
 
-            $table->text('source_url')->nullable();
+            $table->text('news_article_url')->nullable();
             $table->text('social_media_url')->nullable();
 
             $table->boolean('verbal_abuse')->default(false);
@@ -35,7 +35,7 @@ class CreateIncidentsTable extends Migration
             $table->boolean('physical_violence')->default(false);
             $table->boolean('vandalism')->default(false);
             $table->boolean('property_crime')->default(false);
-            $table->string('other_incident_type')->default(false);
+            $table->boolean('other')->default(false);
             $table->string('other_incident_description')->nullable();
 
             $table->text('description');

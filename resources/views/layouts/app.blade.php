@@ -8,6 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Caching -->
+    @if(Request::is('admin/*'))
+        <meta name="turbolinks-cache-control" content="no-cache">
+    @endif
+
     <title>{{ config('site.title') }}</title>
 
     <!-- Styles -->
