@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Incident;
 use App\IncidentModerationDecision;
+
 use Illuminate\Http\Request;
 
 class AdminIncidentsModerateController extends IncidentController
@@ -30,7 +31,7 @@ class AdminIncidentsModerateController extends IncidentController
      * Approve the incdient
      * @param  Request $request 
      * @param  Int  $id      
-     * @return Redirect
+     * @return Response
      */
     public function approve(Request $request, $id)
     {
@@ -58,6 +59,11 @@ class AdminIncidentsModerateController extends IncidentController
         return back();
     }
 
+    /**
+     * Update the record.
+     * @param  Request $request 
+     * @return Response
+     */
     public function update(Request $request)
     {
        $validator = $this->getValidator($request);
