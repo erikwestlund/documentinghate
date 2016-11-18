@@ -4,6 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "url": "https://github.com/erikwestlund/matryoshka",
+            "type": "vcs"
+        }
+    ],    
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
@@ -16,7 +22,11 @@
         "pmatseykanets/artisan-beans": "^0.1.4",
         "intervention/image": "^2.3",
         "santigarcor/laratrust": "3.0.*",
-        "alexpechkarev/google-maps": "1.0.5"
+        "alexpechkarev/google-maps": "1.0.5",
+        "laracasts/matryoshka": "dev-master",
+        "barryvdh/laravel-debugbar": "^2.3",
+        "laravel/scout": "^1.1",
+        "elasticsearch/elasticsearch": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -1,0 +1,38 @@
+div.incidents h2.title {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+div.incidents img {
+    float: right;
+    max-width: 300px;
+    
+    @extend .top-padding-md;
+    @extend .bottom-padding-md;
+    @extend .left-padding-lg;
+}
+
+div.incidents div.location{
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+div.incidents div.date-source {
+    @extend .top-margin-xs;
+    @extend .bottom-margin-sm;
+}
+
+div.incidents span.date {
+    font-size: 1.25em;
+}
+
+div.incidents span.source {
+    @extend .left-padding-lg;
+    font-size: 1.125em;
+}
+
+
+div.incidents div.description {
+    @extend .top-margin-md;
+    font-size: 1.125em;
+}

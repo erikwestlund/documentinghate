@@ -2,10 +2,9 @@
     font-weight: 700;
 }
 
-.no-left-padding {
-    padding-left: 0px;
-}
-
+/**
+ * Borders
+ */
 .bottom-border {
     border-bottom: 1px solid;
     border-bottom-color: lighten($input-border, 10%);    
@@ -16,6 +15,9 @@
     border-top-color: lighten($input-border, 10%);    
 }
 
+/**
+ * Margins
+ */
 .top-margin-lg {
     margin-top: 30px;
 }
@@ -40,7 +42,25 @@
     margin-bottom: 8px;
 }
 
+.top-margin-xs {
+    margin-top: 5px;
+}
 
+.bottom-margin-xs {
+    margin-bottom: 5px;
+}
+
+
+/**
+ * Padding
+ */
+
+/* None */
+.no-left-padding {
+    padding-left: 0px;
+}
+
+/* Large */
 .top-padding-lg {
     padding-top: 30px;
 }
@@ -49,6 +69,23 @@
     padding-bottom: 30px;
 }
 
+.left-margin-lg {
+    margin-left: 30px;
+}
+
+.right-margin-lg {
+    margin-right: 30px;
+}
+
+.left-padding-lg {
+    padding-left: 30px;
+}
+
+.right-padding-lg {
+    padding-right: 30px;
+}
+
+/* Medium */
 .top-padding-md {
     padding-top: 15px;
 }
@@ -57,6 +94,23 @@
     padding-bottom: 15px;
 }
 
+.left-margin-md {
+    margin-left: 15px;
+}
+
+.right-margin-md {
+    margin-right: 15px;
+}
+
+.left-padding-md {
+    padding-left: 15px;
+}
+
+.right-padding-md {
+    padding-right: 15px;
+}
+
+/* Small */
 .top-padding-sm {
     padding-top: 8px;
 }
@@ -65,3 +119,18 @@
     padding-bottom: 8px;
 }
 
+.left-margin-sm {
+    margin-left: 8px;
+}
+
+.right-margin-sm {
+    margin-right: 8px;
+}
+
+.left-padding-sm {
+    padding-left: 8px;
+}
+
+.right-padding-sm {
+    padding-right: 8px;
+}

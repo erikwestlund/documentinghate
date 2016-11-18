@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Documenting Hate',
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,9 @@ return [
         Pvm\ArtisanBeans\ArtisanBeansServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
+        Laracasts\Matryoshka\MatryoshkaServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
 
     ],
@@ -236,6 +239,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

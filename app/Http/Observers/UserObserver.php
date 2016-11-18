@@ -9,9 +9,7 @@ class UserObserver
 {
     /**
      * Listen to the User created event.
-     *
-     * Generate a user profile.
-     *
+
      * Attach user role.
      *
      * @param  User  $user

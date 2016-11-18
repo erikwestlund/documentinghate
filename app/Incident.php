@@ -3,11 +3,15 @@
 namespace App;
 
 use DB;
+use Laravel\Scout\Searchable;
+use Laracasts\Matryoshka\Cacheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Incident extends Model
 {
 
+    use Cacheable, Searchable;
+    
     protected $guarded = [
         'id'
     ];
@@ -41,6 +45,21 @@ class Incident extends Model
         'someone_i_know_witnessed_it',
         'other'
     ];
+
+    /**
+     * Incidents have many moderation decisions.
+     * 
+     * @return Collection
+     */
+    public function deleted_photos()
+    {
+        return $this->hasMany('App\DeletedIncidentPhoto');
+    }
+
+    public function getDescriptionHtmlAttribute()
+    {
+        return nl2br($this->description);
+    }
 
     /**
      * Get a link to the lcoadtion on google maps
@@ -188,9 +207,20 @@ class Incident extends Model
      * 
      * @return String
      */
-    public function getNextIncidentUrlAttribute()
+    public function getNextIncidentAdminUrlAttribute()
     {
         return $this->next_id ? url('/admin/incidents/' . $this->next_id) : null;
+    }
+
+    /**
+     * Get the previous incident URL
+     * 
+     * @return String 
+     */
+    public function getNextIncidentUrlAttribute()
+    {
+        $slug = Incident::find($this->next_id)->slug;
+        return $this->prev_id ? url('/incidents/' . $slug) : null;
     }
 
     /**
@@ -225,7 +255,7 @@ class Incident extends Model
      * 
      * @return String
      */
-    public function getNextUnmoderatedIncidentUrlAttribute()
+    public function getNextUnmoderatedIncidentAdminUrlAttribute()
     {
         return $this->next_unmoderated_id ? url('/admin/incidents/' . $this->next_unmoderated_id) : null;
     }
@@ -309,9 +339,20 @@ class Incident extends Model
      * 
      * @return String 
      */
-    public function getPreviousIncidentUrlAttribute()
+    public function getPreviousIncidentAdminUrlAttribute()
     {
         return $this->prev_id ? url('/admin/incidents/' . $this->prev_id) : null;
+    }
+
+    /**
+     * Get the previous incident URL
+     * 
+     * @return String 
+     */
+    public function getPreviousIncidentUrlAttribute()
+    {
+        $slug = Incident::find($this->prev_id)->slug;
+        return $this->prev_id ? url('/incidents/' . $slug) : null;
     }
 
     /**
@@ -319,9 +360,44 @@ class Incident extends Model
      * 
      * @return String
      */
-    public function getPreviousUnmoderatedIncidentUrlAttribute()
+    public function getPreviousUnmoderatedIncidentAdminUrlAttribute()
     {
         return $this->prev_unmoderated_id ? url('/admin/incidents/' . $this->prev_unmoderated_id) : null;
+    }
+
+    public function getShortDescriptionHtmlAttribute()
+    {
+        return nl2br(str_limit($this->description, config('site.short_description_length')));
+    }
+
+    /**
+     * Get HTML to display the Source
+     * 
+     * @return string
+     */
+    public function getSourceHtmlAttribute()
+    {
+        if($this->source == 'news_article') {
+            return '<i class="fa fa-newspaper-o"></i> <a href="' . $this->news_article_url . '">News Article</a>';
+        }
+
+        if($this->source == 'i_witnessed_it' || $this->source == 'someone_i_know_witnessed_it') {
+            return '<i class="fa fa-eye"></i> Eye witness';
+        }
+
+        if($this->source == 'social_media') {
+
+            if(str_contains($this->social_media_url, 'facebook.com')) {
+                return '<i class="fa fa-facebook"></i> <a href="' . $this->social_media_url . '">Facebook</a>';
+            } else if(str_contains($this->social_media_url, 'twitter.com')) {
+                return '<i class="fa fa-twitter"></i> <a href="' . $this->social_media_url . '">Twitter</a>';
+            } else {
+                return '<i class="fa fa-link"></i> <a href="' . $this->social_media_url . '">Link</a>';
+            }
+
+        }
+
+        return null;
     }
 
     /**
@@ -346,16 +422,6 @@ class Incident extends Model
     public function moderation_decisions()
     {
         return $this->hasMany('App\IncidentModerationDecision');
-    }
-
-    /**
-     * Incidents have many moderation decisions.
-     * 
-     * @return Collection
-     */
-    public function deleted_photos()
-    {
-        return $this->hasMany('App\DeletedIncidentPhoto');
     }
 
     /**
@@ -400,6 +466,26 @@ class Incident extends Model
     public function scopeUnmoderated($query)
     {
         return $query->whereNull('approved');
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = [];
+
+        // Customize array...
+        $array['id'] = $this->id;
+        $array['title'] = $this->title;
+        $array['description'] = $this->description;
+        $array['city'] = $this->city;
+        $array['state'] = $this->state;
+        $array['location_name'] = $this->location_name;
+
+        return $array;
     }
 
 }

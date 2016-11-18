@@ -2,7 +2,9 @@
 
 return [
     'title' => 'Documenting Hate',
-    'entries_per_page' => 20,
+    'per_page' => 5,
+    'date_format' => 'F d, Y',
+    'short_description_length' => 300,
     'uploads' => [
         'storage' => 's3',
         'webpath' => 'https://s3.amazonaws.com/documentinghate',

@@ -1,0 +1,50 @@
+h1.title a {
+    text-decoration: none;
+}
+
+h1.title a:hover {
+    text-decoration: none;
+    color: $brand-primary;
+}
+
+h2.title{
+    font-size: 3em;
+}
+
+div.incident img {
+    float: right;
+    max-width: 500px;
+    
+    @extend .top-padding-md;
+    @extend .bottom-padding-md;
+    @extend .left-padding-lg;
+}
+
+div.incident div.location{
+    font-size: 2em;
+    font-weight: 500;
+}
+
+div.incident div.date-source {
+    @extend .top-margin-xs;
+    @extend .bottom-margin-sm;
+}
+
+div.incident span.date {
+    font-size: 1.75em;
+}
+
+div.incident span.source {
+    @extend .left-padding-lg;
+    font-size: 1.75em;
+}
+
+
+div.incident div.description {
+    @extend .top-margin-md;
+    font-size: 1.5em;
+}
+
+div.nav-menu {
+    font-size: 2em;
+}

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Incident;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    protected $per_page;
+
     /**
      * Create a new controller instance.
      *
@@ -13,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-
+        $this->per_page = config('site.per_page');
     }
 
     /**
@@ -21,8 +25,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
-        return view('home');
+        $page = $request->page ?? 1;
+        $search = $request->search ?? null;
+
+        $incidents = Incident::approved()
+            ->orderBy('date', 'desc')
+            ->paginate($this->per_page);
+
+        return view('home', compact('incidents', 'page', 'search'));
     }
 }

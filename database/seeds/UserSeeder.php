@@ -16,6 +16,8 @@ class UserSeeder extends Seeder
          foreach($users as $user) {
             $rand = rand(1,4);
             
+            $user->roles()->detach();
+
             if($rand == 1){
                 $user->attachRole(App\Role::where('name', 'superman')->first());
             } else if($rand == 2){

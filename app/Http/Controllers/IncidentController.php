@@ -20,7 +20,6 @@ class IncidentController extends Controller
 {
     protected $disk;
 
-
     protected $moderation_rules_first = [
         'approved' => 'required',
         'moderation_comment' => 'required_if:approved,0',
@@ -91,6 +90,11 @@ class IncidentController extends Controller
     protected function saveInput(Request $request, Incident $incident)
     {
         $incident->title = $request->title;
+
+        if($request->slug) {
+            $incident->slug = $request->slug;
+        }
+
         $incident->date = Carbon::parse($request->date);
         $incident->city = $request->city;
         $incident->state = $request->state;

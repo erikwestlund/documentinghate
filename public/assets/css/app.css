@@ -8094,9 +8094,9 @@ button.close {
 .bold {
   font-weight: 700; }
 
-.no-left-padding {
-  padding-left: 0px; }
-
+/**
+ * Borders
+ */
 .bottom-border, .admin-incidents-nav.top {
   border-bottom: 1px solid;
   border-bottom-color: #e7e9ea; }
@@ -8105,13 +8105,16 @@ button.close {
   border-top: 1px solid;
   border-top-color: #e7e9ea; }
 
+/**
+ * Margins
+ */
 .top-margin-lg, .admin-incidents-nav.bottom, div.moderate-history {
   margin-top: 30px; }
 
 .bottom-margin-lg, .admin-incidents-nav.top {
   margin-bottom: 30px; }
 
-.top-margin-md {
+.top-margin-md, div.incidents div.description, div.incident div.description {
   margin-top: 15px; }
 
 .bottom-margin-md {
@@ -8120,71 +8123,90 @@ button.close {
 .top-margin-sm {
   margin-top: 8px; }
 
-.bottom-margin-sm {
+.bottom-margin-sm, div.incidents div.date-source, div.incident div.date-source {
   margin-bottom: 8px; }
 
+.top-margin-xs, div.incidents div.date-source, div.incident div.date-source {
+  margin-top: 5px; }
+
+.bottom-margin-xs {
+  margin-bottom: 5px; }
+
+/**
+ * Padding
+ */
+/* None */
+.no-left-padding {
+  padding-left: 0px; }
+
+/* Large */
 .top-padding-lg {
   padding-top: 30px; }
 
 .bottom-padding-lg, .admin-incidents-nav.bottom {
   padding-bottom: 30px; }
 
-.top-padding-md, .admin-incidents-nav.bottom {
+.left-margin-lg {
+  margin-left: 30px; }
+
+.right-margin-lg {
+  margin-right: 30px; }
+
+.left-padding-lg, div.incidents img, div.incidents span.source, div.incident img, div.incident span.source {
+  padding-left: 30px; }
+
+.right-padding-lg {
+  padding-right: 30px; }
+
+/* Medium */
+.top-padding-md, .admin-incidents-nav.bottom, div.incidents img, div.incident img {
   padding-top: 15px; }
 
-.bottom-padding-md, .admin-incidents-nav.top {
+.bottom-padding-md, .admin-incidents-nav.top, div.incidents img, div.incident img {
   padding-bottom: 15px; }
 
+.left-margin-md {
+  margin-left: 15px; }
+
+.right-margin-md {
+  margin-right: 15px; }
+
+.left-padding-md {
+  padding-left: 15px; }
+
+.right-padding-md {
+  padding-right: 15px; }
+
+/* Small */
 .top-padding-sm {
   padding-top: 8px; }
 
 .bottom-padding-sm {
   padding-bottom: 8px; }
 
+.left-margin-sm {
+  margin-left: 8px; }
+
+.right-margin-sm {
+  margin-right: 8px; }
+
+.left-padding-sm {
+  padding-left: 8px; }
+
+.right-padding-sm {
+  padding-right: 8px; }
+
 html, body {
   background-color: #fff;
   color: #636b6f;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 100;
   height: 100vh;
   margin: 0; }
 
-.full-height {
-  height: 100vh; }
-
-.flex-center {
-  -webkit-box-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center; }
-
-.position-ref {
-  position: relative; }
-
-.top-right {
-  position: absolute;
-  right: 10px;
-  top: 18px; }
-
-.content {
-  text-align: center; }
-
-.title {
-  font-size: 84px; }
-
-.links > a {
-  color: #636b6f;
-  padding: 0 25px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .1rem;
-  text-decoration: none;
-  text-transform: uppercase; }
-
-.m-b-md {
-  margin-bottom: 30px; }
+h1.title {
+  font-size: 5em;
+  color: #3097D1; }
 
 .bold {
   font-weight: bold; }
@@ -8251,5 +8273,56 @@ div#incidents .VueTables th:nth-child(5) span {
 
 .incident-thumbnail {
   max-width: 300px; }
+
+div.incidents h2.title {
+  font-size: 2em;
+  font-weight: 700; }
+
+div.incidents img {
+  float: right;
+  max-width: 300px; }
+
+div.incidents div.location {
+  font-size: 1.5em;
+  font-weight: 500; }
+
+div.incidents span.date {
+  font-size: 1.25em; }
+
+div.incidents span.source {
+  font-size: 1.125em; }
+
+div.incidents div.description {
+  font-size: 1.125em; }
+
+h1.title a {
+  text-decoration: none; }
+
+h1.title a:hover {
+  text-decoration: none;
+  color: #3097D1; }
+
+h2.title {
+  font-size: 3em; }
+
+div.incident img {
+  float: right;
+  max-width: 500px; }
+
+div.incident div.location {
+  font-size: 2em;
+  font-weight: 500; }
+
+div.incident span.date {
+  font-size: 1.75em; }
+
+div.incident span.source {
+  font-size: 1.75em; }
+
+div.incident div.description {
+  font-size: 1.5em; }
+
+div.nav-menu {
+  font-size: 2em; }
 
 /*# sourceMappingURL=app.css.map */

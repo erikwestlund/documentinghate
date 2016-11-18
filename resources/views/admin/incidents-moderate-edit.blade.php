@@ -50,6 +50,13 @@
             </div>
 
             <div class="form-group">
+                <label for="slug" class="col-sm-2 control-label">Slug</label>
+                <div class="col-sm-10">
+                    <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" value="{{ old('slug', $incident->slug) }}">
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="date" class="col-sm-2 control-label">Date</label>
                 <div class="col-sm-10">
                     <input type="text" name="date" class="date form-control" id="date" placeholder="Date" value="{{ old('date', $incident->date) }}">
