@@ -3,12 +3,12 @@
 @section('content')
 
     <div class="container incident">
-        <div class="col-sm-12 text-center bottom-margin-lg">
+        <div class="col-sm-12 text-center bottom-margin-md incident-title">
             <h1 class="title"><a href="{{ url('/') }}">{{ config('site.title') }}</a></h1>
         </div>
 
         @cache($incident)
-            <div class="col-sm-12 text-center bottom-margin-lg top-padding-md top-border">
+            <div class="col-sm-12 text-center bottom-margin-lg top-padding-md top-border incident-meta">
                 <h2 class="title">{{ $incident->title }}</h2>
             </div>
 
@@ -39,18 +39,18 @@
 
         <div class="col-sm-12 top-margin-lg nav-menu">
 
-            <div class="col-sm-3 text-left">
+            <div class="col-sm-3 text-left prev">
                 @if($incident->previous_incident_url)
-                    <i class="fa fa-arrow-circle-left"></i> <a class="left-margin-sm" href="{{ $incident->previous_incident_url }}">Previous</a>
+                    <a class="left-margin-sm" href="{{ $incident->previous_incident_url }}"> <i class="fa fa-arrow-circle-left"></i> <span class="nav-text">Previous</span></a>
                 @endif
             </div>
 
-            <div class="col-sm-6 text-center">
-                <i class="fa fa-home"></i> <a class="left-margin-sm" href="{{ url('/') }}">Home</a>
+            <div class="col-sm-6 text-center home">
+                <a class="left-margin-sm" href="{{ url('/') }}"><i class="fa fa-home"></i> <span class="nav-text">Home</span></a>
             </div>
 
-            <div class="col-sm-3 text-right">
-                <a class="right-margin-sm" href="{{ $incident->next_incident_url }}">Next</a> <i class="fa fa-arrow-circle-right"></i>
+            <div class="col-sm-3 text-right next">
+                <a class="right-margin-sm" href="{{ $incident->next_incident_url }}"><span class="nav-text">Next</span> <i class="fa fa-arrow-circle-right"></i></a> 
             </div>
 
         </div>

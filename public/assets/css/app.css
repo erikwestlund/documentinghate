@@ -8206,7 +8206,7 @@ html, body {
 
 h1.title {
   font-size: 5em;
-  color: #3097D1; }
+  color: #454b4d; }
 
 .bold {
   font-weight: bold; }
@@ -8295,6 +8295,21 @@ div.incidents span.source {
 div.incidents div.description {
   font-size: 1.125em; }
 
+@media only screen and (max-width: 500px) {
+  div.incidents h1.title {
+    font-size: 2em;
+    font-weight: 700; }
+  div.incidents img {
+    width: 100%;
+    float: none;
+    padding: 0 0 0 0; }
+  div.incidents span.date {
+    display: block; }
+  div.incidents span.source {
+    display: block;
+    padding-left: 0;
+    padding-top: 8px; } }
+
 h1.title a {
   text-decoration: none; }
 
@@ -8324,5 +8339,62 @@ div.incident div.description {
 
 div.nav-menu {
   font-size: 2em; }
+
+div.nav-menu a:hover {
+  text-decoration: none; }
+
+@media only screen and (max-width: 500px) {
+  div.incident div.incident-title {
+    margin-bottom: 15px; }
+  div.incident h1.title {
+    font-size: 2em;
+    font-weight: 700; }
+  div.incident h2.title {
+    text-align: left;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 8px; }
+  div.incident img {
+    width: 100%;
+    float: none;
+    padding: 0 0 0 0; }
+  div.incident div.incident-meta {
+    margin: 15px 0;
+    padding-top: 0; }
+  div.incident div.location {
+    text-align: left;
+    font-size: 1.25em;
+    font-weight: 500; }
+  div.incident div.date-source {
+    margin: 0;
+    padding: 8px 0; }
+  div.incident span.date {
+    text-align: left;
+    display: block;
+    font-size: 1.125em; }
+  div.incident span.source {
+    text-align: left;
+    display: block;
+    padding: 0;
+    font-size: 1.125em; }
+  div.incident div.description {
+    font-size: 1.25em; }
+  div.incident div.nav-menu {
+    font-size: 1.15em; }
+  div.nav-menu div.prev,
+  div.nav-menu div.home,
+  div.nav-menu div.next {
+    display: inline-block;
+    padding: 0; }
+  div.nav-menu div.prev {
+    float: left; }
+  div.nav-menu div.prev span {
+    padding-left: 8px; }
+  div.nav-menu div.home {
+    display: none; }
+  div.nav-menu div.next {
+    float: right; }
+  div.nav-menu div.next span {
+    padding-right: 8px; } }
 
 /*# sourceMappingURL=app.css.map */

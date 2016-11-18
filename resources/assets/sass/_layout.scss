@@ -9,5 +9,5 @@ html, body {
 
 h1.title {
     font-size: 5em;
-    color: $brand-primary;
+    color: darken($text-color, 12.5%);
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container incidents">
-        <div class="col-sm-12 text-center bottom-margin-lg">
+        <div class="col-sm-12 text-center bottom-margin-md">
             <h1 class="title">{{ config('site.title') }}</h1>
         </div>
 

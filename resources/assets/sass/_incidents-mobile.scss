@@ -1,0 +1,22 @@
+@media only screen and (max-width: 500px) {
+    div.incidents h1.title {
+        font-size: 2em;
+        font-weight: 700;
+    }
+
+    div.incidents img {
+        width: 100%;
+        float: none;
+        padding: 0 0 0 0;
+    }
+
+    div.incidents span.date{
+        display: block;
+    }
+
+    div.incidents span.source {
+        display: block;
+        padding-left: 0;
+        padding-top: 8px;
+    }
+}
