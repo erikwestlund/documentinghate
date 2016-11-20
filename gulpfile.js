@@ -22,6 +22,9 @@ gulp.task('copyfiles', function() {
     gulp.src('node_modules/font-awesome/fonts/**')
         .pipe(gulp.dest('public/build/assets/fonts'));
 
+    gulp.src('node_modules/leaflet/dist/images/**')
+        .pipe(gulp.dest('public/build/assets/css/images'));
+
 });
 
 

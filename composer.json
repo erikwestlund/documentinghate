@@ -16,7 +16,6 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "predis/predis": "^1.1",
         "pda/pheanstalk": "^3.1",
-        "anhskohbo/no-captcha": "^2.1",
         "laracasts/flash": "^2.0",
         "guzzlehttp/guzzle": "^6.2",
         "pmatseykanets/artisan-beans": "^0.1.4",

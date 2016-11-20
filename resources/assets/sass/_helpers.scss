@@ -18,6 +18,25 @@
 /**
  * Margins
  */
+
+/* None */
+.top-margin-none {
+    margin-top: 0px;
+}
+
+.bottom-margin-none {
+    margin-bottom: 0px;
+}
+
+.right-margin-none {
+    margin-right: 0px;
+}
+
+.left-margin-none {
+    margin-left: 0px;
+}
+
+/* Large */
 .top-margin-lg {
     margin-top: 30px;
 }
@@ -26,6 +45,15 @@
     margin-bottom: 30px;
 }
 
+.right-margin-lg {
+    margin-right: 30px;
+}
+
+.left-margin-lg {
+    margin-left: 30px;
+}
+
+/* Medium */
 .top-margin-md {
     margin-top: 15px;
 }
@@ -34,6 +62,15 @@
     margin-bottom: 15px;
 }
 
+.right-margin-md {
+    margin-right: 15px;
+}
+
+.left-margin-md {
+    margin-left: 15px;
+}
+
+/* Small */
 .top-margin-sm {
     margin-top: 8px;
 }
@@ -42,6 +79,15 @@
     margin-bottom: 8px;
 }
 
+.right-margin-sm {
+    margin-right: 8px;
+}
+
+.left-margin-sm {
+    margin-left: 8px;
+}
+
+/* Extra small */
 .top-margin-xs {
     margin-top: 5px;
 }
@@ -50,12 +96,27 @@
     margin-bottom: 5px;
 }
 
+.right-margin-xs {
+    margin-right: 5px;
+}
+
+.left-margin-xs {
+    margin-left: 5px;
+}
 
 /**
  * Padding
  */
 
 /* None */
+.top-padding-none {
+    padding-top: 0px;
+}
+
+.bottom-padding-none {
+    padding-bottom: 0px;
+}
+
 .no-left-padding {
     padding-left: 0px;
 }

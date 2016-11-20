@@ -1,3 +1,7 @@
 .bold {
     font-weight: bold;
 }
+
+i.fa {
+    @extend .right-margin-xs;
+}

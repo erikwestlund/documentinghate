@@ -27,13 +27,26 @@ class HomeController extends Controller
      */
     public function show(Request $request)
     {
-        $page = $request->page ?? 1;
-        $search = $request->search ?? null;
+        $search = $request->search;
 
-        $incidents = Incident::approved()
-            ->orderBy('date', 'desc')
-            ->paginate($this->per_page);
+        if($search) {
+            $incidents = Incident::search($search)
+                ->where('approved', 1);
+        } else {
+            $incidents = Incident::approved()
+                ->orderBy('date', 'desc');
+        }
 
-        return view('home', compact('incidents', 'page', 'search'));
+        $incidents = $incidents->paginate($this->per_page);
+        $geo_data = $this->getAllGeoData($search);
+
+        return view('home', compact('incidents', 'geo_data', 'search'));
+    }
+
+    protected function getAllGeoData()
+    {
+        return Incident::approved()
+            ->select('id', 'date', 'title', 'slug', 'location_name', 'city', 'state', 'latitude', 'longitude')
+            ->get();
     }
 }

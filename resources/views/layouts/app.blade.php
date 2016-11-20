@@ -24,6 +24,20 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    @if(Request::is('add'))
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+    @endif
+    
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/documentinghate/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/documentinghate/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/documentinghate/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://s3.amazonaws.com/documentinghate/favicon/manifest.json">
+    <link rel="mask-icon" href="https://s3.amazonaws.com/documentinghate/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">    
+    <meta property="og:image" content="https://s3.amazonaws.com/documentinghate/images/square.png"/>
+    <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/square.png" />    
 </head>
 <body>
     <div id="app">
@@ -41,5 +55,6 @@
             @stack('scripts_ready')
         });
     </script>
+
 </body>
 </html>

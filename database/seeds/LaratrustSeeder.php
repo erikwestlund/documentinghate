@@ -77,6 +77,12 @@ class LaratrustSeeder extends Seeder
             'description' => 'Can moderate incidents.',
         ]);
 
+        $receive_emails = \App\Permission::firstOrCreate([
+            'name' => 'receive-moderation-request-emails',
+            'display_name' => 'Receive Moderation Request Emails',
+            'description' => 'Can receive moderation requests for incident submission emails.',
+        ]);
+
 
         // attach the permissions to the roles
         $superman_role->attachPermission($access_admin_permission);
@@ -96,6 +102,10 @@ class LaratrustSeeder extends Seeder
         $superman_role->attachPermission($moderate_incidents);
         $administrator_role->attachPermission($moderate_incidents);
         $moderator_role->attachPermission($moderate_incidents);
+
+        $superman_role->attachPermission($receive_emails);
+        $administrator_role->attachPermission($receive_emails);
+        $moderator_role->attachPermission($receive_emails);
 
         // generate the users
 

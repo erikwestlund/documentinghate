@@ -47,8 +47,8 @@ class CreateIncidentsTable extends Migration
             $table->text('thumbnail_photo_url')->nullable();
 
             $table->string('google_maps_place_id')->nullable();
-            $table->decimal('google_maps_latitude', 10, 8)->nullable();
-            $table->decimal('google_maps_longitude', 11, 8)->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
 
             $table->text('submitter_email')->nullable();          
             $table->ipAddress('ip');

@@ -38,7 +38,7 @@ class IncidentAddController extends IncidentController
         $incident = $this->createIncident($request);
 
         $status = 'success';
-        $message = $this->success_message;
+        $message = $this->success_message . ' <a href="' . url('/') . '">Go Back</a>.';
         return compact('status', 'message');
     } 
 

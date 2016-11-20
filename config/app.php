@@ -187,7 +187,6 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
 
-
     ],
 
     /*

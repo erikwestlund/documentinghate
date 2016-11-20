@@ -41,6 +41,8 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                           <li><a href="{{ url('/admin/users/' . Auth::user()->id ) }}"> <i class="fa fa-user"></i> My User Settings</a></li>
+
                             <li>
                                 <a href="{{ url('/logout') }}"
                                     onclick="event.preventDefault();

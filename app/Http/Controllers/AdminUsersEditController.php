@@ -53,6 +53,8 @@ class AdminUsersEditController extends Controller
             $user->syncRoles([$new_role->id]);
         }
 
+        $user->moderation_notification_frequency = $request->moderation_notification_frequency;
+
         $user->save();
 
         flash()->success('User successfully updated.');

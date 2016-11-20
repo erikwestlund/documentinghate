@@ -11,3 +11,12 @@ h1.title {
     font-size: 5em;
     color: darken($text-color, 12.5%);
 }
+
+h1.title a {
+    text-decoration: none;
+}
+
+h2.title {
+    font-size: 2em;
+}
+

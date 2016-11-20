@@ -43,8 +43,8 @@ class GeocodeIncidentLocation implements ShouldQueue
         }
 
         $this->incident->google_maps_place_id = $geocoded_data->place_id ?? null;
-        $this->incident->google_maps_latitude = $geocoded_data->geometry->location->lat ?? null;
-        $this->incident->google_maps_longitude = $geocoded_data->geometry->location->lng ?? null;
+        $this->incident->latitude = $geocoded_data->geometry->location->lat ?? null;
+        $this->incident->longitude = $geocoded_data->geometry->location->lng ?? null;
         $this->incident->save();
 
     }

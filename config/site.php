@@ -19,5 +19,9 @@ return [
     ],
     'admin' => [
         'per_page' => 25
-    ] 
+    ],
+    'mapbox' => [
+        'project' => 'edbwestlund.25eem9o7',
+        'token' => 'pk.eyJ1IjoiZWRid2VzdGx1bmQiLCJhIjoiY2l2cGRiNWFtMDFlcjJ6cDUxMjIyY2t6eiJ9.ZPA1uCdn-rkxJmK-0obPwQ'
+    ],
 ];

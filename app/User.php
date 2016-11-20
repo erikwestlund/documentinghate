@@ -28,4 +28,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public $notification_levels = [
+        'every_submission',
+        'twice_a_day',
+        'daily',
+        'weekly',
+        'never'
+    ];
 }

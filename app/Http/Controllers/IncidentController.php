@@ -181,7 +181,7 @@ class IncidentController extends Controller
     {
         $rules = [
             'title' => 'required',
-            'date' => 'required|date',
+            'date' => 'required|date|before:' . Carbon::tomorrow(),
             'source' => 'required',
             'city' => 'required',
             'state' => 'required',
@@ -197,6 +197,7 @@ class IncidentController extends Controller
         $messages = [
             'title.required' => 'Please provide a one line incident description.',
             'date.required' => 'Please indicate when this incident took place.',
+            'date.before' => 'Please select a date before today.',
             'source.required' => 'Please indicate how you know about this incident.',
             'city.required' => 'Please indicate  in which city this took place.',
             'state.required' => 'Please indicate in which state this took place.',
@@ -218,7 +219,6 @@ class IncidentController extends Controller
             $rules = array_merge($this->moderation_rules_when_revisited, $rules);
             $messages = array_merge($this->moderation_messages_when_revisited, $messages);
         }
-
 
         return  Validator::make($request->all(), $rules, $messages);
     }

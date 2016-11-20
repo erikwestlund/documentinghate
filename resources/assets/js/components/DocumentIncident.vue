@@ -242,9 +242,16 @@
                 </div>
             </div>
 
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+                <div class="form-group">
+                    <div class="g-recaptcha" id="recaptcha" data-sitekey="6LcZbQwUAAAAAF5wPG9wMWITftEoIXuf0HyomVOE"></div>
+                    <span class="inline-alert" v-show="errors.g_recaptcha_response">Verify you are not a robot.</span>            
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <button type="submit" class="btn btn-success" @click="validateForm($event)"><div v-html="document_submit_html"></div></button>
+                    <button type="submit" id="submit-button" class="btn btn-success" @click="validateForm($event)"><div v-html="document_submit_html"></div></button>
                 </div>
             </div>
         </form>
@@ -255,7 +262,7 @@
 
     export default {
         props: {
-
+            'data-sitekey': '6LcZbQwUAAAAAF5wPG9wMWITftEoIXuf0HyomVOE',
         },
         computed: {
             incident_type_checked() {
@@ -357,6 +364,7 @@
                 form_data.append('photo', this.photo);
                 
                 form_data.append('description', this.description);
+                form_data.append('g-recaptcha-response', this.g_recaptcha_response);
 
                 this.$http.post('/add', form_data).then((response) => {
 
@@ -438,6 +446,8 @@
             validateForm(event) {
                 event.preventDefault();
 
+                this.g_recaptcha_response = document.getElementsByName('g-recaptcha-response')[0].value;
+
                 this.resetErrors();
 
                 if(this.title == '') {
@@ -500,6 +510,11 @@
                     this.validates = false;
                 }
 
+                if(this.g_recaptcha_response == '') {
+                    this.errors.g_recaptcha_response = true;
+                    this.validates = false;
+                }
+
                 if (! this.validates) {
                     this.alert_type = 'danger';
                     this.alert_message = 'We need some more information. Please see below.';
@@ -511,7 +526,7 @@
                 } 
 
                 this.addIncident();
-            },
+            }
         },
         data() {
             return {
@@ -565,8 +580,10 @@
                     incident_type: false,
                     other_incident_description: false,
                     description: false,
+                    g_recaptcha_response: false,
                 },
                 harassment: false,
+                g_recaptcha_response: '',
                 source: '',
                 source_other_description: '',
                 intimidation: false,

@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('bootstrap-datepicker');
+require('leaflet');
 
 var Turbolinks = require("turbolinks")
 

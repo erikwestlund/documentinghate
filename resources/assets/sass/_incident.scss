@@ -1,13 +1,11 @@
-h1.title a {
-    text-decoration: none;
-}
 
-h1.title a:hover {
+div.incident h1.title a:hover {
     text-decoration: none;
     color: $brand-primary;
 }
 
-h2.title{
+
+div.incident h2.title{
     font-size: 3em;
 }
 

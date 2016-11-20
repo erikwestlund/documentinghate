@@ -1,9 +1,27 @@
-div.incidents h2.title {
-    font-size: 2em;
-    font-weight: 700;
+/**
+ * Map
+ */
+.map {
+    height: 400px;
+    width: 100%;
+
 }
 
-div.incidents img {
+.map-border {
+    border: 1px solid $input-border;
+}
+
+/**
+ * Search results display text
+ */
+div.incidents span.showing-search-results {
+    font-size: 1.25em;
+    font-weight: 100;
+}
+/**
+ * Styling
+ */
+div.incidents img.incident-image {
     float: right;
     max-width: 300px;
     

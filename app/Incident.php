@@ -104,6 +104,11 @@ class Incident extends Model
         return implode(', ', $elements);
     }
 
+    public function getUrlAttribute()
+    {
+        return url('/incidents/' . $this->slug);
+    }
+
     /**
      * Get the maximum approved incident ID
      * 
@@ -367,7 +372,13 @@ class Incident extends Model
 
     public function getShortDescriptionHtmlAttribute()
     {
-        return nl2br(str_limit($this->description, config('site.short_description_length')));
+        $html = nl2br(str_limit($this->description, config('site.short_description_length')));
+
+        if(strlen($this->description) >= config('site.short_description_length')) {
+            $html .= ' <a href="' . $this->url . '">Read More</a>';
+        }
+
+        return $html;
     }
 
     /**
@@ -482,8 +493,9 @@ class Incident extends Model
         $array['title'] = $this->title;
         $array['description'] = $this->description;
         $array['city'] = $this->city;
-        $array['state'] = $this->state;
-        $array['location_name'] = $this->location_name;
+        $array['state'] = config('constants.us_states')[$this->state];
+        $array['state_abbrev'] = $this->state;
+        $array['approved'] = $this->approved;
 
         return $array;
     }

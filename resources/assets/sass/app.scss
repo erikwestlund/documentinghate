@@ -8,20 +8,32 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome.scss";
+@import "node_modules/leaflet/dist/leaflet";
 
 @import "helpers";
 @import "layout";
 @import "text";
 @import "alerts";
 @import "forms";
+@import "forms-mobile";
 @import "tables";
 
 @import "tables-incidents-admin";
 @import "incidents-admin";
 
+@import "add-incident";
+
 @import "incidents";
-@import "incidents-mobile";
 
 @import "incident";
-@import "incident-mobile";
 
+@import "mini-menu";
+
+/**
+ * Mobile
+ */
+@import "mobile";
+@import "mini-menu-mobile";
+@import "add-incident-mobile";
+@import "incidents-mobile";
+@import "incident-mobile";
