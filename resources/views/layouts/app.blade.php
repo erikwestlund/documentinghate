@@ -40,7 +40,9 @@
     <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/fb.png" />
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">    
+    <meta property="og:image:height" content="630">
+    <meta property="og:description" content="Documenation Hate is a crowd-sourced repository of incidents of hate in the United States." />
+
 </head>
 <body>
     <div id="app">
