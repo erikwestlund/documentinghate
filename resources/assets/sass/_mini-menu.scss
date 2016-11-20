@@ -1,0 +1,60 @@
+/**
+ * Documenting the incident
+ */
+.mini-menu div.document-incident {
+    font-size: 1.225em;
+    position: relative;
+    top: 6px;
+}
+
+.mini-menu div.document-incident a {
+    color: darken($text-color, 6.25%);
+}
+
+.mini-menu div.document-incident a:hover {
+    text-decoration: none;
+    color: $text-color;
+
+    color: darken($text-color, 12.5%);
+}
+
+/**
+ * Search
+ */
+.search {
+    display: inline-block;
+    font-weight: 100;
+    font-size: 1.125em;
+}
+
+.search-icon {
+    position: relative;
+    z-index: 1;
+    left: -30px;
+    top: 0px;
+    color: #7B7B7B;
+    cursor:pointer;
+    width: 0;
+    margin-right: 0px !important;
+    font-weight: 100;
+}
+
+/**
+ * Rememering love
+ */
+.mini-menu div.remembering-love {
+    font-size: 1.225em;
+    position: relative;
+    top: 6px;
+}
+
+.mini-menu div.remembering-love a {
+    color: $brand-danger;
+}
+
+.mini-menu div.remembering-love a:hover {
+    text-decoration: none;
+    color: $brand-danger;
+
+    color: lighten($brand-danger, 6.25%);
+}

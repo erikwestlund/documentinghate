@@ -1,0 +1,16 @@
+@media only screen and (max-width: 500px) {
+
+    select.state {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    label.radio-inline,
+    label.checkbox-inline {
+        display: block;
+    }
+
+    .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline {
+        margin-left: 0px;
+    }
+}
