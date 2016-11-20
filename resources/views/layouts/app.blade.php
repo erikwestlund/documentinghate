@@ -36,11 +36,11 @@
     <link rel="manifest" href="https://s3.amazonaws.com/documentinghate/favicon/manifest.json">
     <link rel="mask-icon" href="https://s3.amazonaws.com/documentinghate/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">    
-    <meta property="og:image" content="https://s3.amazonaws.com/documentinghate/images/square.png"/>
-    <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/square.png" />
+    <meta property="og:image" content="https://s3.amazonaws.com/documentinghate/images/fb.png"/>
+    <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/fb.png" />
     <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="500">
-    <meta property="og:image:height" content="500">    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">    
 </head>
 <body>
     <div id="app">
