@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Documenting Hate',
+    'description' => 'Documenting Hate is a crowd-sourced repository of incidents of hate in the United States',
     'per_page' => 5,
     'date_format' => 'F d, Y',
     'short_description_length' => 300,

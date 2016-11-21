@@ -43,7 +43,7 @@
         <meta property="og:url" content="{{ $incident->url }}">
     @else
         <meta property="og:tot;e" content="{{ config('site.title') }}">
-        <meta property="og:description" content="Documenation Hate is a crowd-sourced repository of incidents of hate in the United States.">
+        <meta property="og:description" content="{{ config('site.description') }}">
         <meta property="og:url" content="{{ env('APP_URL') }}">
     @endif
 
