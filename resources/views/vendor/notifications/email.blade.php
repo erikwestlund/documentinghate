@@ -158,6 +158,7 @@ $style = [
                                                                 {{ $actionUrl }}
                                                             </a>
                                                         </p>
+
                                                     </td>
                                                 </tr>
                                             </table>
@@ -169,7 +170,7 @@ $style = [
                     </tr>
 
                     <!-- Footer -->
-                    <tr>
+{{--                     <tr>
                         <td>
                             <table style="{{ $style['email-footer'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
                                 <tr>
@@ -183,7 +184,7 @@ $style = [
                                 </tr>
                             </table>
                         </td>
-                    </tr>
+                    </tr> --}}
                 </table>
             </td>
         </tr>

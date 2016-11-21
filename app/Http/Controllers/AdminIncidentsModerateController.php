@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+
 use Auth;
 use Validator;
 use App\Incident;
 use App\IncidentModerationDecision;
+use App\Notifications\IncidentSubmissionApproved;
 
 use Illuminate\Http\Request;
 
@@ -172,8 +175,23 @@ class AdminIncidentsModerateController extends IncidentController
      */
     protected function saveApprovalDecision(Request $request, Incident $incident)
     {
-        $incident->approved = $request->approved;
-        $incident->save();
+        $old_decision = $incident->approved;
+        $new_decision = $request->approved;
+
+        $decision_changed = $old_decision != $new_decision;
+
+        if($decision_changed) {
+            $incident->approved = $request->approved;
+        }
+
+        // if the decision changed to approve, and no prior email sent, email the submitter.
+        if($decision_changed && $new_decision == true && ! $incident->approval_email_sent) {
+            $incident->notify(new IncidentSubmissionApproved($incident));
+            $incident->approval_email_sent = Carbon::now();
+        }
+
+        $incident->save();            
+
     }
 
     /**

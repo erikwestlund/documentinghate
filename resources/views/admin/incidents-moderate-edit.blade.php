@@ -255,8 +255,6 @@
                 </div>
             </div>
 
-
-
             <div class="form-group">
                 <label for="approval_email_sent" class="col-sm-2 control-label">Approval Email Sent</label>
                 <div class="col-sm-10">

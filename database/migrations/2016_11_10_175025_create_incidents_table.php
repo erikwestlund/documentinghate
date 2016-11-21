@@ -58,7 +58,7 @@ class CreateIncidentsTable extends Migration
             $table->string('user_agent')->nullable();
 
             $table->boolean('approved')->nullable();
-            $table->text('slug')->nullable();
+            $table->text('slug');
 
             $table->softDeletes();
             $table->timestamps();

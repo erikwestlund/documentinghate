@@ -20,7 +20,6 @@ class IncidentObserver
      */
     public function created(Incident $incident)
     {
-        // notify users who choose to receive emails that a new incident has been submitted        
         $this->notifySubscribedModerators($incident);
     }
 
@@ -39,9 +38,18 @@ class IncidentObserver
         }
     }
 
+    /**
+     * Notify moderators subscribed to per-incident notification.
+     * 
+     * @param  Incident $incident 
+     * @return Void
+     */
     protected function notifySubscribedModerators(Incident $incident)
     {
-        $users_to_notify = User::subcribedToNewIncidents();
+        $users_to_notify = User::moderators()
+            ->receivesNotificationEverySubmission()
+            ->get();
+
         Notification::send($users_to_notify, new IncidentSubmitted($incident));
     }
 

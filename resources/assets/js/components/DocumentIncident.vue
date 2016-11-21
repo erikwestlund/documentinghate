@@ -245,7 +245,7 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
-                    <label class="checkbox-inline" for="incident_type_3">
+                    <label class="checkbox-inline" for="email_when_approved">
                         <input type="checkbox" name="email_when_approved" id="email_when_approved" v-model="email_when_approved" value="true"> E-mail me when this incident is approved
                     </label>
                 </div>

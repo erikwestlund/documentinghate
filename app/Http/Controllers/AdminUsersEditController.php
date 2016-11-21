@@ -63,11 +63,22 @@ class AdminUsersEditController extends Controller
     public function edit($id, Request $request)
     {   
         $user = User::find($id);
+
         $this->isAuthorizedToEdit($user, $request->user());
 
         $roles = Role::all();
 
         return view('admin.users-edit', compact('user', 'roles'));
+    }
+
+    /**
+     * Show the form to edit tje ;pgged om iser.
+     * @param  Request $request 
+     * @return View
+     */
+    public function editMe(Request $request)
+    {   
+        return $this->edit($request->user()->id, $request);
     }
 
     /**

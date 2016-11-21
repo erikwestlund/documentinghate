@@ -2,15 +2,13 @@
 
 namespace App\Notifications;
 
-use App\User;
 use App\Incident;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class IncidentSubmitted extends Notification implements ShouldQueue
+class IncidentSubmissionApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -46,15 +44,12 @@ class IncidentSubmitted extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(config('site.title')  . ' Submission: '. $this->incident->title)
+            ->subject(config('site.title')  . ' Submission Approved')
             ->greeting('Hi,')
-            ->line('An incident was submitted to ' . config('site.title') . ':')
-            ->line('Title:')
+            ->line('We have approved the incident you submitted to ' . config('site.title') . ':')
             ->line('"' . $this->incident->title . '"')
-            ->line('Description:')
-            ->line(str_limit($this->incident->description, config('site.short_description_length')))
-            ->action('Moderate It', $this->incident->admin_url)
-            ->line('Thank you for helping us out.');
+            ->action('View It', $this->incident->url)
+            ->line('Thank you for your help.');
     }
 
     /**

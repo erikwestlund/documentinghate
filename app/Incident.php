@@ -60,6 +60,15 @@ class Incident extends Model
         return $this->hasMany('App\DeletedIncidentPhoto');
     }
 
+    /**
+     * Get the url to moderate the incident
+     * @return string
+     */
+    public function getAdminUrlAttribute()
+    {
+        return url('/admin/incidents/' . $this->id);
+    }
+
     public function getDescriptionHtmlAttribute()
     {
         return nl2br($this->description);
@@ -106,24 +115,6 @@ class Incident extends Model
         $elements[] = $this->state;
 
         return implode(', ', $elements);
-    }
-
-    /**
-     * Get the incident view url
-     * @return string
-     */
-    public function getUrlAttribute()
-    {
-        return url('/incidents/' . $this->slug);
-    }
-
-    /**
-     * Get the url to moderate the incident
-     * @return string
-     */
-    public function getAdminUrlAttribute()
-    {
-        return url('/admin/incidents/' . $this->id);
     }
 
     /**
@@ -443,6 +434,15 @@ class Incident extends Model
     }
 
     /**
+     * Get the incident view url
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return url('/incidents/' . $this->slug);
+    }
+
+    /**
      * Incidents have many moderation decisions.
      * 
      * @return Collection
@@ -450,6 +450,16 @@ class Incident extends Model
     public function moderation_decisions()
     {
         return $this->hasMany('App\IncidentModerationDecision');
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->submitter_email;
     }
 
     /**

@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public $notification_levels = [
         'every_submission',
-        'twice_a_day',
+        'twice_daily',
         'daily',
         'weekly',
         'never'
@@ -65,6 +65,18 @@ class User extends Authenticatable
                 ->orWhere('name', 'moderator');
         });
     }
+
+    /**
+     * Scope a query to include those who get notified of all new incidents
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeReceivesNotificationEverySubmission($query)
+    {
+        return $query->where('moderation_notification_frequency', 'every_submission');
+    }
+
 
     /**
      * Scope a query to include those getting daily notifications

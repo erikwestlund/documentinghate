@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/admin/users', 'AdminUsersHomeController@show');
+    Route::get('/admin/users/me', 'AdminUsersEditController@editMe');
     Route::get('/admin/users/{user}', 'AdminUsersEditController@edit');
     Route::patch('/admin/users/{user}', 'AdminUsersEditController@update');
     Route::get('/admin/users/{user}/delete', 'AdminUsersEditController@delete');

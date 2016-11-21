@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AdminHomeController extends Controller
 {
+    /**
+     * Show the admin dashboard.
+     * 
+     * @return View|redirect
+     */
     protected function show()
     {
         if(Auth::user()->can('moderate-incidents')){

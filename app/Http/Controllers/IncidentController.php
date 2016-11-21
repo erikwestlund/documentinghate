@@ -216,7 +216,7 @@ class IncidentController extends Controller
 
         $incident->description = $request->description;
 
-        $incident->submitter_email = in_array($request->source, $incident->sources_where_submitter_email_required) ? $request->submitter_email : null;
+        $incident->submitter_email = $request->submitter_email;
         $incident->email_when_approved = $request->email_when_approved == 'true' ? true : false;
 
         if($request->approval_email_sent) {

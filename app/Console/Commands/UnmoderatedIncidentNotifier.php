@@ -9,7 +9,7 @@ use App\Notifications\UnmoderatedIncidentsNotification;
 
 use Illuminate\Console\Command;
 
-class UnmoderatedIncidentNotifier extends Command
+class UnmoderatedIncidentNotifier extends Command 
 {
     protected $frequencies;
     protected $group;
@@ -63,8 +63,6 @@ class UnmoderatedIncidentNotifier extends Command
 
         $users_to_notify = $this->getUsersToNotify($this->group);
 
-        dd($users_to_notify);
-
         Notification::send($users_to_notify, new UnmoderatedIncidentsNotification);
     }
 
@@ -73,13 +71,14 @@ class UnmoderatedIncidentNotifier extends Command
     {
         $users = User::moderators();
 
-        if($group == 'twice_a_day') {
+        if($group == 'twice_daily') {
             $users = $users->receivesTwiceDailyNotifications();
         } else if($group == 'daily') {
             $users = $users->receivesDailyNotifications();
+        } else if($group == 'weekly') {
+            $users = $users->receivesWeeklyNotifications();
         }
 
-        return User::where('moderation_notification_frequency', $group)
-            ->get();
+        return $users->get();
     }
 }
