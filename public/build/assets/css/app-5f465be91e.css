@@ -8843,6 +8843,9 @@ h2.title {
 .bold {
   font-weight: bold; }
 
+div.alert-success a {
+  color: #184c6a; }
+
 .close-alert {
   cursor: pointer; }
 
@@ -8900,6 +8903,11 @@ legend.error {
 
 .VueTables a i {
   margin-right: 5px; }
+
+div.social-buttons {
+  position: fixed;
+  right: 20px;
+  top: 125px; }
 
 div#incidents .VueTables th:nth-child(6) span {
   display: none; }

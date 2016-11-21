@@ -1,3 +1,7 @@
+div.alert-success a{
+    color: darken($brand-primary, 25%);
+}
+
 .close-alert {
     cursor: pointer;    
 }

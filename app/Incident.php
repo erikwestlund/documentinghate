@@ -399,9 +399,9 @@ class Incident extends Model
         if($this->source == 'social_media') {
 
             if(str_contains($this->social_media_url, 'facebook.com')) {
-                return '<i class="fa fa-facebook"></i> <a href="' . $this->social_media_url . '">Facebook</a>';
+                return '<i class="fa fa-facebook-square"></i> <a href="' . $this->social_media_url . '">Facebook</a>';
             } else if(str_contains($this->social_media_url, 'twitter.com')) {
-                return '<i class="fa fa-twitter"></i> <a href="' . $this->social_media_url . '">Twitter</a>';
+                return '<i class="fa fa-twitter-square"></i> <a href="' . $this->social_media_url . '">Twitter</a>';
             } else {
                 return '<i class="fa fa-link"></i> <a href="' . $this->social_media_url . '">Link</a>';
             }
