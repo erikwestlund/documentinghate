@@ -184,7 +184,7 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         Laracasts\Matryoshka\MatryoshkaServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
 
     ],

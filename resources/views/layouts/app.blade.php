@@ -8,14 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Caching -->
-    @if(Request::is('admin/*'))
-        <meta name="turbolinks-cache-control" content="no-cache">
-    @endif
-
     <title>{{ config('site.title') }}</title>
 
-    <!-- Styles -->
     <link rel="stylesheet" href="{{ elixir('assets/css/app.css')}}">
 
     <!-- Scripts -->
@@ -65,17 +59,30 @@
         @yield('content')
     </div>
 
-    <script src="{{ elixir('assets/js/app.js') }}"></script>
+    
+    @if(Request::is('admin/*'))
+        <script src="{{ elixir('assets/js/admin.js') }}"></script>
 
-    <script>
-        $('div.alert').not('.alert-danger').delay(3000).fadeOut(350);
-    </script>
+        <script>
+            $('div.alert').not('.alert-danger').delay(3000).fadeOut(350);
+        </script>
 
-    <script>
-        $(document).ready(function(){
-            @stack('scripts_ready')
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                @stack('scripts_ready')
+            });
+        </script>
+    @else
+        <script src="{{ elixir('assets/js/app.js') }}"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {                 
+                @stack('scripts_ready')
+            });
+        </script>
+    @endif
+
+
 
 </body>
 </html>

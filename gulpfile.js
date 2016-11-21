@@ -41,10 +41,13 @@ elixir(mix => {
     });
 
     mix.sass('resources/assets/sass/app.scss', 'public/assets/css/app.css');
+
     mix.webpack('resources/assets/js/app.js', 'public/assets/js/app.js');
+    mix.webpack('resources/assets/js/admin.js', 'public/assets/js/admin.js');
 
     mix.version([
+        'assets/css/app.css',
         'assets/js/app.js',
-        'assets/css/app.css'
+        'assets/js/admin.js',
     ]);
 });
