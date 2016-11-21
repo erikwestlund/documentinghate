@@ -8,6 +8,9 @@
         </div>
 
         @cache($incident)
+
+            @include('_social-buttons', ['url' => $incident-> url , 'title' => $incident->title ])
+
             <div class="col-sm-12 text-center bottom-margin-lg top-padding-md top-border incident-meta">
                 <h2 class="title">{{ $incident->title }}</h2>
             </div>
