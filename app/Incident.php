@@ -5,12 +5,16 @@ namespace App;
 use DB;
 use Laravel\Scout\Searchable;
 use Laracasts\Matryoshka\Cacheable;
+use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Incident extends Model
 {
 
-    use Cacheable, Searchable;
+    use Cacheable;
+    use Notifiable;
+    use Searchable;
     
     protected $guarded = [
         'id'
@@ -104,9 +108,22 @@ class Incident extends Model
         return implode(', ', $elements);
     }
 
+    /**
+     * Get the incident view url
+     * @return string
+     */
     public function getUrlAttribute()
     {
         return url('/incidents/' . $this->slug);
+    }
+
+    /**
+     * Get the url to moderate the incident
+     * @return string
+     */
+    public function getAdminUrlAttribute()
+    {
+        return url('/admin/incidents/' . $this->id);
     }
 
     /**

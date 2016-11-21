@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 
 class IncidentController extends Controller
 {
+
     protected $disk;
 
     protected $moderation_rules_first = [
@@ -81,59 +82,10 @@ class IncidentController extends Controller
     }
 
     /**
-     * Save changes to the incident.
-     * 
-     * @param  Request  $request  
+     * Delete a photo from an incident.
      * @param  Incident $incident 
      * @return Void
      */
-    protected function saveInput(Request $request, Incident $incident)
-    {
-        $incident->title = $request->title;
-
-        if($request->slug) {
-            $incident->slug = $request->slug;
-        }
-
-        $incident->date = Carbon::parse($request->date);
-        $incident->city = $request->city;
-        $incident->state = $request->state;
-        $incident->location_name = $request->location_name;
-        
-        $incident->source = $request->source;
-
-        foreach($incident->incident_type_dictionary as $incident_type) {
-            $incident->{$incident_type} = $request->{$incident_type} == 'true' ? true : false;
-        }
-
-        $incident->other_incident_description = $request->other == 'true' ? $request->other_incident_description : '';
-
-        $incident->source_other_description = $request->source == 'other' ? $request->source_other_description : null;
-        $incident->news_article_url = $request->source == 'news_article' ? $request->news_article_url : null;
-        $incident->social_media_url = $request->source == 'social_media' ? $request->social_media_url : null;
-        $incident->submitter_email = in_array($request->source, $incident->sources_where_submitter_email_required) ? $request->submitter_email : null;
-        
-        $incident->vandalism = $request->vandalism == 'true' ? true : false;
-        $incident->verbal_abuse = $request->verbal_abuse == 'true' ? true : false;
-
-        if($request->remove_photo == 'true') {
-            $this->deletePhoto($incident);
-        }
-
-        $incident->description = $request->description;
-        $incident->ip = $request->ip ? $request->ip : $request->ip();
-        $incident->user_agent = $request->user_agent ? $request->user_agent : $request->header('User-Agent');
-
-        $incident->save();
-
-        dispatch(new GeocodeIncidentLocation($incident));
-
-        $photo = $request->file('photo');
-        if($photo) {
-            $this->addUploadedPhoto($photo, $incident);
-        }      
-    }
-
     protected function deletePhoto(Incident $incident)
     {
         $deleted_incident_photo = new DeletedIncidentPhoto;
@@ -187,7 +139,7 @@ class IncidentController extends Controller
             'state' => 'required',
             'description' => 'required',
             'news_article_url' => 'required_if:source,news_article|url',
-            'submitter_email' => $this->getSubmitterEmailValidationRules(),
+            'submitter_email' => 'required|email',
             'social_media_url' => 'required_if:source,social_media|url',
             'source_other_description' => 'required_if:source,other',
             'other_incident_description' => 'required_if:other,true',
@@ -206,7 +158,7 @@ class IncidentController extends Controller
             'news_article_url.url' => 'The provided news article link is invalid.',
             'social_media_url.required_if' => 'Please provide a link to the social media post.',
             'social_media_url.url' => 'The provided social media post URL is invalid.',
-            'submitter_email.required_if' => 'Please provide a contact e-mail address.',
+            'submitter_email.required' => 'Please provide your e-mail address.',
             'submitter_email.email' => 'The provided email e-mail address is invalid.',
             'source_other_description.required_if' => 'Please describe how you learned about this incident.',
             'other_incident_description.required_if' => 'Please describe how you would classify this incident.',
@@ -222,4 +174,66 @@ class IncidentController extends Controller
 
         return  Validator::make($request->all(), $rules, $messages);
     }
+
+    /**
+     * Save changes to the incident.
+     * 
+     * @param  Request  $request  
+     * @param  Incident $incident 
+     * @return Void
+     */
+    protected function saveInput(Request $request, Incident $incident)
+    {
+        $incident->title = $request->title;
+
+        if($request->slug) {
+            $incident->slug = $request->slug;
+        }
+
+        $incident->date = Carbon::parse($request->date);
+        $incident->city = $request->city;
+        $incident->state = $request->state;
+        $incident->location_name = $request->location_name;
+        
+        $incident->source = $request->source;
+
+        foreach($incident->incident_type_dictionary as $incident_type) {
+            $incident->{$incident_type} = $request->{$incident_type} == 'true' ? true : false;
+        }
+
+        $incident->other_incident_description = $request->other == 'true' ? $request->other_incident_description : '';
+
+        $incident->source_other_description = $request->source == 'other' ? $request->source_other_description : null;
+        $incident->news_article_url = $request->source == 'news_article' ? $request->news_article_url : null;
+        $incident->social_media_url = $request->source == 'social_media' ? $request->social_media_url : null;
+        
+        $incident->vandalism = $request->vandalism == 'true' ? true : false;
+        $incident->verbal_abuse = $request->verbal_abuse == 'true' ? true : false;
+
+        if($request->remove_photo == 'true') {
+            $this->deletePhoto($incident);
+        }
+
+        $incident->description = $request->description;
+
+        $incident->submitter_email = in_array($request->source, $incident->sources_where_submitter_email_required) ? $request->submitter_email : null;
+        $incident->email_when_approved = $request->email_when_approved == 'true' ? true : false;
+
+        if($request->approval_email_sent) {
+            $incident->approval_email_sent = $request->approval_email_sent;
+        }
+
+        $incident->ip = $request->ip ? $request->ip : $request->ip();
+        $incident->user_agent = $request->user_agent ? $request->user_agent : $request->header('User-Agent');
+
+        $incident->save();
+
+        dispatch(new GeocodeIncidentLocation($incident));
+
+        $photo = $request->file('photo');
+        if($photo) {
+            $this->addUploadedPhoto($photo, $incident);
+        }      
+    }
+
 }

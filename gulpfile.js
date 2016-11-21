@@ -36,14 +36,19 @@ elixir(mix => {
                 test: /\.jsx?$/, 
                 loader: 'babel',
                 exclude: /node_modules(?!\/(vue-tables-2|vue-pagination-2))/
-            }]
-        }
+            }],    
+        },
+        resolve: {
+            alias: {
+                jquery: __dirname + '/node_modules/jquery/dist/jquery'
+            },
+        },         
     });
 
     mix.sass('resources/assets/sass/app.scss', 'public/assets/css/app.css');
 
     mix.webpack('resources/assets/js/app.js', 'public/assets/js/app.js');
-    mix.webpack('resources/assets/js/admin.js', 'public/assets/js/admin.js');
+   mix.webpack('resources/assets/js/admin.js', 'public/assets/js/admin.js');
 
     mix.version([
         'assets/css/app.css',

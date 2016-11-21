@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 
 class AdminHomeController extends Controller
 {
     protected function show()
     {
-        return view('admin.home');
+        if(Auth::user()->can('moderate-incidents')){
+            return redirect('/admin/incidents');
+        } else {
+            return view('admin.home');
+        }
     }
 }

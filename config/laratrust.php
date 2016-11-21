@@ -102,12 +102,12 @@ return [
     | Available: abort|redirect
     |--------------------------------------------------------------------------
     */
-    'middleware_handling' => 'abort',
+    'middleware_handling' => 'redirect',
 
     /*
     |--------------------------------------------------------------------------
     | Parameter passed to the middleware_handling method
     |--------------------------------------------------------------------------
     */
-    'middleware_params' => '403',
+    'middleware_params' => 'login',
 ];

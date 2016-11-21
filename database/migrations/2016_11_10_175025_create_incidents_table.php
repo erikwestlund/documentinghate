@@ -50,12 +50,15 @@ class CreateIncidentsTable extends Migration
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
 
-            $table->text('submitter_email')->nullable();          
+            $table->text('submitter_email');
+            $table->boolean('email_when_approved')->default(false);
+            $table->datetime('approval_email_sent')->nullable();
+
             $table->ipAddress('ip');
             $table->string('user_agent')->nullable();
 
             $table->boolean('approved')->nullable();
-            $table->text('slug');
+            $table->text('slug')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

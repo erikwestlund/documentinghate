@@ -25,7 +25,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-Route::group(['middleware' => ['auth', 'permission:edit-users']], function () {
+
+Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/admin/users', 'AdminUsersHomeController@show');
     Route::get('/admin/users/{user}', 'AdminUsersEditController@edit');
@@ -35,7 +36,7 @@ Route::group(['middleware' => ['auth', 'permission:edit-users']], function () {
     
 });
 
-Route::group(['middleware' => ['web', 'permission:moderate-incidents']], function () {
+Route::group(['middleware' => ['auth', 'permission:moderate-incidents']], function () {
 
     Route::get('/admin/incidents', 'AdminIncidentsHomeController@show');
     Route::get('/admin/incidents/get', 'AdminIncidentsHomeController@getIncidents');
@@ -44,7 +45,7 @@ Route::group(['middleware' => ['web', 'permission:moderate-incidents']], functio
 
 });
 
-Route::group(['middleware' => ['web', 'permission:moderate-incidents']], function () {
+Route::group(['middleware' => ['auth', 'permission:moderate-incidents']], function () {
 
     Route::patch('/admin/incidents/{incident}', 'AdminIncidentsModerateController@update');
     Route::get('/admin/incidents/{incident}/delete', 'AdminIncidentsModerateController@delete');

@@ -85,6 +85,7 @@ class AdminIncidentsModerateController extends IncidentController
 
     /**
      * Update the record.
+     * 
      * @param  Request $request 
      * @return Response
      */

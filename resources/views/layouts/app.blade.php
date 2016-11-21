@@ -60,7 +60,7 @@
     </div>
 
     
-    @if(Request::is('admin/*'))
+    @if(Request::is('admin*'))
         <script src="{{ elixir('assets/js/admin.js') }}"></script>
 
         <script>

@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <legend :class="{ 'error': errors.title }">Describe the incident in one line</legend>
 
-                    <input type="text" name="title" v-model="title" class="form-control" maxlength="255">
+                    <input type="text" name="title" v-model="title" class="form-control" maxlength="255" placeholder="A one-line description of the incident">
 
                     <span class="inline-alert" v-show="errors.title">Required</span>
                 </div>
@@ -157,15 +157,6 @@
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_email">
-                <div class="form-group">
-                    <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" maxlength="255">
-
-                    <div class="top-margin-sm">Sometimes we need additional information to make sure our listings are complete and accurate. We will never share your email address.</div>
-                    <span class="inline-alert" v-show="errors.submitter_email">Required</span>
-                </div>
-            </div>
-
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_news_article_url">
                 <div class="form-group">
                     <input type="url" name="news_article_url" v-model="news_article_url" class="form-control" placeholder="URL of the source">
@@ -179,7 +170,6 @@
                     <span class="inline-alert" v-show="errors.social_media_url">Required</span>
                 </div>
             </div>
-
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
 
@@ -242,6 +232,26 @@
                 </div>
             </div>
 
+            <div class="col-sm-offset-1 col-sm-9">
+                <div class="form-group">
+                    <legend :class="{ 'error': errors.submitter_email }">Your email</legend>
+
+                    <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" maxlength="255">
+
+                    <div class="top-margin-sm">Sometimes we need additional information to make sure our listings are complete and accurate. We will never share your email address.</div>
+                    <span class="inline-alert" v-show="errors.submitter_email">Required</span>
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
+                <div class="form-group">
+                    <label class="checkbox-inline" for="incident_type_3">
+                        <input type="checkbox" name="email_when_approved" id="email_when_approved" v-model="email_when_approved" value="true"> E-mail me when this incident is approved
+                    </label>
+                </div>
+            </div>
+
+
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
                     <div class="g-recaptcha" id="recaptcha" data-sitekey="6LcZbQwUAAAAAF5wPG9wMWITftEoIXuf0HyomVOE"></div>
@@ -282,13 +292,6 @@
             },
             show_news_article_url() {
                 if(this.source == 'news_article') {
-                    return true;
-                }
-
-                return false;
-            },
-            show_email() {
-                if(this.source != 'news_article' && this.source != 'social_media' && this.source != '') {
                     return true;
                 }
 
@@ -360,10 +363,13 @@
 
                 form_data.append('news_article_url', this.news_article_url);
                 form_data.append('social_media_url', this.social_media_url);
-                form_data.append('submitter_email', this.submitter_email);
                 form_data.append('photo', this.photo);
                 
                 form_data.append('description', this.description);
+
+                form_data.append('submitter_email', this.submitter_email);
+                form_data.append('email_when_approved', this.email_when_approved ? true : false);
+
                 form_data.append('g-recaptcha-response', this.g_recaptcha_response);
 
                 this.$http.post('/add', form_data).then((response) => {
@@ -475,7 +481,7 @@
                     this.validates = false;
                 }
 
-                if(this.show_email && this.submitter_email == '') {
+                if(this.submitter_email == '') {
                     this.errors.submitter_email = true;
                     this.validates = false;
                 }
@@ -567,6 +573,7 @@
                 document_submit_default_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
                 document_submit_processing_html: '<i class="fa fa-spinner fa-spin fa-fw"></i> Submitting',
                 document_submit_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
+                email_when_approved: '',
                 errors: {
                     title: false,
                     date: false,

@@ -28,10 +28,17 @@ class IncidentSeeder extends Seeder
                 $incident->source_other_description = '';
             }
 
-            if($incident->source == 'news' || $incident->source == 'social_media') {
-                $incident->submitter_email = '';
+            if(!$incident->email_when_approved) {
+                $incident->approval_email_sent = null;
+            }
+            
+            if(!$incident->approved) {
+                $incident->approval_email_sent = null;
             }
 
+            if($incident->approval_email_sent && rand(1,2) == 1) {
+                $incident->approval_email_sent = null;
+            }
 
             if($incident->other == 0) {
                 $incident->other_incident_description = '';

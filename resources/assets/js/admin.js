@@ -1,5 +1,7 @@
 require('./bootstrap-admin');
-require('bootstrap-datepicker');
+// require('bootstrap-datepicker');
+$.fn.datetimepicker = require('eonasdan-bootstrap-datetimepicker');
+
 require('form-forker/dist/jquery.form-forker.min.js');
 
 var VueTables = require('vue-tables-2');

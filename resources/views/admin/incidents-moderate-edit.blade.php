@@ -34,12 +34,16 @@
                     }
                 }); 
 
-                $('.date').datepicker({
-                    format: 'yyyy-mm-dd'
+                $('.date').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+
+                $('.approval_email_sent').datetimepicker({
+                    format: 'YYYY-MM-DD hh:mm:ss'
                 });
              @endpush
 
-            {{ method_field('PATCH') }}            
+            {{ method_field('PATCH') }} 
             {{ csrf_field() }}
 
             <div class="form-group">
@@ -140,21 +144,6 @@
                 </div>
             </div>
 
-            {{-- Show only if a source where a submitter email is required is chosen --}}
-            <div class="form-group
-
-                @if((!is_null(old('source')) && ! in_array(old('source'), $incident->sources_where_submitter_email_required)) || 
-                    (is_null(old('source')) && ! in_array($incident->source, $incident->sources_where_submitter_email_required)))
-                    hidden
-                @endif
-
-            " data-parent-branch="source" data-show-on-value="it_happened_to_me,i_witnessed_it,someone_i_know_witnessed_it,other">
-                <label for="submitter_email" class="col-sm-2 control-label">Submitter E-mail</label>
-                <div class="col-sm-10">
-                    <input type="text" name="submitter_email" class="form-control" id="submitter_email" placeholder="Submitter Email Address" value="{{ old('submitter_email', $incident->submitter_email) }}">
-                </div>
-            </div>
-
             {{-- Show only if social media is chosen --}}
             <div class="form-group
 
@@ -244,6 +233,34 @@
                 <label for="description" class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
                     <textarea name="description" class="form-control description" id="description" placeholder="Description">{{ old('description', $incident->description) }}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="submitter_email" class="col-sm-2 control-label">Submitter E-mail</label>
+                <div class="col-sm-10">
+                    <input type="text" name="submitter_email" class="form-control" id="submitter_email" placeholder="Submitter Email Address" value="{{ old('submitter_email', $incident->submitter_email) }}">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="email_when_approved" id="email_when_approved" value="true"
+                                @if(old('email_when_approved', $incident->email_when_approved))
+                                    checked
+                                @endif
+                            >
+
+                            Email user when approved
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="approval_email_sent" class="col-sm-2 control-label">Approval Email Sent</label>
+                <div class="col-sm-10">
+                    <input type="text" name="approval_email_sent" class="approval_email_sent form-control" id="approval_email_sent" placeholder="Approval Email Sent" value="{{ old('approval_email_sent', $incident->approval_email_sent) }}">
                 </div>
             </div>
 

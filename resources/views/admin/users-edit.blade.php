@@ -47,22 +47,24 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="role" class="col-sm-3 control-label">Role</label>
-                <div class="col-sm-9">
-                    <select name="role" class="form-control" id="role">
-                        @if(old('role'))
-                            @foreach($roles as $role)
-                                <option value="{{ $role->name }}"{{ old('role') == $role->name ? ' selected' : '' }}>{{ $role->display_name }}</option>
-                            @endforeach
-                        @else
-                            @foreach($roles as $role)
-                                <option value="{{ $role->name }}"{{ $user->hasRole($role->name) ? ' selected' : '' }}>{{ $role->display_name }}</option>
-                            @endforeach                        
-                        @endif
-                    </select>
+            @permission('edit-users')
+                <div class="form-group">
+                    <label for="role" class="col-sm-3 control-label">Role</label>
+                    <div class="col-sm-9">
+                        <select name="role" class="form-control" id="role">
+                            @if(old('role'))
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}"{{ old('role') == $role->name ? ' selected' : '' }}>{{ $role->display_name }}</option>
+                                @endforeach
+                            @else
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}"{{ $user->hasRole($role->name) ? ' selected' : '' }}>{{ $role->display_name }}</option>
+                                @endforeach                        
+                            @endif
+                        </select>
+                    </div>
                 </div>
-            </div>
+            @endpermission
 
             @permission('receive-moderation-request-emails')
                 <div class="form-group">
