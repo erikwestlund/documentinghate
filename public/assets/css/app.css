@@ -9070,8 +9070,11 @@ div.nav-menu a:hover {
 @media only screen and (max-width: 500px) {
   div.incidents img.incident-image {
     width: 100%;
+    max-width: 100%;
     float: none;
-    padding: 0 0 0 0; }
+    padding: 0 0 0 0;
+    display: block;
+    margin: 5px auto; }
   div.incidents span.date {
     display: block; }
   div.incidents span.source {
