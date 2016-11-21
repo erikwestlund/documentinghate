@@ -2,7 +2,7 @@
     <div id="map" class="map"></div>
     @push('scripts_ready')
         // set up the map
-        incident_map = new L.Map('map');
+        window.incident_map = new L.Map('map');
 
         // create the tile layer with correct attribution
         var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
