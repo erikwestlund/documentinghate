@@ -45,9 +45,8 @@ div.incident div.description {
 
 div.nav-menu {
     font-size: 2em;
+    @extend .bottom-margin-lg;
 }
-
-
 
 div.nav-menu a:hover{
     text-decoration: none;
