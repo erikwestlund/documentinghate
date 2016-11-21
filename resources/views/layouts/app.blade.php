@@ -35,13 +35,25 @@
     <link rel="icon" type="image/png" href="https://s3.amazonaws.com/documentinghate/favicon/favicon-16x16.png" sizes="16x16">
     <link rel="manifest" href="https://s3.amazonaws.com/documentinghate/favicon/manifest.json">
     <link rel="mask-icon" href="https://s3.amazonaws.com/documentinghate/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="theme-color" content="#ffffff">    
-    <meta property="og:image" content="https://s3.amazonaws.com/documentinghate/images/fb.png"/>
-    <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/fb.png" />
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:description" content="Documenation Hate is a crowd-sourced repository of incidents of hate in the United States." />
+    <meta name="theme-color" content="#ffffff">
+
+    @if(Request::is('incidents/*') && $incident->photo_url)
+        <meta property="og:image" content="{{ $incident->photo_url }}"/>
+        <meta property="og:image:secure_url" content="{{ $incident->photo_url }}" />
+    @else
+        <meta property="og:image" content="https://s3.amazonaws.com/documentinghate/images/fb.png"/>
+        <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/fb.png" />
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+    @endif
+
+    @if(Request::is('incidents/*'))
+        <meta property="og:description" content="{{ str_limit($incident->description, 300) }}" />        
+    @else
+        <meta property="og:description" content="Documenation Hate is a crowd-sourced repository of incidents of hate in the United States." />
+    @endif
+
 
 </head>
 <body>
