@@ -1,6 +1,6 @@
 <template>
     <div class="col-sm-12">
-        <form method="POST" class="form-horizontal" action="/add" enctype="multipart/form-data" id="incident_form" @submit.prevent="validateForm">
+        <form method="POST" class="form-horizontal" action="/add" enctype="multipart/form-data" id="act_form" @submit.prevent="validateForm">
             <input type="hidden" name="_token" id="_token" value="">
 
             <transition name="fade">
@@ -15,9 +15,9 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" >
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.title }">Describe the incident in one line</legend>
+                    <legend :class="{ 'error': errors.title }">Describe the act in one line</legend>
 
-                    <input type="text" name="title" v-model="title" class="form-control" maxlength="255" placeholder="A one-line description of the incident">
+                    <input type="text" name="title" v-model="title" class="form-control" maxlength="255" placeholder="A one-line description of the act">
 
                     <span class="inline-alert" v-show="errors.title">Required</span>
                 </div>
@@ -25,12 +25,12 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group datepicker">
-                    <legend :class="{ 'error': errors.date }">When did the incident happen?</legend>
+                    <legend :class="{ 'error': errors.date }">When did the act happen?</legend>
 
                     <input type="hidden" name="date" id="date" value="">
                     <date-picker :date="date" :option="date_options" :limit="date_limit" ></date-picker>
     
-                    <span class="inline-alert" v-show="errors.date">An incident date is required</span>
+                    <span class="inline-alert" v-show="errors.date">An act date is required</span>
 
                 </div>
             </div>
@@ -114,7 +114,7 @@
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
 
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.source || errors.news_article_url || errors.submitter_email || errors.social_media_url || errors.source_other_description }">How do you know about this incident?</legend>
+                    <legend :class="{ 'error': errors.source || errors.news_article_url || errors.submitter_email || errors.social_media_url || errors.source_other_description }">How do you know about this act?</legend>
 
                     <label class="radio-inline">
                         <input type="radio" name="source" v-model="source" value="news_article"> News article
@@ -152,7 +152,7 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_source_other_description">
                 <div class="form-group">
-                    <input type="text" name="source_other_description" v-model="source_other_description" class="form-control" placeholder="Describe how you know about this incident" maxlength="255">
+                    <input type="text" name="source_other_description" v-model="source_other_description" class="form-control" placeholder="Describe how you know about this act" maxlength="255">
                     <span class="inline-alert" v-show="errors.source_other_description">Required</span>            
                 </div>
             </div>
@@ -171,53 +171,6 @@
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
-
-                <div class="form-group">
-                    <legend :class="{ 'error': errors.incident_type || errors.other_incident_description }">What kind of incident was it?</legend>
-
-                    <p>Check all that apply</p>
-
-                    <label class="checkbox-inline" for="incident_type_2">
-                        <input type="checkbox" name="incident_type" id="incident_type_2" v-model="harassment" value="harassment"> Harassment
-                    </label>
-
-                    <label class="checkbox-inline" for="incident_type_3">
-                        <input type="checkbox" name="incident_type" id="incident_type_3" v-model="intimidation" value="intimidation"> Intimidation
-                    </label>
-                
-                    <label class="checkbox-inline" for="incident_type_4">
-                        <input type="checkbox" name="incident_type" id="incident_type_4" v-model="physical_violence" value="physical_violence"> Physical Violence
-                    </label>
-
-                    <label class="checkbox-inline" for="incident_type_6">
-                        <input type="checkbox" name="incident_type" id="incident_type_6" v-model="property_crime" value="property_crime"> Property Crime
-                    </label>
-
-                    <label class="checkbox-inline" for="incident_type_5">
-                        <input type="checkbox" name="incident_type" id="incident_type_5" v-model="vandalism" value="vandalism"> Vandalism
-                    </label>
-
-                    <label class="checkbox-inline" for="incident_type_1">
-                        <input type="checkbox" name="incident_type" id="incident_type_1" v-model="verbal_abuse" value="verbal_abuse"> Verbal Abuse
-                    </label>
-
-                    <label class="checkbox-inline">
-                        <input type="checkbox" name="incident_type" v-model="other" value="other"> Other
-                    </label>
-
-                    <div class="inline-alert" v-show="errors.incident_type">Required</div>
-
-                </div>
-            </div>
-
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_other">
-                <div class="form-group">
-                    <input type="text" name="other_incident_description" v-model="other_incident_description" class="form-control" placeholder="How would you classify the incident?" maxlength="255">
-                    <span class="inline-alert" v-show="errors.other_incident_description">Required</span>
-                </div>
-            </div>
-
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_photo_upload">
                 <div class="form-group">
                     <input type="file" name="photo" @change="onFileChange">
@@ -226,7 +179,7 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
-                    <legend :class="{ 'error': errors.description }">Describe the incident</legend>
+                    <legend :class="{ 'error': errors.description }">Describe the act</legend>
                     <textarea class="form-control description" v-model="description" name="description"></textarea>
                     <span class="inline-alert" v-show="errors.description">Required</span>
                 </div>
@@ -246,7 +199,7 @@
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
                     <label class="checkbox-inline" for="email_when_approved">
-                        <input type="checkbox" name="email_when_approved" id="email_when_approved" v-model="email_when_approved" value="true"> E-mail me when this incident is approved
+                        <input type="checkbox" name="email_when_approved" id="email_when_approved" v-model="email_when_approved" value="true"> E-mail me when this act is approved
                     </label>
                 </div>
             </div>
@@ -254,7 +207,7 @@
 
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
-                    <div class="g-recaptcha" id="recaptcha" data-sitekey="6LcZbQwUAAAAAF5wPG9wMWITftEoIXuf0HyomVOE"></div>
+                    <div class="g-recaptcha" id="recaptcha" data-sitekey="6LcfqQwUAAAAAKNQAMlRWKIo2dn8S0tjpYSs-IBy"></div>
                     <span class="inline-alert" v-show="errors.g_recaptcha_response">Verify you are not a robot.</span>            
                 </div>
             </div>
@@ -272,24 +225,9 @@
 
     export default {
         props: {
-            'data-sitekey': '6LcZbQwUAAAAAF5wPG9wMWITftEoIXuf0HyomVOE',
+            'data-sitekey': '6LcfqQwUAAAAAKNQAMlRWKIo2dn8S0tjpYSs-IBy',
         },
         computed: {
-            incident_type_checked() {
-
-                if(this.harassment ||
-                    this.intimidation  ||
-                    this.physical_violence ||
-                    this.property_crime ||
-                    this.vandalism ||
-                    this.verbal_abuse ||
-                    this.other                  
-                ) { 
-                    return true;
-                }
-
-                return false;
-            },
             show_news_article_url() {
                 if(this.source == 'news_article') {
                     return true;
@@ -316,12 +254,6 @@
                 }
                 return false;
             },
-            show_other() {
-                if(this.other == true) {
-                    return true;
-                }
-                return false;
-            },
             show_social_media_url() {
                 if(this.source == 'social_media') {
                     return true;
@@ -337,7 +269,7 @@
             },
         },
         methods: {
-            addIncident() {
+            addAct() {
 
                 this.document_submit_html = this.document_submit_processing_html;
 
@@ -351,15 +283,6 @@
                 
                 form_data.append('source', this.source);
                 form_data.append('source_other_description', this.source_other_description);
-
-                form_data.append('harassment', this.harassment ? true : false);
-                form_data.append('intimidation', this.intimidation ? true : false);
-                form_data.append('physical_violence', this.physical_violence ? true : false);
-                form_data.append('property_crime', this.property_crime ? true : false);
-                form_data.append('vandalism', this.vandalism ? true : false);
-                form_data.append('verbal_abuse', this.verbal_abuse ? true : false);
-                form_data.append('other', this.other ? true : false);
-                form_data.append('other_incident_description', this.other ? this.other_incident_description : false);
 
                 form_data.append('news_article_url', this.news_article_url);
                 form_data.append('social_media_url', this.social_media_url);
@@ -401,14 +324,6 @@
                     this.news_article_url = '';
                     this.submitter_email = '';
                     this.social_media_url = '';
-                    this.harassment = '';
-                    this.intimidation = '';
-                    this.physical_violence = '';
-                    this.property_crime = '';
-                    this.vandalism = '';
-                    this.verbal_abuse = '';                 
-                    this.other = false;
-                    this.other_incident_description = '';
                     this.photo = '';
                     this.description = '';
                     window.scrollTo(0, 0);
@@ -496,16 +411,6 @@
                     this.validates = false;
                 }
 
-                if(! this.incident_type_checked) {
-                    this.errors.incident_type = true;
-                    this.validates = false;
-                }
-
-                if(this.show_other && this.other_incident_description == '') {
-                    this.errors.other_incident_description = true;
-                    this.validates = false;
-                }
-
                 if(this.state == '') {
                     this.errors.state = true;
                     this.validates = false;
@@ -531,7 +436,7 @@
                     return false;
                 } 
 
-                this.addIncident();
+                this.addAct();
             }
         },
         data() {
@@ -570,9 +475,9 @@
                 },
                 date_limit: [{}],
                 description: '',
-                document_submit_default_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
+                document_submit_default_html: '<i class="fa fa-plus-circle fa-fw"></i> Remember It!',
                 document_submit_processing_html: '<i class="fa fa-spinner fa-spin fa-fw"></i> Submitting',
-                document_submit_html: '<i class="fa fa-plus-circle fa-fw"></i> Document It!',
+                document_submit_html: '<i class="fa fa-plus-circle fa-fw"></i> Remember It!',
                 email_when_approved: '',
                 errors: {
                     title: false,
@@ -584,30 +489,20 @@
                     submitter_email: false,
                     social_media_url: false,
                     source_other_description: false,
-                    incident_type: false,
-                    other_incident_description: false,
                     description: false,
                     g_recaptcha_response: false,
                 },
-                harassment: false,
                 g_recaptcha_response: '',
                 source: '',
                 source_other_description: '',
-                intimidation: false,
                 location_name: '',
-                other_incident_description: '',
-                other: false,
                 photo: '',
-                physical_violence: false,
-                property_crime: false,
                 social_media_url: '',
                 news_article_url: '',
                 state: '',
                 submitter_email: '',
                 title: '',
                 validates: true,
-                vandalism: false,
-                verbal_abuse: false,
             }
         },    
     }
