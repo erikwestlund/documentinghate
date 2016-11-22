@@ -21,10 +21,9 @@ class UnmoderatedIncidentsNotification extends Notification implements ShouldQue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($incidents)
     {
-        $this->incidents = Incident::unmoderated()
-            ->get();
+        $this->incidents = $incidents;
     }
 
     /**

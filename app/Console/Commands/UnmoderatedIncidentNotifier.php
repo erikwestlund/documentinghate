@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Notification;
 
 use App\User;
+use App\Incident;
 use App\Notifications\UnmoderatedIncidentsNotification;
 
 use Illuminate\Console\Command;
@@ -63,7 +64,15 @@ class UnmoderatedIncidentNotifier extends Command
 
         $users_to_notify = $this->getUsersToNotify($this->group);
 
-        Notification::send($users_to_notify, new UnmoderatedIncidentsNotification);
+        $incidents = Incident::unmoderated()
+            ->get();
+
+        if($incidents->count() == 0) {
+            $this->info('No new messages.');
+            return true;
+        }
+
+        Notification::send($users_to_notify, new UnmoderatedIncidentsNotification($incidents));
     }
 
 
