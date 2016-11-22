@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@show');
-Route::get('/incidents/{slug}', 'IncidentPageController@show');
+Route::get('/acts/{slug}', 'IncidentPageController@show');
 Route::get('/add', 'IncidentAddController@create');
 Route::post('/add', 'IncidentAddController@store');
 
@@ -39,17 +39,17 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 Route::group(['middleware' => ['auth', 'permission:moderate-incidents']], function () {
 
-    Route::get('/admin/incidents', 'AdminIncidentsHomeController@show');
-    Route::get('/admin/incidents/get', 'AdminIncidentsHomeController@getIncidents');
-    Route::get('/admin/incidents/{incident}', 'AdminIncidentsModerateController@moderate');
-    Route::patch('/admin/incidents/{incident}/approve', 'AdminIncidentsModerateController@approve');
+    Route::get('/admin/acts', 'AdminIncidentsHomeController@show');
+    Route::get('/admin/acts/get', 'AdminIncidentsHomeController@getIncidents');
+    Route::get('/admin/acts/{incident}', 'AdminIncidentsModerateController@moderate');
+    Route::patch('/admin/acts/{incident}/approve', 'AdminIncidentsModerateController@approve');
 
 });
 
 Route::group(['middleware' => ['auth', 'permission:moderate-incidents']], function () {
 
-    Route::patch('/admin/incidents/{incident}', 'AdminIncidentsModerateController@update');
-    Route::get('/admin/incidents/{incident}/delete', 'AdminIncidentsModerateController@delete');
-    Route::delete('/admin/incidents/{incident}', 'AdminIncidentsModerateController@destroy');
+    Route::patch('/admin/acts/{incident}', 'AdminIncidentsModerateController@update');
+    Route::get('/admin/acts/{incident}/delete', 'AdminIncidentsModerateController@delete');
+    Route::delete('/admin/acts/{incident}', 'AdminIncidentsModerateController@destroy');
     
 });

@@ -9055,6 +9055,22 @@ div.nav-menu a:hover {
   color: #d46134; }
 
 /**
+ * Documenting hate
+ */
+.mini-menu div.documenting-hate {
+  font-size: 1.225em;
+  position: relative;
+  top: 6px; }
+
+.mini-menu div.documenting-hate a {
+  color: #636b6f; }
+
+.mini-menu div.documenting-hate a:hover {
+  text-decoration: none;
+  color: #636b6f;
+  color: #727b80; }
+
+/**
  * Mobile
  */
 @media only screen and (max-width: 500px) {

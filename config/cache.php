@@ -86,6 +86,6 @@ return [
     |
     */
 
-    'prefix' => 'documentinghate',
+    'prefix' => 'rememberinglove',
 
 ];
