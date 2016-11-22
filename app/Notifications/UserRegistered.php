@@ -45,9 +45,10 @@ class UserRegistered extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('A user registered: '. $this->user->name . ' (' . $this->user->email . ')')
-                    ->line('You may want to give them moderator privileges. Or you might not.')
-                    ->action('Check \'Em Out', url('/admin/users/' . $this->user->id));
+            ->subject(config('site.title') . ': User Registered')
+            ->line('A user registered: '. $this->user->name . ' (' . $this->user->email . ')')
+            ->line('You may want to give them moderator privileges. Or you might not.')
+            ->action('Check \'Em Out', url('/admin/users/' . $this->user->id));
     }
 
     /**
