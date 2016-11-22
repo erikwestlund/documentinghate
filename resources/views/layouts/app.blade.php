@@ -24,11 +24,11 @@
     @endif
     
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/documentinghate/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/documentinghate/favicon/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/documentinghate/favicon/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="https://s3.amazonaws.com/documentinghate/favicon/manifest.json">
-    <link rel="mask-icon" href="https://s3.amazonaws.com/documentinghate/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/rememberinglove/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/rememberinglove/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/rememberinglove/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://s3.amazonaws.com/rememberinglove/favicon/manifest.json">
+    <link rel="mask-icon" href="https://s3.amazonaws.com/rememberinglove/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
 
     @if(Request::is('incidents/*'))
@@ -45,8 +45,8 @@
         <meta property="og:image" content="{{ $incident->photo_url }}">
         <meta property="og:image:secure_url" content="{{ $incident->photo_url }}">
     @else
-        <meta property="og:image" content="https://s3.amazonaws.com/documentinghate/images/fb.png">
-        <meta property="og:image:secure_url" content="https://s3.amazonaws.com/documentinghate/images/fb.png">
+        <meta property="og:image" content="https://s3.amazonaws.com/rememberinglove/images/fb.png">
+        <meta property="og:image:secure_url" content="https://s3.amazonaws.com/rememberinglove/images/fb.png">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
