@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\UnmoderatedIncidentNotifier'
+        'App\Console\Commands\ClearViewCacheObjects',    
+        'App\Console\Commands\UnmoderatedIncidentNotifier',
     ];
 
     /**
