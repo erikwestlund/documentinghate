@@ -58,3 +58,23 @@
 
     color: lighten($brand-danger, 6.25%);
 }
+
+/**
+ * Documenting hate
+ */
+.mini-menu div.documenting-hate {
+    font-size: 1.225em;
+    position: relative;
+    top: 6px;
+}
+
+.mini-menu div.documenting-hate a {
+    color: $text-color;
+}
+
+.mini-menu div.documenting-hate a:hover {
+    text-decoration: none;
+    color: $text-color;
+
+    color: lighten($text-color, 6.25%);
+}
