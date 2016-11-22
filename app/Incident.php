@@ -436,7 +436,7 @@ class Incident extends Model
      */
     public function getUrlAttribute()
     {
-        return secure_url('/' . $this->url_stem . '/' . $this->slug);
+        return secure_url('/' . $this->url_stem . '/' . $this->id . '-' . $this->slug);
     }
 
     /**
