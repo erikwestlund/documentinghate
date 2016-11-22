@@ -171,8 +171,10 @@
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md" v-if="show_photo_upload">
+            <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
+                    <legend >Photo</legend>
+
                     <input type="file" name="photo" @change="onFileChange">
                 </div>
             </div>
@@ -240,18 +242,6 @@
                     return true;
                 }
 
-                return false;
-            },
-            show_photo_upload() {
-                if(this.harassment == true || 
-                    this.intimidation == true ||
-                    this.physical_violence == true ||
-                    this.property_crime == true ||
-                    this.vandalism == true ||
-                    this.other == true
-                ) {
-                    return true;
-                }
                 return false;
             },
             show_social_media_url() {

@@ -24,7 +24,8 @@ class Incident extends Model
         'date'
     ];
 
-    protected $url_stem = 'incidents';
+    protected $admin_url_stem = 'incidents';
+    protected $url_stem = 'acts';
 
     public $source_dictionary = [
         'news_article',
@@ -51,7 +52,7 @@ class Incident extends Model
      */
     public function getAdminUrlAttribute()
     {
-        return secure_url('/admin/' . $this->url_stem . '/' . $this->id);
+        return secure_url('/admin/' . $this->admin_url_stem . '/' . $this->id);
     }
 
     public function getDescriptionHtmlAttribute()
@@ -67,20 +68,6 @@ class Incident extends Model
     public function getGoogleMapsUrlAttribute()
     {
         return 'https://www.google.com/maps/place/' . $this->google_maps_latitude . ',' . $this->google_maps_longitude;
-    }
-
-    /**
-     * Get incident types in pretty form.
-     * 
-     * @return String 
-     */
-    public function getIncidentTypesAttribute()
-    {
-        $incident_types = collect($this->incident_type_dictionary)->map(function($item) {
-            return $this->{$item} ? title_case(str_replace('_', ' ', $item)) : null;
-        })->toArray();
-
-        return implode(', ', array_filter($incident_types));
     }
 
     /**
@@ -207,7 +194,7 @@ class Incident extends Model
      */
     public function getNextIncidentAdminUrlAttribute()
     {
-        return $this->next_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->next_id) : null;
+        return $this->next_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->next_id) : null;
     }
 
     /**
@@ -255,7 +242,7 @@ class Incident extends Model
      */
     public function getNextUnmoderatedIncidentAdminUrlAttribute()
     {
-        return $this->next_unmoderated_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->next_unmoderated_id) : null;
+        return $this->next_unmoderated_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->next_unmoderated_id) : null;
     }
 
     public function getPrevApprovedIdAttribute()
@@ -339,7 +326,7 @@ class Incident extends Model
      */
     public function getPreviousIncidentAdminUrlAttribute()
     {
-        return $this->prev_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->prev_id) : null;
+        return $this->prev_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->prev_id) : null;
     }
 
     /**
@@ -360,7 +347,7 @@ class Incident extends Model
      */
     public function getPreviousUnmoderatedIncidentAdminUrlAttribute()
     {
-        return $this->prev_unmoderated_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->prev_unmoderated_id) : null;
+        return $this->prev_unmoderated_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->prev_unmoderated_id) : null;
     }
 
     public function getShortDescriptionHtmlAttribute()

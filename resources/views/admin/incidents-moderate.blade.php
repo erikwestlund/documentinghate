@@ -66,17 +66,6 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-sm-2 text-right bold">Incident Types</div>
-                <div class="col-sm-10">
-                    {{ $incident->incident_types }}
-
-                    @if($incident->other)
-                        ({{ $incident->other_incident_description }})
-                    @endif
-                </div>
-            </div>
-
             @if($incident->photo_url)
                 <div class="form-group">
                     <div class="col-sm-2 text-right bold">Photo</div>

@@ -22,10 +22,6 @@
             @push('scripts_ready')
                 $('#moderate-form').forkable({ });
 
-                if($('input#other').is(':checked')) {
-                    $(".other-incident-description-container").removeClass('hidden');                    
-                }
-
                 $('input#other').click(function() {
                     if( $(this).is(':checked')) {
                         $(".other-incident-description-container").removeClass('hidden');
@@ -155,34 +151,6 @@
                 <label for="social_media_url" class="col-sm-2 control-label">Social media post URL</label>
                 <div class="col-sm-10">
                     <input type="text" name="social_media_url" class="form-control" id="social_media_url" placeholder="Social Media URL" value="{{ old('social_media_url', $incident->social_media_url) }}">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="incident_types" class="col-sm-2 control-label">Incident Types</label>
-                <div class="col-sm-10">
-                    @foreach($incident->incident_type_dictionary as $incident_type)
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="{{ $incident_type }}" id="{{ $incident_type }}" value="true"
-                                    @if(old($incident_type, $incident->{$incident_type}))
-                                        checked
-                                    @endif
-                                >
-
-                                {{ title_case(str_replace('_', ' ', $incident_type)) }}
-
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            {{-- Show only if other is checked --}}
-            <div class="form-group other-incident-description-container hidden">
-                <label for="other_incident_description" class="col-sm-2 control-label">Other description</label>
-                <div class="col-sm-10">
-                    <input type="text" name="other_incident_description" class="form-control" id="other_incident_description" placeholder="Brief descriptoin of the incident" value="{{ old('other_incident_description', $incident->other_incident_description) }}">
                 </div>
             </div>
 

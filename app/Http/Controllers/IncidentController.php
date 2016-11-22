@@ -197,12 +197,6 @@ class IncidentController extends Controller
         
         $incident->source = $request->source;
 
-        foreach($incident->incident_type_dictionary as $incident_type) {
-            $incident->{$incident_type} = $request->{$incident_type} == 'true' ? true : false;
-        }
-
-        $incident->other_incident_description = $request->other == 'true' ? $request->other_incident_description : '';
-
         $incident->source_other_description = $request->source == 'other' ? $request->source_other_description : null;
         $incident->news_article_url = $request->source == 'news_article' ? $request->news_article_url : null;
         $incident->social_media_url = $request->source == 'social_media' ? $request->social_media_url : null;
