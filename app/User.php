@@ -67,6 +67,20 @@ class User extends Authenticatable
     }
 
     /**
+     * Scope a query to only include users who can moderate.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAdministrators($query)
+    {
+        return $query->whereHas('roles', function($query) {
+            $query->where('name', 'superman')
+                ->orWhere('name', 'administrator');
+        });
+    }
+
+    /**
      * Scope a query to include those who get notified of all new incidents
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
