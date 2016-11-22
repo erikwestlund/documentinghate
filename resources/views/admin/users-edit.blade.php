@@ -88,7 +88,9 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
-                    <a role="button" type="submit" class="btn btn-default pull-right" href="{{ url('/admin/users/' . $user->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This User</a>                
+                    @permission('delete-users')
+                        <a role="button" type="submit" class="btn btn-default pull-right" href="{{ url('/admin/users/' . $user->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This User</a>                
+                    @endpermission
 
                     <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
 

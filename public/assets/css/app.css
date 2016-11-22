@@ -8907,12 +8907,19 @@ legend.error {
 
 div.social-buttons {
   position: fixed;
-  right: 20px;
+  right: 10px;
   top: 175px; }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 767px) {
   div.social-buttons {
     display: none; } }
+
+/**
+ * Ipad portrait
+ */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  div.social-buttons {
+    right: 4px; } }
 
 div#incidents .VueTables th:nth-child(6) span {
   display: none; }
@@ -8961,7 +8968,7 @@ div.incidents span.date {
   font-size: 1.25em; }
 
 div.incidents span.source {
-  font-size: 1.125em; }
+  font-size: 1.25em; }
 
 div.incidents div.description {
   font-size: 1.125em; }
@@ -9082,6 +9089,16 @@ div.nav-menu a:hover {
     display: block;
     padding-left: 0;
     padding-top: 8px; } }
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  div.incidents img.incident-image {
+    max-width: 200px; }
+  div.incidents div.location {
+    font-size: 1.25em; }
+  div.incidents span.date {
+    font-size: 1.125em; }
+  div.incidents span.source {
+    font-size: 1.125em; } }
 
 @media only screen and (max-width: 500px) {
   div.incident div.incident-title {

@@ -1,5 +1,18 @@
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 767px) {
     div.social-buttons {
         display: none;
     }
+}
+
+/**
+ * Ipad portrait
+ */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  {
+
+    div.social-buttons {
+        right: 4px;
+    }
+
 }

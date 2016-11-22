@@ -71,7 +71,7 @@ class Incident extends Model
 
     public function getDescriptionHtmlAttribute()
     {
-        return nl2br($this->description);
+        return nl2br(e($this->description));
     }
 
     /**
@@ -380,7 +380,7 @@ class Incident extends Model
 
     public function getShortDescriptionHtmlAttribute()
     {
-        $html = nl2br(str_limit($this->description, config('site.short_description_length')));
+        $html = nl2br(str_limit(e($this->description), config('site.short_description_length')));
 
         if(strlen($this->description) >= config('site.short_description_length')) {
             $html .= ' <a href="' . $this->url . '">Read More</a>';
@@ -397,7 +397,7 @@ class Incident extends Model
     public function getSourceHtmlAttribute()
     {
         if($this->source == 'news_article') {
-            return '<i class="fa fa-newspaper-o"></i> <a href="' . $this->news_article_url . '">News Article</a>';
+            return '<i class="fa fa-newspaper-o"></i> <a href="' . e($this->news_article_url) . '">News Article</a>';
         }
 
         if($this->source == 'i_witnessed_it' || $this->source == 'someone_i_know_witnessed_it') {
@@ -407,11 +407,11 @@ class Incident extends Model
         if($this->source == 'social_media') {
 
             if(str_contains($this->social_media_url, 'facebook.com')) {
-                return '<i class="fa fa-facebook-square"></i> <a href="' . $this->social_media_url . '">Facebook</a>';
-            } else if(str_contains($this->social_media_url, 'twitter.com')) {
-                return '<i class="fa fa-twitter-square"></i> <a href="' . $this->social_media_url . '">Twitter</a>';
+                return '<i class="fa fa-facebook-square"></i> <a href="' . e($this->social_media_url) . '">Facebook</a>';
+            } else if(str_contains(e($this->social_media_url), 'twitter.com')) {
+                return '<i class="fa fa-twitter-square"></i> <a href="' . e($this->social_media_url) . '">Twitter</a>';
             } else {
-                return '<i class="fa fa-link"></i> <a href="' . $this->social_media_url . '">Link</a>';
+                return '<i class="fa fa-link"></i> <a href="' . e($this->social_media_url) . '">Link</a>';
             }
 
         }

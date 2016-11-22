@@ -93,7 +93,7 @@
             <div class="form-group">
                 <div class="col-sm-2 text-right bold">Description</div>
                 <div class="col-sm-10">
-                    {{ nl2br($incident->description) }}
+                    {!! nl2br(e($incident->description)) !!}
                 </div>
             </div>
 

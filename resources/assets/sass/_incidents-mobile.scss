@@ -19,3 +19,26 @@
         padding-top: 8px;
     }
 }
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  {
+    
+    div.incidents img.incident-image {
+        max-width: 200px;
+    }
+
+
+    div.incidents div.location{
+        font-size: 1.25em;
+    }
+
+    div.incidents span.date {
+        font-size: 1.125em;
+    }
+
+    div.incidents span.source {
+        font-size: 1.125em;
+    }
+
+}

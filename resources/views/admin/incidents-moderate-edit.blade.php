@@ -280,7 +280,9 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <a role="button" type="submit" class="btn btn-default pull-right" href="{{ url('/admin/incidents/' . $incident->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This Incident</a>                
+                    @permission('delete-incidents')                
+                        <a role="button" type="submit" class="btn btn-default pull-right" href="{{ url('/admin/incidents/' . $incident->id . '/delete') }}"><i class="fa fa-trash"></i> Delete This Incident</a>                
+                    @endpermission
 
                     <button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Edit</button>
                 </div>
