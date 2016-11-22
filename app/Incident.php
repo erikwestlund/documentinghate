@@ -24,6 +24,7 @@ class Incident extends Model
         'date'
     ];
 
+    protected $admin_url_stem = 'incidents';
     protected $url_stem = 'incidents';
 
     public $source_dictionary = [
@@ -63,7 +64,7 @@ class Incident extends Model
      */
     public function getAdminUrlAttribute()
     {
-        return secure_url('/admin/' . $this->url_stem . '/' . $this->id);
+        return secure_url('/admin/' . $this->admin_url_stem . '/' . $this->id);
     }
 
     public function getDescriptionHtmlAttribute()
@@ -219,7 +220,7 @@ class Incident extends Model
      */
     public function getNextIncidentAdminUrlAttribute()
     {
-        return $this->next_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->next_id) : null;
+        return $this->next_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->next_id) : null;
     }
 
     /**
@@ -267,7 +268,7 @@ class Incident extends Model
      */
     public function getNextUnmoderatedIncidentAdminUrlAttribute()
     {
-        return $this->next_unmoderated_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->next_unmoderated_id) : null;
+        return $this->next_unmoderated_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->next_unmoderated_id) : null;
     }
 
     public function getPrevApprovedIdAttribute()
@@ -351,7 +352,7 @@ class Incident extends Model
      */
     public function getPreviousIncidentAdminUrlAttribute()
     {
-        return $this->prev_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->prev_id) : null;
+        return $this->prev_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->prev_id) : null;
     }
 
     /**
@@ -372,7 +373,7 @@ class Incident extends Model
      */
     public function getPreviousUnmoderatedIncidentAdminUrlAttribute()
     {
-        return $this->prev_unmoderated_id ? secure_url('/admin/' . $this->url_stem . '/' . $this->prev_unmoderated_id) : null;
+        return $this->prev_unmoderated_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->prev_unmoderated_id) : null;
     }
 
     public function getShortDescriptionHtmlAttribute()
