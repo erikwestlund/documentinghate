@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f38ef3728dd9c099233da65174de8aa",
-    "content-hash": "9e2cb6bd991a1283d230c54a09b1fc43",
+    "hash": "c8b478c347a1ed4abd4f9095c1dcae82",
+    "content-hash": "8879cd5bde5e69fd3d69fa3686bf2012",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -115,62 +115,17 @@
             "time": "2016-04-15 11:28:43"
         },
         {
-            "name": "anhskohbo/no-captcha",
-            "version": "2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anhskohbo/no-captcha.git",
-                "reference": "07fd1583feae651c4db3652719f2d46fa23c4fd4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/07fd1583feae651c4db3652719f2d46fa23c4fd4",
-                "reference": "07fd1583feae651c4db3652719f2d46fa23c4fd4",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Anhskohbo\\NoCaptcha\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "anhskohbo",
-                    "email": "anhskohbo@gmail.com"
-                }
-            ],
-            "description": "No CAPTCHA reCAPTCHA For Laravel.",
-            "keywords": [
-                "captcha",
-                "laravel",
-                "laravel4",
-                "laravel5",
-                "no-captcha",
-                "recaptcha"
-            ],
-            "time": "2016-08-24 16:35:03"
-        },
-        {
             "name": "aws/aws-sdk-php",
-            "version": "3.19.28",
+            "version": "3.19.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2655183122bc265d2a8f1e45f4f0d1a51b81203b"
+                "reference": "3b7777e4091f4bf4de1dee19cfdad87249facb0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2655183122bc265d2a8f1e45f4f0d1a51b81203b",
-                "reference": "2655183122bc265d2a8f1e45f4f0d1a51b81203b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3b7777e4091f4bf4de1dee19cfdad87249facb0e",
+                "reference": "3b7777e4091f4bf4de1dee19cfdad87249facb0e",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +192,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-11-17 23:56:36"
+            "time": "2016-11-21 23:17:16"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -3234,6 +3189,51 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "anhskohbo/no-captcha",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anhskohbo/no-captcha.git",
+                "reference": "07fd1583feae651c4db3652719f2d46fa23c4fd4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/07fd1583feae651c4db3652719f2d46fa23c4fd4",
+                "reference": "07fd1583feae651c4db3652719f2d46fa23c4fd4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Anhskohbo\\NoCaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "anhskohbo",
+                    "email": "anhskohbo@gmail.com"
+                }
+            ],
+            "description": "No CAPTCHA reCAPTCHA For Laravel.",
+            "keywords": [
+                "captcha",
+                "laravel",
+                "laravel4",
+                "laravel5",
+                "no-captcha",
+                "recaptcha"
+            ],
+            "time": "2016-08-24 16:35:03"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
