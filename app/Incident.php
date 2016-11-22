@@ -24,7 +24,7 @@ class Incident extends Model
         'date'
     ];
 
-    protected $url_stem = 'acts';
+    protected $url_stem = 'incidents';
 
     public $source_dictionary = [
         'news_article',
