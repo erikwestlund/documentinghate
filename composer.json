@@ -26,8 +26,7 @@
         "barryvdh/laravel-debugbar": "^2.3",
         "laravel/scout": "^1.1",
         "elasticsearch/elasticsearch": "^2.2",
-        "aws/aws-sdk-php": "^3.19",
-        "graham-campbell/htmlmin": "^4.4"
+        "aws/aws-sdk-php": "^3.19"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

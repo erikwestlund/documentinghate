@@ -184,9 +184,8 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         Laracasts\Matryoshka\MatryoshkaServiceProvider::class,
-        // Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
-        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
     ],
 
     /*
@@ -239,7 +238,6 @@ return [
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
     ],
 
 ];
