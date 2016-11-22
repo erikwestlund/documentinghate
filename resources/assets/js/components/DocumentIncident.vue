@@ -193,7 +193,7 @@
 
                     <input type="email" name="submitter_email" v-model="submitter_email" class="form-control" placeholder="Your email address" maxlength="255">
 
-                    <div class="top-margin-sm">Sometimes we need additional information to make sure our listings are complete and accurate. We will never share your email address.</div>
+                    <div class="top-margin-sm">Sometimes we need additional information to verify our listings. We will never share your email address.</div>
                     <span class="inline-alert" v-show="errors.submitter_email">Required</span>
                 </div>
             </div>
