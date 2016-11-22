@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Variables
-APP_DIR=/var/www/documentinghateinthe.us
-TITLE="Documenting Hate"
+APP_DIR=/var/www/rememberingloveinthe.us
+TITLE="Remembering Love"
 
 # Go to app directory
 cd $APP_DIR
@@ -11,7 +11,7 @@ cd $APP_DIR
 php artisan down --message='$TITLE will be back in a minute. Please retry then.' --retry=60
 
 # Get code chagnes
-git pull origin master
+git pull origin rememberinglove
 
 # Clear old Laravel stuff out
 php artisan clear-compiled
