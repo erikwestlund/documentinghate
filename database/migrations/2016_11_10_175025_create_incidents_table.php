@@ -32,15 +32,6 @@ class CreateIncidentsTable extends Migration
             $table->text('news_article_url')->nullable();
             $table->text('social_media_url')->nullable();
 
-            $table->boolean('verbal_abuse')->default(false);
-            $table->boolean('harassment')->default(false);
-            $table->boolean('intimidation')->default(false);
-            $table->boolean('physical_violence')->default(false);
-            $table->boolean('vandalism')->default(false);
-            $table->boolean('property_crime')->default(false);
-            $table->boolean('other')->default(false);
-            $table->string('other_incident_description')->nullable();
-
             $table->text('description');
 
             $table->text('photo_url')->nullable();
