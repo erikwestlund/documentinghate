@@ -40,10 +40,6 @@ class IncidentSeeder extends Seeder
                 $incident->approval_email_sent = null;
             }
 
-            if($incident->other == 0) {
-                $incident->other_incident_description = '';
-            }
-
             if(rand(1,5) == 1) {
                 $incident->approved = null;
             }
