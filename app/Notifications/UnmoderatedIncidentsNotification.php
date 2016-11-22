@@ -57,7 +57,7 @@ class UnmoderatedIncidentsNotification extends Notification implements ShouldQue
             $message = $message->line('   * ' . $incident->title);    
         }
 
-        return $message->action('Moderate Them', url('/admin/incidents'))
+        return $message->action('Moderate Them', secure_url('/admin/incidents'))
             ->line('Thank you for your help');
 
     }

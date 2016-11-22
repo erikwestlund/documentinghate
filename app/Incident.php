@@ -66,7 +66,7 @@ class Incident extends Model
      */
     public function getAdminUrlAttribute()
     {
-        return url('/admin/incidents/' . $this->id);
+        return secure_url('/admin/incidents/' . $this->id);
     }
 
     public function getDescriptionHtmlAttribute()
@@ -222,7 +222,7 @@ class Incident extends Model
      */
     public function getNextIncidentAdminUrlAttribute()
     {
-        return $this->next_id ? url('/admin/incidents/' . $this->next_id) : null;
+        return $this->next_id ? secure_url('/admin/incidents/' . $this->next_id) : null;
     }
 
     /**
@@ -233,7 +233,7 @@ class Incident extends Model
     public function getNextIncidentUrlAttribute()
     {
         $slug = Incident::find($this->next_id)->slug;
-        return $this->prev_id ? url('/incidents/' . $slug) : null;
+        return $this->prev_id ? secure_url('/incidents/' . $slug) : null;
     }
 
     /**
@@ -270,7 +270,7 @@ class Incident extends Model
      */
     public function getNextUnmoderatedIncidentAdminUrlAttribute()
     {
-        return $this->next_unmoderated_id ? url('/admin/incidents/' . $this->next_unmoderated_id) : null;
+        return $this->next_unmoderated_id ? secure_url('/admin/incidents/' . $this->next_unmoderated_id) : null;
     }
 
     public function getPrevApprovedIdAttribute()
@@ -354,7 +354,7 @@ class Incident extends Model
      */
     public function getPreviousIncidentAdminUrlAttribute()
     {
-        return $this->prev_id ? url('/admin/incidents/' . $this->prev_id) : null;
+        return $this->prev_id ? secure_url('/admin/incidents/' . $this->prev_id) : null;
     }
 
     /**
@@ -365,7 +365,7 @@ class Incident extends Model
     public function getPreviousIncidentUrlAttribute()
     {
         $slug = Incident::find($this->prev_id)->slug;
-        return $this->prev_id ? url('/incidents/' . $slug) : null;
+        return $this->prev_id ? secure_url('/incidents/' . $slug) : null;
     }
 
     /**
@@ -375,7 +375,7 @@ class Incident extends Model
      */
     public function getPreviousUnmoderatedIncidentAdminUrlAttribute()
     {
-        return $this->prev_unmoderated_id ? url('/admin/incidents/' . $this->prev_unmoderated_id) : null;
+        return $this->prev_unmoderated_id ? secure_url('/admin/incidents/' . $this->prev_unmoderated_id) : null;
     }
 
     public function getShortDescriptionHtmlAttribute()
@@ -439,7 +439,7 @@ class Incident extends Model
      */
     public function getUrlAttribute()
     {
-        return url('/incidents/' . $this->slug);
+        return secure_url('/incidents/' . $this->slug);
     }
 
     /**
