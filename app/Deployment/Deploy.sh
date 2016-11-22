@@ -13,14 +13,14 @@ php artisan down --message='$TITLE will be back in a minute. Please retry then.'
 # Get code chagnes
 git pull origin master
 
-# Install composer packages and optimize
-composer install
-composer dump-autoload --optimize
-
 # Clear old Laravel stuff out
 php artisan clear-compiled
 php artisan view:clear
 php artisan cache:clear_view_objects
+
+# Install composer packages and optimize
+composer install
+composer dump-autoload --optimize
 
 # Optimize 
 php artisan optimize
