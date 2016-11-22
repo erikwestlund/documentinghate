@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class IncidentPageController extends IncidentController
 {
-    public function show(Request $request)
+    public function show($id, $slug, Request $request)
     {
-        $incident = Incident::where('slug', $request->slug)
+        $incident = Incident::approved()
+            ->where('id', $id)
+            ->where('slug', $request->slug)
             ->first();
         
         if(!$incident) {

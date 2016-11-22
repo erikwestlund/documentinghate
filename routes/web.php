@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@show');
-Route::get('/acts/{slug}', 'IncidentPageController@show');
+Route::get('/acts/{id}-{slug}', 'IncidentPageController@show');
 Route::get('/add', 'IncidentAddController@create');
 Route::post('/add', 'IncidentAddController@store');
 

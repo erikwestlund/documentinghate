@@ -40,6 +40,8 @@
             </div>
         @endcache
 
+        <div class="clearfix"></div>
+
         <div class="col-sm-12 top-margin-lg nav-menu">
 
             <div class="col-sm-3 text-left prev">

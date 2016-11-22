@@ -206,9 +206,6 @@ class IncidentController extends Controller
         $incident->source_other_description = $request->source == 'other' ? $request->source_other_description : null;
         $incident->news_article_url = $request->source == 'news_article' ? $request->news_article_url : null;
         $incident->social_media_url = $request->source == 'social_media' ? $request->social_media_url : null;
-        
-        $incident->vandalism = $request->vandalism == 'true' ? true : false;
-        $incident->verbal_abuse = $request->verbal_abuse == 'true' ? true : false;
 
         if($request->remove_photo == 'true') {
             $this->deletePhoto($incident);

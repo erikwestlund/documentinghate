@@ -31,7 +31,7 @@
     <link rel="mask-icon" href="https://s3.amazonaws.com/rememberinglove/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
 
-    @if(Request::is('incidents/*'))
+    @if(isset($incident) && Request::is('incidents/*'))
         <meta property="og:title" content="{{ $incident->title }}">        
         <meta property="og:description" content="{{ str_limit($incident->description, 300) }}">        
         <meta property="og:url" content="{{ $incident->url }}">
@@ -41,7 +41,7 @@
         <meta property="og:url" content="{{ env('APP_URL') }}">
     @endif
 
-    @if(Request::is('incidents/*') && $incident->photo_url)
+    @if(isset($incident) && Request::is('incidents/*') && $incident->photo_url)
         <meta property="og:image" content="{{ $incident->photo_url }}">
         <meta property="og:image:secure_url" content="{{ $incident->photo_url }}">
     @else

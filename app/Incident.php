@@ -24,7 +24,7 @@ class Incident extends Model
         'date'
     ];
 
-    protected $url_stem = 'acts';
+    protected $url_stem = 'incidents';
 
     public $source_dictionary = [
         'news_article',
@@ -424,7 +424,7 @@ class Incident extends Model
      */
     public function getUrlAttribute()
     {
-        return secure_url('/' . $this->url_stem . '/' . $this->slug);
+        return secure_url('/' . $this->url_stem . '/' . $this->id . '-' . $this->slug);
     }
 
     /**
