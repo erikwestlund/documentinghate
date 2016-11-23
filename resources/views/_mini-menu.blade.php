@@ -5,7 +5,7 @@
     </div>        
     <div class="col-sm-4 text-center search-box">
         <form method="GET" action="{{ url('/')}}">
-            <input type="text" name="search" placeholder="Search" class="form-control search"><i class="search-icon fa fa-search"></i>
+            <input type="text" name="query" placeholder="Search" class="form-control search"><i class="search-icon fa fa-search"></i>
         </form>
     </div>
     <div class="col-sm-4 text-center documenting-hate">
