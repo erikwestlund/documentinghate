@@ -42,7 +42,7 @@ elixir(mix => {
             alias: {
                 jquery: __dirname + '/node_modules/jquery/dist/jquery'
             },
-        },         
+        },
     });
 
     mix.sass('resources/assets/sass/app.scss', 'public/assets/css/app.css');

@@ -1,1 +1,17 @@
- 
+.markdown-message {
+    @extend .top-margin-sm;
+}
+
+.markdown-preview-toggle {
+    float: right;
+    @extend .top-margin-sm;
+}
+
+.markdown-preview-toggle label {
+    padding-top: 0 !important;
+}
+
+.markdown-preview {
+    @extend .top-margin-md;
+    padding: 10px 10px 1px 10px;
+}

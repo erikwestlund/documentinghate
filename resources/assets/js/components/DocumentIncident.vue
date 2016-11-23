@@ -182,7 +182,20 @@
             <div class="col-sm-offset-1 col-sm-9 bottom-margin-md">
                 <div class="form-group">
                     <legend :class="{ 'error': errors.description }">Describe the act</legend>
-                    <textarea class="form-control description" v-model="description" name="description"></textarea>
+                    <textarea class="form-control description" v-html="description" v-model="description" name="description" id="description"></textarea>
+
+                    <div class="markdown-preview-toggle">
+                        <label class="checkbox-inline" for="show_description_preview">
+                            <input type="checkbox" name="show_description_preview" id="show_description_preview" v-model="show_description_preview" value="true"> Preview Description
+                        </label>
+                    </div>
+
+                    <div class="markdown-message">Use <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown</a> to add styling (optional)</div>
+                    
+                    <div class="markdown-preview panel panel-default" v-if="show_description_preview" v-html="compiled_description_markdown">
+
+                    </div>                    
+
                     <span class="inline-alert" v-show="errors.description">Required</span>
                 </div>
             </div>
@@ -224,12 +237,16 @@
 </template>
 
 <script>
+    var marked = require('marked');
 
     export default {
         props: {
-            'data-sitekey': '6LcfqQwUAAAAAKNQAMlRWKIo2dn8S0tjpYSs-IBy',
+
         },
         computed: {
+            compiled_description_markdown() {
+                return marked(this.description, { sanitize: true })
+            },                 
             show_news_article_url() {
                 if(this.source == 'news_article') {
                     return true;
@@ -483,6 +500,7 @@
                     g_recaptcha_response: false,
                 },
                 g_recaptcha_response: '',
+                show_description_preview: '',
                 source: '',
                 source_other_description: '',
                 location_name: '',
