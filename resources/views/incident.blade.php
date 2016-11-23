@@ -12,7 +12,7 @@
             @include('_social-buttons', ['url' => $incident-> url , 'title' => $incident->title ])
 
             <div class="col-sm-12 text-center bottom-margin-lg top-padding-md top-border incident-meta">
-                <h2 class="title">{{ $incident->title }}</h2>
+                <h2 class="title">{{ title_case($incident->title) }}</h2>
             </div>
 
             <div class="col-sm-10 col-sm-offset-1 text-center">
