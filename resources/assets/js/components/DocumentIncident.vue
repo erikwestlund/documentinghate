@@ -466,9 +466,6 @@
 
                 this.validates = true;
             },
-            updateDescriptionMarkdown() {
-
-            },
             validateForm(event) {
                 event.preventDefault();
 

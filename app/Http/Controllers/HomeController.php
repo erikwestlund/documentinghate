@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function show(Request $request)
     {
-        $search = $request->search;
+        $search = $request['query'];
 
         if($search) {
             $incidents = Incident::search($search)
