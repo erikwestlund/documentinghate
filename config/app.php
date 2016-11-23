@@ -186,6 +186,7 @@ return [
         Laracasts\Matryoshka\MatryoshkaServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -238,6 +239,7 @@ return [
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
     ],
 
 ];

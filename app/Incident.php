@@ -5,6 +5,8 @@ namespace App;
 use DB;
 use Laravel\Scout\Searchable;
 use Laracasts\Matryoshka\Cacheable;
+use GrahamCampbell\Markdown\Facades\Markdown;
+
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Database\Eloquent\Model;
@@ -67,9 +69,14 @@ class Incident extends Model
         return secure_url('/admin/' . $this->admin_url_stem . '/' . $this->id);
     }
 
+    /**
+     * Get description HTML.
+     * 
+     * @return string
+     */
     public function getDescriptionHtmlAttribute()
     {
-        return nl2br(e($this->description));
+        return Markdown::convertToHtml(e($this->description));
     }
 
     /**
@@ -376,9 +383,14 @@ class Incident extends Model
         return $this->prev_unmoderated_id ? secure_url('/admin/' . $this->admin_url_stem . '/' . $this->prev_unmoderated_id) : null;
     }
 
+    /**
+     * Get short HTML description.
+     * 
+     * @return string
+     */
     public function getShortDescriptionHtmlAttribute()
     {
-        $html = nl2br(str_limit(e($this->description), config('site.short_description_length')));
+        $html = Markdown::convertToHtml(str_limit(e($this->description), config('site.short_description_length')));
 
         if(strlen($this->description) >= config('site.short_description_length')) {
             $html .= ' <a href="' . $this->url . '">Read More</a>';

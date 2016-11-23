@@ -20,6 +20,12 @@
 
         <form method="POST" action="{{ url('/admin/incidents/' . $incident->id ) }}" id="moderate-form" class="form-horizontal" enctype="multipart/form-data">
             @push('scripts_ready')
+
+                var simplemde = new SimpleMDE({
+                    element: document.getElementById("description"),
+                    hideIcons: ["guide", "heading", "image"],
+                });
+
                 $('#moderate-form').forkable({ });
 
                 if($('input#other').is(':checked')) {
@@ -182,7 +188,7 @@
             <div class="form-group other-incident-description-container hidden">
                 <label for="other_incident_description" class="col-sm-2 control-label">Other description</label>
                 <div class="col-sm-10">
-                    <input type="text" name="other_incident_description" class="form-control" id="other_incident_description" placeholder="Brief descriptoin of the incident" value="{{ old('other_incident_description', $incident->other_incident_description) }}">
+                    <input type="text" name="other_incident_description" class="form-control" id="other_incident_description" placeholder="Brief description of the incident" value="{{ old('other_incident_description', $incident->other_incident_description) }}">
                 </div>
             </div>
 
@@ -292,5 +298,7 @@
     </div>
 
     @include('admin.incidents-moderate-_nav', ['location' => 'bottom'])
+
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
 @endsection
