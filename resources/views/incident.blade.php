@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container incident">
-        <div class="col-sm-12 text-center bottom-margin-md incident-title">
+        <div class="col-sm-10 col-sm-offset-1 text-center bottom-margin-md incident-title">
             <h1 class="title"><a href="{{ url('/') }}">{{ config('site.title') }}</a></h1>
         </div>
 
@@ -11,7 +11,7 @@
 
             @include('_social-buttons', ['url' => $incident-> url , 'title' => $incident->title ])
 
-            <div class="col-sm-12 text-center bottom-margin-lg top-padding-md top-border incident-meta">
+            <div class="col-sm-10 col-sm-offset-1 text-center bottom-margin-lg top-padding-md top-border incident-meta">
                 <h2 class="title">{{ $incident->title }}</h2>
             </div>
 
@@ -42,7 +42,7 @@
 
         <div class="clearfix"></div>
 
-        <div class="col-sm-12 top-margin-lg nav-menu">
+        <div class="col-sm-10 col-sm-offset-1 top-margin-lg nav-menu">
 
             <div class="col-sm-3 text-left prev">
                 @if($incident->previous_incident_url)
