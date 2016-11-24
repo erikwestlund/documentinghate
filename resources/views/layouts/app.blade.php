@@ -8,7 +8,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('site.title') }}</title>
+    <title>
+
+        @if(Request::is('add'))
+            {{ config('site.title') }} | Make a Submission
+        @elseif(Request::is('about'))
+            {{ config('site.title') }} | About
+        @elseif(isset($incident) && Request::is('acts/*'))
+            {{ $incident->title }}
+        @else
+            {{ config('site.title') }} | {{ config('site.tagline') }}
+        @endif
+
+    </title>
 
     <link rel="stylesheet" href="{{ elixir('assets/css/app.css')}}">
 
