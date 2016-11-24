@@ -41,7 +41,7 @@
                                         <img src="{{ $incident->thumbnail_photo_url }}" class="incident-image">
                                     @endif
 
-                                    <h2 class="title"><a href="{{ $incident->url }}">{{ title_case($incident->title) }}</a></h2>
+                                    <h2 class="title"><a href="{{ $incident->url }}">{{ $incident->title }}</a></h2>
                                     <div class="location"><i class="fa fa-globe"></i> {{ $incident->location }}</div>
                                     
                                     <div class="date-source">
