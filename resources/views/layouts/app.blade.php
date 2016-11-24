@@ -8,16 +8,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('site.title') }} | 
+    <title>
 
         @if(Request::is('add'))
-            Make a Submission
+            {{ config('site.title') }} | Make a Submission
         @elseif(Request::is('about'))
-            About
+            {{ config('site.title') }} | About
         @elseif(isset($incident) && Request::is('incidents/*'))
             {{ $incident->title }}
         @else
-            {{ config('site.tagline') }}
+            {{ config('site.title') }} | {{ config('site.tagline') }}
         @endif
 
     </title>
