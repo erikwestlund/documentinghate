@@ -57,6 +57,8 @@
 <body>
     <div id="app">
         @yield('content')
+
+        @include('_footer')
     </div>
 
     

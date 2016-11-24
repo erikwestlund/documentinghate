@@ -4,6 +4,7 @@ return [
     'title' => 'Remembering Love',
     'description' => 'Remembering Love is a crowd-sourced repository of acts of love in the United States',
     'tagline' => 'A crowd-sourced listing of acts of love in the US',
+    'admin_email' => 'rememberingloveintheus@gmail.com',    
     'per_page' => 5,
     'date_format' => 'F d, Y',
     'short_description_length' => 300,
