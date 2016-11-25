@@ -363,13 +363,14 @@ class Incident extends Model
      */
     public function getShortDescriptionHtmlAttribute()
     {
-        $html = Markdown::convertToHtml(str_limit(e($this->description), config('site.short_description_length')));
+        $escaped = e($this->description);
+        $html = str_limit($escaped, config('site.short_description_length'));
 
         if(strlen($this->description) >= config('site.short_description_length')) {
-            $html .= ' <a href="' . $this->url . '">Read More</a>';
+            $html .= ' [Read More](' . $this->url . ')';
         }
 
-        return $html;
+        return Markdown::convertToHtml($html);
     }
 
     /**
