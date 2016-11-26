@@ -210,8 +210,8 @@ class Incident extends Model
      */
     public function getNextIncidentUrlAttribute()
     {
-        $slug = Incident::find($this->next_id)->slug;
-        return $this->prev_id ? secure_url('/' . $this->url_stem . '/' . $slug) : null;
+        $next = Incident::find($this->next_id);
+        return $this->next_id ? $next->url : null;
     }
 
     /**
@@ -342,8 +342,8 @@ class Incident extends Model
      */
     public function getPreviousIncidentUrlAttribute()
     {
-        $slug = Incident::find($this->prev_id)->slug;
-        return $this->prev_id ? secure_url('/' . $this->url_stem . '/' . $slug) : null;
+        $prev = Incident::find($this->prev_id);
+        return $this->prev_id ? $prev->url : null;
     }
 
     /**
