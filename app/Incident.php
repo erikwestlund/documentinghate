@@ -238,7 +238,7 @@ class Incident extends Model
     public function getNextIncidentUrlAttribute()
     {
         $next = Incident::find($this->next_id);
-        return $this->prev_id ? $next->url : null;
+        return $this->next_id ? $next->url : null;
     }
 
     /**
