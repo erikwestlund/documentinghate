@@ -76,7 +76,7 @@ class Incident extends Model
      */
     public function getDescriptionHtmlAttribute()
     {
-        return Markdown::convertToHtml(e($this->description));
+        return Markdown::convertToHtml($this->description);
     }
 
     /**
@@ -390,7 +390,7 @@ class Incident extends Model
      */
     public function getShortDescriptionHtmlAttribute()
     {
-        $escaped = e($this->description);
+        $escaped = $this->description;
         $html = str_limit($escaped, config('site.short_description_length'));
 
         if(strlen($this->description) >= config('site.short_description_length')) {
