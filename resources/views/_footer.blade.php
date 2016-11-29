@@ -1,4 +1,4 @@
-@if(! Request::is('about') && !Request::is('admin*') )
+@if(isset($incident) || Request::is('/'))
     
     <div class="container footer">
         <div class="col-sm-10 col-sm-offset-1 top-border top-margin-md top-padding-md bottom-padding-lg">
