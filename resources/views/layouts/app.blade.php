@@ -44,11 +44,15 @@
     <meta name="theme-color" content="#ffffff">
 
     @if(isset($incident) && Request::is('incidents/*'))
+        <meta name="Description" content="description" content="{{ str_limit($incident->description, 300) }}">        
+
         <meta property="og:title" content="{{ $incident->title }}">        
         <meta property="og:description" content="{{ str_limit($incident->description, 300) }}">        
         <meta property="og:url" content="{{ $incident->url }}">
     @else
-        <meta property="og:tot;e" content="{{ config('site.title') }}">
+        <meta name="Description" content="description" content="{{ config('site.description') }}">        
+    
+        <meta property="og:title" content="{{ config('site.title') }}">
         <meta property="og:description" content="{{ config('site.description') }}">
         <meta property="og:url" content="{{ env('APP_URL') }}">
     @endif
