@@ -14,8 +14,10 @@
         map.addLayer(osm);
 
         @foreach($search ? $incidents : $geo_data as $geo_datum)
-            var marker_{{$geo_datum->id}} = L.marker([{{ $geo_datum->latitude }},{{ $geo_datum->longitude }}]).addTo(map);                    
-            marker_{{ $geo_datum->id }}.bindPopup('<div class="title"><a href="{{ $geo_datum->url }}"><strong>{{ $geo_datum->title }}</strong></a></div><div class="meta">{{ Carbon\Carbon::parse($geo_datum->date)->format('m/d/y') }}, {{ $geo_datum->location }}</div>');
+            @if($geo_datum->latitude && $geo_datum->longitude)
+                var marker_{{$geo_datum->id}} = L.marker([{{ $geo_datum->latitude }},{{ $geo_datum->longitude }}]).addTo(map);                    
+                marker_{{ $geo_datum->id }}.bindPopup('<div class="title"><a href="{{ $geo_datum->url }}"><strong>{{ $geo_datum->title }}</strong></a></div><div class="meta">{{ Carbon\Carbon::parse($geo_datum->date)->format('m/d/y') }}, {{ $geo_datum->location }}</div>');
+            @endif
         @endforeach
 
     @endpush
